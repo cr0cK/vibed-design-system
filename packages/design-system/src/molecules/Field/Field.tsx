@@ -1,29 +1,35 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
+import { css, cx } from "@emotion/css";
 import { Text } from "../../atoms/Text/Text";
-import { toClassName } from "../../utils/styleVariants";
+import { buildVariants } from "../../utils/buildVariants";
 
-const rootStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    display: "grid",
-    gap: "var(--ds-space-xs)"
-  })
-  .end();
+const rootClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      display: "grid",
+      gap: "var(--ds-space-xs)"
+    })
+    .end()
+);
 
-const labelRowStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: "var(--ds-space-xs)"
-  })
-  .end();
+const labelRowClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "var(--ds-space-xs)"
+    })
+    .end()
+);
 
-const messageStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    minHeight: "1.2em"
-  })
-  .end();
+const messageRowClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      minHeight: "1.2em"
+    })
+    .end()
+);
 
 export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -37,8 +43,8 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Field(props: FieldProps) {
   return (
-    <div className={toClassName(rootStyle, props.className)}>
-      <div className={toClassName(labelRowStyle)}>
+    <div className={cx(rootClassName, props.className)}>
+      <div className={labelRowClassName}>
         <label htmlFor={props.inputId}>
           <Text as="span" size="sm" weight="semibold">
             {props.label}
@@ -50,7 +56,7 @@ export function Field(props: FieldProps) {
 
       {props.children}
 
-      <div className={toClassName(messageStyle)}>
+      <div className={messageRowClassName}>
         {props.error ? (
           <Text as="span" size="sm" tone="danger">
             {props.error}

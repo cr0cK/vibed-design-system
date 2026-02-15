@@ -1,7 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
 
 export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
@@ -9,10 +8,8 @@ export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   align?: "stretch" | "start" | "center" | "end";
 }
 
-export function Stack(props: StackProps) {
-  const nativeProps = omitProps(props as Record<string, unknown>, ["gap", "align"] as const) as HTMLAttributes<HTMLDivElement>;
-
-  const style = newBuildVariants<StackProps, Record<string, unknown>>(props)
+function getStackStyle(props: StackProps){
+  return buildVariants<StackProps>(props)
     .css({
       display: "flex",
       flexDirection: "column"
@@ -31,12 +28,13 @@ export function Stack(props: StackProps) {
       end: { alignItems: "flex-end" }
     })
     .end();
+}
+
+export function Stack(props: StackProps) {
+  const className: string = cx(css(getStackStyle(props)), props.className);
 
   return (
-    <div
-      {...nativeProps}
-      className={toClassName(style, props.className)}
-    >
+    <div {...props} className={className}>
       {props.children}
     </div>
   );

@@ -1,23 +1,25 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
+import { css } from "@emotion/css";
 import { DesignSystemContext } from "./DesignSystemContext";
 import type { DensityMode } from "./DesignSystemContext";
 import type { ThemeModeSet, ThemeTokens } from "../theme/tokens";
 import { defaultThemes } from "../theme/tokens";
 import { createTheme } from "../theme/createTheme";
 import { toThemeCssVars } from "../theme/cssVars";
-import { toClassName } from "../utils/styleVariants";
+import { buildVariants } from "../utils/buildVariants";
 
-const rootStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    minHeight: "100%",
-    color: "var(--ds-color-text)",
-    backgroundColor: "var(--ds-color-background)",
-    fontFamily: "var(--ds-font-body)",
-    lineHeight: 1.4
-  })
-  .end();
+const rootClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      minHeight: "100%",
+      color: "var(--ds-color-text)",
+      backgroundColor: "var(--ds-color-background)",
+      fontFamily: "var(--ds-font-body)",
+      lineHeight: 1.4
+    })
+    .end()
+);
 
 export interface DesignSystemProviderProps {
   children: ReactNode;
@@ -70,7 +72,7 @@ export function DesignSystemProvider(props: DesignSystemProviderProps) {
 
   return (
     <DesignSystemContext.Provider value={contextValue}>
-      <div className={toClassName(rootStyle)} style={toThemeCssVars(selectedTheme)}>
+      <div className={rootClassName} style={toThemeCssVars(selectedTheme)}>
         {props.children}
       </div>
     </DesignSystemContext.Provider>

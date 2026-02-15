@@ -1,7 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
 
 export interface InlineProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
@@ -10,10 +9,8 @@ export interface InlineProps extends HTMLAttributes<HTMLDivElement> {
   justify?: "start" | "center" | "between" | "end";
 }
 
-export function Inline(props: InlineProps) {
-  const nativeProps = omitProps(props as Record<string, unknown>, ["gap", "align", "justify"] as const) as HTMLAttributes<HTMLDivElement>;
-
-  const style = newBuildVariants<InlineProps, Record<string, unknown>>(props)
+function getInlineStyle(props: InlineProps){
+  return buildVariants<InlineProps>(props)
     .css({
       display: "flex",
       flexDirection: "row",
@@ -38,12 +35,13 @@ export function Inline(props: InlineProps) {
       end: { justifyContent: "flex-end" }
     })
     .end();
+}
+
+export function Inline(props: InlineProps) {
+  const className: string = cx(css(getInlineStyle(props)), props.className);
 
   return (
-    <div
-      {...nativeProps}
-      className={toClassName(style, props.className)}
-    >
+    <div {...props} className={className}>
       {props.children}
     </div>
   );

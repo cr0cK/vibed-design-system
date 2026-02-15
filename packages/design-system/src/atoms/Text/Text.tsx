@@ -1,8 +1,7 @@
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 import { createElement } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
@@ -12,16 +11,8 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   weight?: "regular" | "medium" | "semibold" | "bold";
 }
 
-export function Text(props: TextProps) {
-  const element: ElementType = props.as ?? "p";
-  const nativeProps = omitProps(props as Record<string, unknown>, [
-    "as",
-    "tone",
-    "size",
-    "weight"
-  ] as const) as HTMLAttributes<HTMLElement>;
-
-  const style = newBuildVariants<TextProps, Record<string, unknown>>(props)
+function getTextStyle(props: TextProps){
+  return buildVariants<TextProps>(props)
     .css({
       margin: 0,
       color: "var(--ds-color-text)",
@@ -50,12 +41,16 @@ export function Text(props: TextProps) {
       bold: { fontWeight: 700 }
     })
     .end();
+}
+
+export function Text(props: TextProps) {
+  const className: string = cx(css(getTextStyle(props)), props.className);
 
   return createElement(
-    element,
+    props.as ?? "p",
     {
-      ...nativeProps,
-      className: toClassName(style, props.className)
+      ...props,
+      className
     },
     props.children
   );

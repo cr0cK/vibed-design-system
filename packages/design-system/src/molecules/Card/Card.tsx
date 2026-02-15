@@ -1,25 +1,29 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
+import { css } from "@emotion/css";
 import { Box } from "../../atoms/Box/Box";
 import { Text } from "../../atoms/Text/Text";
-import { toClassName } from "../../utils/styleVariants";
+import { buildVariants } from "../../utils/buildVariants";
 
-const titleRowStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    gap: "var(--ds-space-sm)",
-    marginBottom: "var(--ds-space-md)"
-  })
-  .end();
+const titleRowClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: "var(--ds-space-sm)",
+      marginBottom: "var(--ds-space-md)"
+    })
+    .end()
+);
 
-const bodyStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
-  .css({
-    display: "grid",
-    gap: "var(--ds-space-sm)"
-  })
-  .end();
+const bodyClassName: string = css(
+  buildVariants<Record<string, never>>({})
+    .css({
+      display: "grid",
+      gap: "var(--ds-space-sm)"
+    })
+    .end()
+);
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -38,7 +42,7 @@ export function Card(props: CardProps) {
       className={props.className}
       data-testid={props["data-testid"]}
     >
-      <div className={toClassName(titleRowStyle)}>
+      <div className={titleRowClassName}>
         <div>
           <Text as="h3" size="lg" weight="semibold">
             {props.title}
@@ -51,7 +55,7 @@ export function Card(props: CardProps) {
         </div>
         {props.actions}
       </div>
-      <div className={toClassName(bodyStyle)}>{props.children}</div>
+      <div className={bodyClassName}>{props.children}</div>
     </Box>
   );
 }

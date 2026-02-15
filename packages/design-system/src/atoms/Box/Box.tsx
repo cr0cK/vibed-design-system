@@ -1,8 +1,7 @@
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 import { createElement } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
 
 export interface BoxProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
@@ -12,16 +11,8 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   radius?: "none" | "sm" | "md" | "lg";
 }
 
-export function Box(props: BoxProps) {
-  const element: ElementType = props.as ?? "div";
-  const nativeProps = omitProps(props as Record<string, unknown>, [
-    "as",
-    "padding",
-    "surface",
-    "radius"
-  ] as const) as HTMLAttributes<HTMLElement>;
-
-  const style = newBuildVariants<BoxProps, Record<string, unknown>>(props)
+function getBoxStyle(props: BoxProps){
+  return buildVariants<BoxProps>(props)
     .css({
       boxSizing: "border-box"
     })
@@ -47,12 +38,16 @@ export function Box(props: BoxProps) {
       lg: { borderRadius: "var(--ds-radius-lg)" }
     })
     .end();
+}
+
+export function Box(props: BoxProps) {
+  const className: string = cx(css(getBoxStyle(props)), props.className);
 
   return createElement(
-    element,
+    props.as ?? "div",
     {
-      ...nativeProps,
-      className: toClassName(style, props.className)
+      ...props,
+      className
     },
     props.children
   );

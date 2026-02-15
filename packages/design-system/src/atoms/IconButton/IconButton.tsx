@@ -1,7 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: ReactNode;
@@ -10,10 +9,8 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   tone?: "neutral" | "primary" | "danger";
 }
 
-export function IconButton(props: IconButtonProps) {
-  const nativeProps = omitProps(props as unknown as Record<string, unknown>, ["icon", "label", "size", "tone"] as const) as ButtonHTMLAttributes<HTMLButtonElement>;
-
-  const style = newBuildVariants<IconButtonProps, Record<string, unknown>>(props)
+function getIconButtonStyle(props: IconButtonProps){
+  return buildVariants<IconButtonProps>(props)
     .css({
       display: "inline-flex",
       alignItems: "center",
@@ -36,12 +33,16 @@ export function IconButton(props: IconButtonProps) {
       danger: { borderColor: "var(--ds-color-danger)", color: "var(--ds-color-danger)" }
     })
     .end();
+}
+
+export function IconButton(props: IconButtonProps) {
+  const className: string = cx(css(getIconButtonStyle(props)), props.className);
 
   return (
     <button
-      {...nativeProps}
+      {...props}
       type={props.type ?? "button"}
-      className={toClassName(style, props.className)}
+      className={className}
       aria-label={props.label}
       title={props.label}
     >

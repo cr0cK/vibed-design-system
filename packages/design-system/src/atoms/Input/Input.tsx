@@ -1,17 +1,15 @@
 import type { InputHTMLAttributes } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toBooleanVariant, toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
+import { toBooleanVariant } from "../../utils/variantValue";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputSize?: "sm" | "md" | "lg";
   invalid?: boolean;
 }
 
-export function Input(props: InputProps) {
-  const nativeProps = omitProps(props as Record<string, unknown>, ["inputSize", "invalid"] as const) as InputHTMLAttributes<HTMLInputElement>;
-
-  const style = newBuildVariants<InputProps, Record<string, unknown>>(props)
+function getInputStyle(props: InputProps){
+  return buildVariants<InputProps>(props)
     .css({
       width: "100%",
       border: "1px solid var(--ds-color-border)",
@@ -35,11 +33,15 @@ export function Input(props: InputProps) {
       false: { borderColor: "var(--ds-color-border)", boxShadow: "none" }
     })
     .end();
+}
+
+export function Input(props: InputProps) {
+  const className: string = cx(css(getInputStyle(props)), props.className);
 
   return (
     <input
-      {...nativeProps}
-      className={toClassName(style, props.className)}
+      {...props}
+      className={className}
       aria-invalid={props.invalid}
     />
   );

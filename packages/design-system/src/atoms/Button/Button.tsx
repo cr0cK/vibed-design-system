@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { newBuildVariants } from "@productive-codebases/build-variants";
-import { omitProps } from "../../utils/omitProps";
-import { toBooleanVariant, toClassName } from "../../utils/styleVariants";
+import { css, cx } from "@emotion/css";
+import { buildVariants } from "../../utils/buildVariants";
+import { toBooleanVariant } from "../../utils/variantValue";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
@@ -11,15 +11,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-export function Button(props: ButtonProps) {
-  const nativeProps = omitProps(props as Record<string, unknown>, [
-    "tone",
-    "size",
-    "block",
-    "loading"
-  ] as const) as ButtonHTMLAttributes<HTMLButtonElement>;
-
-  const style = newBuildVariants<ButtonProps, Record<string, unknown>>(props)
+function getButtonStyle(props: ButtonProps){
+  return buildVariants<ButtonProps>(props)
     .css({
       border: "none",
       appearance: "none",
@@ -59,11 +52,15 @@ export function Button(props: ButtonProps) {
       false: { opacity: 1 }
     })
     .end();
+}
+
+export function Button(props: ButtonProps) {
+  const className: string = cx(css(getButtonStyle(props)), props.className);
 
   return (
     <button
-      {...nativeProps}
-      className={toClassName(style, props.className)}
+      {...props}
+      className={className}
       disabled={props.disabled || props.loading}
       type={props.type ?? "button"}
       aria-busy={props.loading}
