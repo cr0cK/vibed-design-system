@@ -1,15 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { AppShell, Button, Card, NotificationCenter, Text, useNotificationsStore } from "@vibed/design-system";
 
-const meta: Meta<typeof AppShell> = {
+const meta = {
   title: "Organisms/AppShell",
   component: AppShell,
   tags: ["autodocs"]
 };
 
 export default meta;
-
-type Story = StoryObj<typeof AppShell>;
 
 function NotificationControls() {
   const pushNotification = useNotificationsStore((state) => state.pushNotification);
@@ -45,7 +42,7 @@ function NotificationControls() {
   );
 }
 
-export const WorkspaceShell: Story = {
+export const WorkspaceShell = {
   render: function Render() {
     return (
       <AppShell

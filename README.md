@@ -6,12 +6,13 @@ Monorepo with a React design-system library and Storybook showcase.
 
 - `packages/design-system`: reusable component library
 - `apps/storybook`: Storybook docs/sandbox consuming the library
+- `.github/workflows/ci.yml`: CI for install, typecheck, and build
 
 ## Stack
 
 - React 19
 - TypeScript
-- `build-variants` with Emotion compose function for CSS-in-JS recipes
+- `@productive-codebases/build-variants` (`newBuildVariants`) for CSS-in-JS declarations
 - `zustand` for lightweight state
 - Storybook (React + Vite)
 - `pnpm` workspace
@@ -27,6 +28,12 @@ pnpm dev:storybook
 
 ```bash
 pnpm build
+```
+
+## Validate all
+
+```bash
+pnpm check
 ```
 
 ## Conventions applied

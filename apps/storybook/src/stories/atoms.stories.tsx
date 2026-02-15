@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import { Box, Button, Text } from "@vibed/design-system";
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: "Atoms/Button",
   component: Button,
   tags: ["autodocs"],
@@ -14,11 +13,9 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+export const Playground = {};
 
-export const Playground: Story = {};
-
-export const Composition: Story = {
+export const Composition = {
   render: function Render() {
     return (
       <Box surface="elevated" padding="lg" radius="lg" style={{ maxWidth: 420 }}>

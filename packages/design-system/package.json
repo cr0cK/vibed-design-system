@@ -2,10 +2,32 @@
   "name": "@vibed/design-system",
   "version": "0.1.0",
   "private": false,
+  "description": "Pragmatic React design system with composable atoms, molecules, and organisms.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/vibed-design-system.git",
+    "directory": "packages/design-system"
+  },
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "storybook",
+    "build-variants"
+  ],
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -13,7 +35,11 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "typecheck": "tsc --noEmit",
-    "theme:build": "node tools/build-theme.mjs"
+    "theme:build": "node tools/build-theme.mjs",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react": "^19.1.1",
@@ -21,7 +47,7 @@
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
-    "build-variants": "^3.1.1",
+    "@productive-codebases/build-variants": "^1.5.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

@@ -1,22 +1,29 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css } from "@emotion/css";
+import { newBuildVariants } from "@productive-codebases/build-variants";
 import { Text } from "../../atoms/Text/Text";
+import { toClassName } from "../../utils/styleVariants";
 
-const rootClassName: string = css({
-  display: "grid",
-  gap: "var(--ds-space-xs)"
-});
+const rootStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    display: "grid",
+    gap: "var(--ds-space-xs)"
+  })
+  .end();
 
-const labelRowClassName: string = css({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "var(--ds-space-xs)"
-});
+const labelRowStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "var(--ds-space-xs)"
+  })
+  .end();
 
-const messageClassName: string = css({
-  minHeight: "1.2em"
-});
+const messageStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    minHeight: "1.2em"
+  })
+  .end();
 
 export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -30,8 +37,8 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Field(props: FieldProps) {
   return (
-    <div className={props.className ?? rootClassName}>
-      <div className={labelRowClassName}>
+    <div className={toClassName(rootStyle, props.className)}>
+      <div className={toClassName(labelRowStyle)}>
         <label htmlFor={props.inputId}>
           <Text as="span" size="sm" weight="semibold">
             {props.label}
@@ -43,7 +50,7 @@ export function Field(props: FieldProps) {
 
       {props.children}
 
-      <div className={messageClassName}>
+      <div className={toClassName(messageStyle)}>
         {props.error ? (
           <Text as="span" size="sm" tone="danger">
             {props.error}

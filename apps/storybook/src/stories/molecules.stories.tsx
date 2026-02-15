@@ -1,4 +1,3 @@
-import type { Meta, StoryObj } from "@storybook/react";
 import type { CSSProperties } from "react";
 import { Card, Field, Text } from "@vibed/design-system";
 
@@ -13,7 +12,7 @@ const inputStyle: CSSProperties = {
   color: "var(--ds-color-text)"
 };
 
-const meta: Meta<typeof Card> = {
+const meta = {
   title: "Molecules/Card + Field",
   component: Card,
   tags: ["autodocs"]
@@ -21,9 +20,7 @@ const meta: Meta<typeof Card> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Card>;
-
-export const Default: Story = {
+export const Default = {
   render: function Render() {
     return (
       <Card title="Project Settings" subtitle="Wire tiny pieces into bigger behavior">

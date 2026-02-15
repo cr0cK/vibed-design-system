@@ -1,39 +1,36 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import { newBuildVariants } from "@productive-codebases/build-variants";
 import { useDesignSystemContext } from "../../context/DesignSystemContext";
 import { useUIStore } from "../../stores/uiStore";
 import { Button } from "../../atoms/Button/Button";
 import { Text } from "../../atoms/Text/Text";
+import { toClassName } from "../../utils/styleVariants";
 
-const shellClassName: string = css({
-  display: "grid",
-  minHeight: "100vh",
-  gridTemplateColumns: "260px 1fr"
-});
+const sideStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    borderRight: "1px solid var(--ds-color-border)",
+    padding: "var(--ds-space-lg)",
+    backgroundColor: "var(--ds-color-surface)"
+  })
+  .end();
 
-const shellCompactClassName: string = css({
-  gridTemplateColumns: "220px 1fr"
-});
+const mainStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    padding: "var(--ds-space-xl)",
+    display: "grid",
+    gap: "var(--ds-space-lg)",
+    alignContent: "start"
+  })
+  .end();
 
-const sideClassName: string = css({
-  borderRight: "1px solid var(--ds-color-border)",
-  padding: "var(--ds-space-lg)",
-  backgroundColor: "var(--ds-color-surface)"
-});
-
-const mainClassName: string = css({
-  padding: "var(--ds-space-xl)",
-  display: "grid",
-  gap: "var(--ds-space-lg)",
-  alignContent: "start"
-});
-
-const topRowClassName: string = css({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "var(--ds-space-md)"
-});
+const topRowStyle = newBuildVariants<Record<string, never>, Record<string, unknown>>({})
+  .css({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: "var(--ds-space-md)"
+  })
+  .end();
 
 export interface AppShellProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -46,14 +43,27 @@ export function AppShell(props: AppShellProps) {
   const sidePanelOpen = useUIStore((state) => state.sidePanelOpen);
   const toggleSidePanel = useUIStore((state) => state.toggleSidePanel);
 
+  const shellStyle = newBuildVariants<{ density: "comfortable" | "compact" }, Record<string, unknown>>({
+    density: context.density
+  })
+    .css({
+      display: "grid",
+      minHeight: "100vh"
+    })
+    .variant("density", context.density, {
+      comfortable: { gridTemplateColumns: "260px 1fr" },
+      compact: { gridTemplateColumns: "220px 1fr" }
+    })
+    .end();
+
   return (
     <div
-      className={cx(shellClassName, context.density === "compact" ? shellCompactClassName : "", props.className)}
+      className={toClassName(shellStyle, props.className)}
       data-density={context.density}
     >
-      {sidePanelOpen ? <aside className={sideClassName}>{props.navigation}</aside> : null}
-      <main className={mainClassName}>
-        <div className={topRowClassName}>
+      {sidePanelOpen ? <aside className={toClassName(sideStyle)}>{props.navigation}</aside> : null}
+      <main className={toClassName(mainStyle)}>
+        <div className={toClassName(topRowStyle)}>
           <Text as="h1" size="xl" weight="bold">
             {props.title}
           </Text>

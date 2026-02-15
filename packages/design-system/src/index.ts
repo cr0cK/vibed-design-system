@@ -16,6 +16,14 @@ export { Text } from "./atoms/Text";
 export type { TextProps } from "./atoms/Text";
 export { Button } from "./atoms/Button";
 export type { ButtonProps } from "./atoms/Button";
+export { Input } from "./atoms/Input";
+export type { InputProps } from "./atoms/Input";
+export { Stack } from "./atoms/Stack";
+export type { StackProps } from "./atoms/Stack";
+export { Inline } from "./atoms/Inline";
+export type { InlineProps } from "./atoms/Inline";
+export { IconButton } from "./atoms/IconButton";
+export type { IconButtonProps } from "./atoms/IconButton";
 
 export { Field } from "./molecules/Field";
 export type { FieldProps } from "./molecules/Field";

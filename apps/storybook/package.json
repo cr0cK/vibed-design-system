@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "storybook": "storybook dev -p 6006",
-    "build": "storybook build",
+    "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
+    "build": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/react": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",

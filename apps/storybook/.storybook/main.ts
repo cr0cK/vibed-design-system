@@ -1,8 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const currentDirname: string = path.dirname(fileURLToPath(import.meta.url));
+const designSystemEntryPath: string = new URL("../../../packages/design-system/src/index.ts", import.meta.url).pathname;
 
 const config: StorybookConfig = {
   framework: {
@@ -19,7 +16,7 @@ const config: StorybookConfig = {
     nextConfig.resolve = nextConfig.resolve ?? {};
     nextConfig.resolve.alias = {
       ...(nextConfig.resolve.alias ?? {}),
-      "@vibed/design-system": path.resolve(currentDirname, "../../../packages/design-system/src/index.ts")
+      "@vibed/design-system": designSystemEntryPath
     };
     return nextConfig;
   }
