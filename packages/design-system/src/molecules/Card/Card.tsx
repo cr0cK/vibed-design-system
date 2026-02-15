@@ -1,11 +1,11 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css } from "@emotion/css";
+import styled from "@emotion/styled";
 import { Box } from "../../atoms/Box/Box";
 import { Text } from "../../atoms/Text/Text";
 import { buildVariants } from "../../utils/buildVariants";
 
-const titleRowClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const TitleRow = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "flex",
       alignItems: "flex-start",
@@ -13,17 +13,17 @@ const titleRowClassName: string = css(
       gap: "var(--ds-space-sm)",
       marginBottom: "var(--ds-space-md)"
     })
-    .end()
-);
+    .end();
+});
 
-const bodyClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const Body = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "grid",
       gap: "var(--ds-space-sm)"
     })
-    .end()
-);
+    .end();
+});
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -42,7 +42,7 @@ export function Card(props: CardProps) {
       className={props.className}
       data-testid={props["data-testid"]}
     >
-      <div className={titleRowClassName}>
+      <TitleRow>
         <div>
           <Text as="h3" size="lg" weight="semibold">
             {props.title}
@@ -54,8 +54,8 @@ export function Card(props: CardProps) {
           ) : null}
         </div>
         {props.actions}
-      </div>
-      <div className={bodyClassName}>{props.children}</div>
+      </TitleRow>
+      <Body>{props.children}</Body>
     </Box>
   );
 }

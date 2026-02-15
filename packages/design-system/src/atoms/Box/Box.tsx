@@ -1,6 +1,5 @@
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
-import { createElement } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
 export interface BoxProps extends HTMLAttributes<HTMLElement> {
@@ -11,7 +10,7 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   radius?: "none" | "sm" | "md" | "lg";
 }
 
-function getBoxStyle(props: BoxProps){
+const BoxRoot = styled.div<BoxProps>(function style(props) {
   return buildVariants<BoxProps>(props)
     .css({
       boxSizing: "border-box"
@@ -38,17 +37,15 @@ function getBoxStyle(props: BoxProps){
       lg: { borderRadius: "var(--ds-radius-lg)" }
     })
     .end();
-}
+});
 
 export function Box(props: BoxProps) {
-  const className: string = cx(css(getBoxStyle(props)), props.className);
-
-  return createElement(
-    props.as ?? "div",
-    {
-      ...props,
-      className
-    },
-    props.children
+  return (
+    <BoxRoot
+      {...props}
+      as={props.as ?? "div"}
+    >
+      {props.children}
+    </BoxRoot>
   );
 }

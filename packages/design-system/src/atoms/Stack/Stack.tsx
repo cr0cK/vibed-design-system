@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
 export interface StackProps extends HTMLAttributes<HTMLDivElement> {
@@ -8,7 +8,7 @@ export interface StackProps extends HTMLAttributes<HTMLDivElement> {
   align?: "stretch" | "start" | "center" | "end";
 }
 
-function getStackStyle(props: StackProps){
+const StackRoot = styled.div<StackProps>(function style(props) {
   return buildVariants<StackProps>(props)
     .css({
       display: "flex",
@@ -28,14 +28,12 @@ function getStackStyle(props: StackProps){
       end: { alignItems: "flex-end" }
     })
     .end();
-}
+});
 
 export function Stack(props: StackProps) {
-  const className: string = cx(css(getStackStyle(props)), props.className);
-
   return (
-    <div {...props} className={className}>
+    <StackRoot {...props}>
       {props.children}
-    </div>
+    </StackRoot>
   );
 }

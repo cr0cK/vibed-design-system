@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
 export interface InlineProps extends HTMLAttributes<HTMLDivElement> {
@@ -9,7 +9,7 @@ export interface InlineProps extends HTMLAttributes<HTMLDivElement> {
   justify?: "start" | "center" | "between" | "end";
 }
 
-function getInlineStyle(props: InlineProps){
+const InlineRoot = styled.div<InlineProps>(function style(props) {
   return buildVariants<InlineProps>(props)
     .css({
       display: "flex",
@@ -35,14 +35,12 @@ function getInlineStyle(props: InlineProps){
       end: { justifyContent: "flex-end" }
     })
     .end();
-}
+});
 
 export function Inline(props: InlineProps) {
-  const className: string = cx(css(getInlineStyle(props)), props.className);
-
   return (
-    <div {...props} className={className}>
+    <InlineRoot {...props}>
       {props.children}
-    </div>
+    </InlineRoot>
   );
 }

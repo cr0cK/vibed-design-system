@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
-import { css } from "@emotion/css";
+import styled from "@emotion/styled";
 import { DesignSystemContext } from "./DesignSystemContext";
 import type { DensityMode } from "./DesignSystemContext";
 import type { ThemeModeSet, ThemeTokens } from "../theme/tokens";
@@ -9,8 +9,8 @@ import { createTheme } from "../theme/createTheme";
 import { toThemeCssVars } from "../theme/cssVars";
 import { buildVariants } from "../utils/buildVariants";
 
-const rootClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const ProviderRoot = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       minHeight: "100%",
       color: "var(--ds-color-text)",
@@ -18,8 +18,8 @@ const rootClassName: string = css(
       fontFamily: "var(--ds-font-body)",
       lineHeight: 1.4
     })
-    .end()
-);
+    .end();
+});
 
 export interface DesignSystemProviderProps {
   children: ReactNode;
@@ -72,9 +72,9 @@ export function DesignSystemProvider(props: DesignSystemProviderProps) {
 
   return (
     <DesignSystemContext.Provider value={contextValue}>
-      <div className={rootClassName} style={toThemeCssVars(selectedTheme)}>
+      <ProviderRoot style={toThemeCssVars(selectedTheme)}>
         {props.children}
-      </div>
+      </ProviderRoot>
     </DesignSystemContext.Provider>
   );
 }

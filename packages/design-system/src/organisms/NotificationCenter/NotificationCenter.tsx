@@ -1,21 +1,21 @@
-import { css } from "@emotion/css";
+import styled from "@emotion/styled";
 import { useNotificationsStore } from "../../stores/notificationsStore";
 import { Button } from "../../atoms/Button/Button";
 import { Text } from "../../atoms/Text/Text";
 import { buildVariants } from "../../utils/buildVariants";
 
-const rootClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const Root = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "grid",
       gap: "var(--ds-space-sm)",
       width: "100%"
     })
-    .end()
-);
+    .end();
+});
 
-const itemClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const Item = styled.article(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       border: "1px solid var(--ds-color-border)",
       backgroundColor: "var(--ds-color-surface)",
@@ -25,19 +25,19 @@ const itemClassName: string = css(
       display: "grid",
       gap: "var(--ds-space-xs)"
     })
-    .end()
-);
+    .end();
+});
 
-const itemHeaderClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const ItemHeader = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       gap: "var(--ds-space-sm)"
     })
-    .end()
-);
+    .end();
+});
 
 export interface NotificationCenterProps {
   emptyText?: string;
@@ -49,29 +49,29 @@ export function NotificationCenter(props: NotificationCenterProps) {
 
   if (!items.length) {
     return (
-      <div className={rootClassName}>
+      <Root>
         <Text tone="muted">{props.emptyText ?? "No notifications"}</Text>
-      </div>
+      </Root>
     );
   }
 
   return (
-    <div className={rootClassName}>
+    <Root>
       {items.map((item) => {
         return (
-          <article key={item.id} className={itemClassName}>
-            <div className={itemHeaderClassName}>
+          <Item key={item.id}>
+            <ItemHeader>
               <Text as="h4" size="md" weight="semibold" tone={item.tone === "danger" ? "danger" : "default"}>
                 {item.title}
               </Text>
               <Button tone="neutral" size="sm" onClick={() => dismissNotification(item.id)}>
                 Dismiss
               </Button>
-            </div>
+            </ItemHeader>
             {item.body ? <Text tone="muted">{item.body}</Text> : null}
-          </article>
+          </Item>
         );
       })}
-    </div>
+    </Root>
   );
 }

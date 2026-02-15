@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,7 +9,7 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   tone?: "neutral" | "primary" | "danger";
 }
 
-function getIconButtonStyle(props: IconButtonProps){
+const IconButtonRoot = styled.button<IconButtonProps>(function style(props) {
   return buildVariants<IconButtonProps>(props)
     .css({
       display: "inline-flex",
@@ -33,20 +33,17 @@ function getIconButtonStyle(props: IconButtonProps){
       danger: { borderColor: "var(--ds-color-danger)", color: "var(--ds-color-danger)" }
     })
     .end();
-}
+});
 
 export function IconButton(props: IconButtonProps) {
-  const className: string = cx(css(getIconButtonStyle(props)), props.className);
-
   return (
-    <button
+    <IconButtonRoot
       {...props}
       type={props.type ?? "button"}
-      className={className}
       aria-label={props.label}
       title={props.label}
     >
       {props.icon}
-    </button>
+    </IconButtonRoot>
   );
 }

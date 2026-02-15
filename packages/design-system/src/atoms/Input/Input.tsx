@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { toBooleanVariant } from "../../utils/variantValue";
 
@@ -8,7 +8,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   invalid?: boolean;
 }
 
-function getInputStyle(props: InputProps){
+const InputRoot = styled.input<InputProps>(function style(props) {
   return buildVariants<InputProps>(props)
     .css({
       width: "100%",
@@ -33,15 +33,12 @@ function getInputStyle(props: InputProps){
       false: { borderColor: "var(--ds-color-border)", boxShadow: "none" }
     })
     .end();
-}
+});
 
 export function Input(props: InputProps) {
-  const className: string = cx(css(getInputStyle(props)), props.className);
-
   return (
-    <input
+    <InputRoot
       {...props}
-      className={className}
       aria-invalid={props.invalid}
     />
   );

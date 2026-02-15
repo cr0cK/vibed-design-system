@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { toBooleanVariant } from "../../utils/variantValue";
 
@@ -11,7 +11,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-function getButtonStyle(props: ButtonProps){
+const ButtonRoot = styled.button<ButtonProps>(function style(props) {
   return buildVariants<ButtonProps>(props)
     .css({
       border: "none",
@@ -52,20 +52,17 @@ function getButtonStyle(props: ButtonProps){
       false: { opacity: 1 }
     })
     .end();
-}
+});
 
 export function Button(props: ButtonProps) {
-  const className: string = cx(css(getButtonStyle(props)), props.className);
-
   return (
-    <button
+    <ButtonRoot
       {...props}
-      className={className}
       disabled={props.disabled || props.loading}
       type={props.type ?? "button"}
       aria-busy={props.loading}
     >
       {props.children}
-    </button>
+    </ButtonRoot>
   );
 }

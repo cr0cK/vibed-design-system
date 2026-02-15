@@ -1,6 +1,5 @@
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
-import { createElement } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
@@ -11,7 +10,7 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   weight?: "regular" | "medium" | "semibold" | "bold";
 }
 
-function getTextStyle(props: TextProps){
+const TextRoot = styled.p<TextProps>(function style(props) {
   return buildVariants<TextProps>(props)
     .css({
       margin: 0,
@@ -41,17 +40,15 @@ function getTextStyle(props: TextProps){
       bold: { fontWeight: 700 }
     })
     .end();
-}
+});
 
 export function Text(props: TextProps) {
-  const className: string = cx(css(getTextStyle(props)), props.className);
-
-  return createElement(
-    props.as ?? "p",
-    {
-      ...props,
-      className
-    },
-    props.children
+  return (
+    <TextRoot
+      {...props}
+      as={props.as ?? "p"}
+    >
+      {props.children}
+    </TextRoot>
   );
 }

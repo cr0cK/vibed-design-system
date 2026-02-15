@@ -1,35 +1,35 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@emotion/css";
+import styled from "@emotion/styled";
 import { Text } from "../../atoms/Text/Text";
 import { buildVariants } from "../../utils/buildVariants";
 
-const rootClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const FieldRoot = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "grid",
       gap: "var(--ds-space-xs)"
     })
-    .end()
-);
+    .end();
+});
 
-const labelRowClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const LabelRow = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       gap: "var(--ds-space-xs)"
     })
-    .end()
-);
+    .end();
+});
 
-const messageRowClassName: string = css(
-  buildVariants<Record<string, never>>({})
+const MessageRow = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
     .css({
       minHeight: "1.2em"
     })
-    .end()
-);
+    .end();
+});
 
 export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -43,8 +43,8 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Field(props: FieldProps) {
   return (
-    <div className={cx(rootClassName, props.className)}>
-      <div className={labelRowClassName}>
+    <FieldRoot className={props.className}>
+      <LabelRow>
         <label htmlFor={props.inputId}>
           <Text as="span" size="sm" weight="semibold">
             {props.label}
@@ -52,11 +52,11 @@ export function Field(props: FieldProps) {
           </Text>
         </label>
         {props.action}
-      </div>
+      </LabelRow>
 
       {props.children}
 
-      <div className={messageRowClassName}>
+      <MessageRow>
         {props.error ? (
           <Text as="span" size="sm" tone="danger">
             {props.error}
@@ -66,7 +66,7 @@ export function Field(props: FieldProps) {
             {props.hint}
           </Text>
         )}
-      </div>
-    </div>
+      </MessageRow>
+    </FieldRoot>
   );
 }
