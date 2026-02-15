@@ -1,0 +1,24 @@
+{
+  "name": "@vibed/storybook",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vibed/design-system": "workspace:*",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/react-vite": "^8.6.12",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "storybook": "^8.6.12",
+    "typescript": "^5.6.3"
+  }
+}
