@@ -45,6 +45,11 @@
 - `apps/storybook/src/stories/organisms/Popover.stories.tsx`
 - `apps/storybook/src/stories/organisms/Tooltip.stories.tsx`
 
+## Themes
+
+- `apps/storybook/src/stories/themes/Overview.stories.tsx`
+- `apps/storybook/src/stories/themes/OrangeMotionWorkspace.stories.tsx`
+
 ## Documentation
 
 - `apps/storybook/src/stories/documentation/Overview.mdx`

@@ -5,7 +5,7 @@ export type { DensityMode, DesignSystemContextValue } from "./context/DesignSyst
 export { createTheme } from "./theme/createTheme";
 export { lightTheme, darkTheme, defaultThemes } from "./theme/tokens";
 export type { ThemeTokens, ThemeModeSet } from "./theme/tokens";
-export { revenueRecoveryTheme } from "./theme/presets/revenueRecoveryTheme";
+export { orangeMotionTheme } from "./theme/presets/orangeMotionTheme";
 
 export { useUIStore } from "./stores/uiStore";
 export { useNotificationsStore } from "./stores/notificationsStore";

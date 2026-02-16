@@ -1,6 +1,6 @@
 import type { ThemeTokens } from "../tokens";
 
-export const revenueRecoveryTheme: ThemeTokens = {
+export const orangeMotionTheme: ThemeTokens = {
   colors: {
     background: "#f3f4f6",
     surface: "#ffffff",
