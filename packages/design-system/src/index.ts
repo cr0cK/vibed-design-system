@@ -55,6 +55,16 @@ export { Spinner } from "./atoms/Spinner";
 export type { SpinnerProps } from "./atoms/Spinner";
 export { Skeleton } from "./atoms/Skeleton";
 export type { SkeletonProps } from "./atoms/Skeleton";
+export { NumberInput } from "./atoms/NumberInput";
+export type { NumberInputProps } from "./atoms/NumberInput";
+export { Slider } from "./atoms/Slider";
+export type { SliderProps } from "./atoms/Slider";
+export { Progress } from "./atoms/Progress";
+export type { ProgressProps } from "./atoms/Progress";
+export { Avatar } from "./atoms/Avatar";
+export type { AvatarProps } from "./atoms/Avatar";
+export { Tag } from "./atoms/Tag";
+export type { TagProps } from "./atoms/Tag";
 
 export { Field } from "./molecules/Field";
 export type { FieldProps } from "./molecules/Field";
@@ -72,6 +82,10 @@ export { Breadcrumb } from "./molecules/Breadcrumb";
 export type { BreadcrumbProps, BreadcrumbItem } from "./molecules/Breadcrumb";
 export { Pagination } from "./molecules/Pagination";
 export type { PaginationProps } from "./molecules/Pagination";
+export { Stat } from "./molecules/Stat";
+export type { StatProps } from "./molecules/Stat";
+export { EmptyState } from "./molecules/EmptyState";
+export type { EmptyStateProps } from "./molecules/EmptyState";
 
 export { AppShell } from "./organisms/AppShell";
 export type { AppShellProps } from "./organisms/AppShell";

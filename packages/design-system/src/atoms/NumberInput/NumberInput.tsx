@@ -2,11 +2,9 @@ import type { InputHTMLAttributes } from "react";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
-import { IconButton } from "../IconButton/IconButton";
 
 export interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   controlSize?: "sm" | "md" | "lg";
-  size?: "sm" | "md" | "lg";
   onValueChange?: (nextValue: number) => void;
 }
 
@@ -60,6 +58,33 @@ const InputElement = styled.input<NumberInputLayoutProps>(function style(props) 
     .end();
 });
 
+const StepButton = styled.button<NumberInputLayoutProps>(function style(props) {
+  return buildVariants<NumberInputLayoutProps>(props)
+    .css({
+      border: "none",
+      backgroundColor: "var(--ds-color-surface-muted)",
+      color: "var(--ds-color-text)",
+      cursor: "pointer",
+      fontFamily: "var(--ds-font-body)",
+      fontWeight: 600,
+      minWidth: "2rem",
+      transition: "background-color .14s ease",
+      "&:hover": {
+        backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 10%, var(--ds-color-surface-muted))"
+      },
+      "&:disabled": {
+        cursor: "not-allowed",
+        color: "var(--ds-color-text-muted)"
+      }
+    })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { minWidth: "1.8rem", fontSize: "0.92rem" },
+      md: { minWidth: "2rem", fontSize: "1rem" },
+      lg: { minWidth: "2.2rem", fontSize: "1.05rem" }
+    })
+    .end();
+});
+
 function clampValue(nextValue: number, minValue?: number, maxValue?: number): number {
   let clampedValue = nextValue;
   if (minValue !== undefined) {
@@ -72,7 +97,7 @@ function clampValue(nextValue: number, minValue?: number, maxValue?: number): nu
 }
 
 export function NumberInput(props: NumberInputProps) {
-  const controlSize = props.controlSize ?? props.size ?? "md";
+  const controlSize = props.controlSize ?? "md";
   const stepValue = props.step !== undefined ? Number(props.step) : 1;
   const [internalValue, setInternalValue] = useState<number>(props.defaultValue !== undefined ? Number(props.defaultValue) : Number(props.min ?? 0));
 
@@ -99,9 +124,9 @@ export function NumberInput(props: NumberInputProps) {
 
   return (
     <Root className={props.className} controlSize={controlSize}>
-      <IconButton
-        tone="neutral"
-        size={controlSize}
+      <StepButton
+        type="button"
+        controlSize={controlSize}
         aria-label="Decrease value"
         onClick={function onClick() {
           commitValue((Number.isNaN(currentValue) ? 0 : currentValue) - stepValue);
@@ -109,7 +134,7 @@ export function NumberInput(props: NumberInputProps) {
         disabled={props.disabled}
       >
         -
-      </IconButton>
+      </StepButton>
       <InputElement
         {...props}
         controlSize={controlSize}
@@ -125,9 +150,9 @@ export function NumberInput(props: NumberInputProps) {
           }
         }}
       />
-      <IconButton
-        tone="neutral"
-        size={controlSize}
+      <StepButton
+        type="button"
+        controlSize={controlSize}
         aria-label="Increase value"
         onClick={function onClick() {
           commitValue((Number.isNaN(currentValue) ? 0 : currentValue) + stepValue);
@@ -135,7 +160,7 @@ export function NumberInput(props: NumberInputProps) {
         disabled={props.disabled}
       >
         +
-      </IconButton>
+      </StepButton>
     </Root>
   );
 }

@@ -3,6 +3,7 @@
 ## Atoms
 
 - `apps/storybook/src/stories/atoms/Badge.stories.tsx`
+- `apps/storybook/src/stories/atoms/Avatar.stories.tsx`
 - `apps/storybook/src/stories/atoms/Box.stories.tsx`
 - `apps/storybook/src/stories/atoms/Button.stories.tsx`
 - `apps/storybook/src/stories/atoms/ButtonGroup.stories.tsx`
@@ -15,13 +16,17 @@
 - `apps/storybook/src/stories/atoms/Inline.stories.tsx`
 - `apps/storybook/src/stories/atoms/Input.stories.tsx`
 - `apps/storybook/src/stories/atoms/Link.stories.tsx`
+- `apps/storybook/src/stories/atoms/NumberInput.stories.tsx`
+- `apps/storybook/src/stories/atoms/Progress.stories.tsx`
 - `apps/storybook/src/stories/atoms/Radio.stories.tsx`
 - `apps/storybook/src/stories/atoms/Select.stories.tsx`
 - `apps/storybook/src/stories/atoms/Skeleton.stories.tsx`
+- `apps/storybook/src/stories/atoms/Slider.stories.tsx`
 - `apps/storybook/src/stories/atoms/Spacer.stories.tsx`
 - `apps/storybook/src/stories/atoms/Spinner.stories.tsx`
 - `apps/storybook/src/stories/atoms/Stack.stories.tsx`
 - `apps/storybook/src/stories/atoms/Switch.stories.tsx`
+- `apps/storybook/src/stories/atoms/Tag.stories.tsx`
 - `apps/storybook/src/stories/atoms/Text.stories.tsx`
 - `apps/storybook/src/stories/atoms/Textarea.stories.tsx`
 
@@ -30,10 +35,12 @@
 - `apps/storybook/src/stories/molecules/Alert.stories.tsx`
 - `apps/storybook/src/stories/molecules/Breadcrumb.stories.tsx`
 - `apps/storybook/src/stories/molecules/Card.stories.tsx`
+- `apps/storybook/src/stories/molecules/EmptyState.stories.tsx`
 - `apps/storybook/src/stories/molecules/Field.stories.tsx`
 - `apps/storybook/src/stories/molecules/FormControl.stories.tsx`
 - `apps/storybook/src/stories/molecules/HelperText.stories.tsx`
 - `apps/storybook/src/stories/molecules/Pagination.stories.tsx`
+- `apps/storybook/src/stories/molecules/Stat.stories.tsx`
 - `apps/storybook/src/stories/molecules/Tabs.stories.tsx`
 
 ## Organisms
