@@ -1,0 +1,32 @@
+# State Patterns
+
+## Context
+
+Use context for cross-cutting design-system concerns.
+
+Current pattern:
+
+- `DesignSystemProvider`
+- `DesignSystemContext`
+- `useDesignSystemContext`
+
+Use this for:
+
+- density mode
+- theme mode
+- other global UI configuration concerns
+
+## Zustand stores
+
+Use small focused stores for local domain state.
+
+Current examples:
+
+- `useUIStore`: shell and panel toggles
+- `useNotificationsStore`: notification list and actions
+
+Rules:
+
+- Keep store shape small and explicit.
+- Keep actions inside store declaration.
+- Avoid monolithic global stores.

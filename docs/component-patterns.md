@@ -1,0 +1,40 @@
+# Component Patterns
+
+## Authoring rules
+
+- Declare a full `Props` interface for each component.
+- Do not destructure props in component signatures.
+- Keep style declarations outside component render bodies.
+- Prefer composition over deeply configurable single components.
+
+## Component template
+
+```tsx
+import type { HTMLAttributes } from "react";
+import styled from "@emotion/styled";
+import { buildVariants } from "../../utils/buildVariants";
+
+export interface ExampleProps extends HTMLAttributes<HTMLDivElement> {
+  tone?: "default" | "muted";
+}
+
+const ExampleRoot = styled.div<ExampleProps>(props => {
+  return buildVariants(props)
+    .css({ display: "block" })
+    .variant("tone", props.tone ?? "default", {
+      default: { color: "var(--ds-color-text)" },
+      muted: { color: "var(--ds-color-text-muted)" }
+    })
+    .end();
+});
+
+export function Example(props: ExampleProps) {
+  return <ExampleRoot {...props} />;
+}
+```
+
+## Atomic structure
+
+- Atoms should stay generic and reusable.
+- Molecules compose atoms with minimal behavior.
+- Organisms may connect to context/store and orchestrate flows.

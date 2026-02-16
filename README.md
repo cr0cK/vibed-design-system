@@ -43,3 +43,7 @@ pnpm check
 - Context for design-system level concerns
 - Small store slices in `zustand`
 - Pragmatic atomic hierarchy without ceremony
+
+## Documentation
+
+- See `docs/README.md` for the design-system pattern handbook.

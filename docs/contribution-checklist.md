@@ -1,0 +1,13 @@
+# Contribution Checklist
+
+## Before opening PR
+
+1. Component follows atom/molecule/organism placement.
+2. Props interface is explicit and complete.
+3. No prop destructuring in function signature.
+4. Styling uses `styled.*` + `buildVariants(props)`.
+5. Variant values use explicit string unions.
+6. Shared state uses context or small Zustand slices where needed.
+7. Storybook story added or updated when component behavior changes.
+8. `pnpm typecheck` passes.
+9. `pnpm build` passes.

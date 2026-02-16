@@ -1,0 +1,53 @@
+# Styling Patterns
+
+## 1. Single buildVariants factory
+
+Use `packages/design-system/src/utils/buildVariants.ts` only.
+
+```ts
+import type { CSSObject } from "@emotion/react";
+import { newBuildVariants } from "@productive-codebases/build-variants";
+
+export function buildVariants<TProps extends object>(props: TProps) {
+  return newBuildVariants<TProps, CSSObject>(props);
+}
+```
+
+## 2. Styled component declaration
+
+Declare styles outside render functions.
+
+```tsx
+import styled from "@emotion/styled";
+import { buildVariants } from "../../utils/buildVariants";
+
+interface StackProps {
+  gap?: "sm" | "md";
+}
+
+const StackRoot = styled.div<StackProps>(props => {
+  return buildVariants(props)
+    .css({ display: "flex", flexDirection: "column" })
+    .variant("gap", props.gap ?? "md", {
+      sm: { gap: "var(--ds-space-sm)" },
+      md: { gap: "var(--ds-space-md)" }
+    })
+    .end();
+});
+```
+
+## 3. Boolean variants
+
+Map booleans to string-union values for predictable variant keys.
+
+```ts
+function toBooleanVariant(value: boolean | undefined): "true" | "false" {
+  return value ? "true" : "false";
+}
+```
+
+## 4. Theming
+
+- Keep tokens in `src/theme/tokens.ts`
+- Resolve theme object in provider
+- Expose CSS variables through `toThemeCssVars`
