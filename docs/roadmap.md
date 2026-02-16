@@ -1,0 +1,112 @@
+# Design System Roadmap
+
+Last updated: 2026-02-16
+
+## Objective
+
+Deliver a pragmatic, composable React design system with strong accessibility, clear APIs, and production-ready docs.
+
+## Phase 1: Core System Hardening
+
+Status: In progress
+Target: Week of 2026-02-16
+
+Scope:
+
+- Foundations/layout: `Grid`, `Container`, `Spacer`, `Divider`, `Heading`, `Link`
+- Controls: `ButtonGroup`, `Checkbox`, `Radio`, `Switch`
+- Inputs/forms: `Textarea`, `Select`, `FormControl`, `HelperText`
+- Feedback: `Badge`, `Alert`, `Spinner`, `Skeleton`
+- Navigation: `Tabs`, `Breadcrumb`, `Pagination`
+- Overlays: `Modal`, `Drawer`, `Tooltip`, `Popover`
+
+Acceptance criteria:
+
+1. `pnpm typecheck` passes at workspace level.
+2. `pnpm build` succeeds for `@vibed/design-system`.
+3. Storybook stories exist for each Phase 1 family.
+4. Components follow patterns:
+- explicit props interfaces
+- no prop destructuring in function signature
+- styles declared outside renderer via `styled.*`
+- style logic composed with `buildVariants(props)`
+5. Basic accessibility in place for interactive components (roles, labels, focus states).
+
+## Phase 1.1: Accessibility + Interaction Pass
+
+Status: Planned
+Target: Week of 2026-02-23
+
+Scope:
+
+- Tabs keyboard behavior: arrow/home/end.
+- Modal/drawer keyboard close and focus handling.
+- Popover/tooltip keyboard triggers and escape behavior.
+- Form hint/error wiring (`aria-invalid`, `aria-describedby`).
+
+Acceptance criteria:
+
+1. Keyboard flows verified for overlays/tabs.
+2. Screen-reader labels and control relationships are present.
+3. No console a11y warnings in story examples.
+
+## Phase 2: Advanced Inputs + Data
+
+Status: Planned
+Target: Weeks of 2026-03-02 and 2026-03-09
+
+Scope:
+
+- Inputs: `NumberInput`, `Slider`, `RangeSlider`, `DatePicker`, `DateRangePicker`
+- Selection: `Combobox`, `Autocomplete`, `MultiSelect`, `CommandPalette`
+- Data display: `Table`, `DataList`, `Stat`, `Avatar`, `AvatarGroup`, `Tag`, `Progress`
+- Feedback: `Toast`, `EmptyState`
+
+Acceptance criteria:
+
+1. Every new component has at least one story with real composition usage.
+2. Controlled + uncontrolled API behavior documented where relevant.
+3. State-heavy components include focused interaction tests.
+
+## Phase 3: Navigation + App Patterns
+
+Status: Planned
+Target: Weeks of 2026-03-16 and 2026-03-23
+
+Scope:
+
+- Navigation: `Menu`, `DropdownMenu`, `Navbar`, `Sidebar`, `StepIndicator`
+- Overlays advanced: `Dialog` variants, `Sheet`
+- App composition: `PageHeader`, `FilterBar`, `SearchBar`, `SettingsPanel`
+- Utilities: `Portal`, `VisuallyHidden`, `FocusTrap`, `ClickOutside`, transition helpers
+
+Acceptance criteria:
+
+1. Pattern components compose existing atoms/molecules first.
+2. APIs stay minimal and consistent with existing naming.
+3. Storybook showcases realistic end-to-end UI flows.
+
+## Phase 4: Quality + Distribution
+
+Status: Planned
+Target: Weeks of 2026-03-30 and 2026-04-06
+
+Scope:
+
+- Expand interaction and accessibility tests.
+- Finalize token/theming docs and examples.
+- Add release/versioning workflow polish.
+- Tighten changelog and migration guidance.
+
+Acceptance criteria:
+
+1. CI validates typecheck/build/storybook build.
+2. Publish flow is repeatable and documented.
+3. Consumers can adopt components with clear migration notes.
+
+## Working rules (all phases)
+
+1. Prefer composability over large all-in-one components.
+2. Keep state slices small and local (`zustand` + context only where needed).
+3. Add docs/stories in the same PR as component changes.
+4. Keep visual language consistent with tokenized values.
