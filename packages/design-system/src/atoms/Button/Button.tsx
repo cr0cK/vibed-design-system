@@ -6,6 +6,7 @@ import { toBooleanVariant } from "../../utils/variantValue";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   tone?: "primary" | "neutral" | "danger";
+  controlSize?: "sm" | "md" | "lg";
   size?: "sm" | "md" | "lg";
   block?: boolean;
   loading?: boolean;
@@ -38,7 +39,7 @@ const ButtonRoot = styled.button<ButtonProps>(function style(props) {
         color: "var(--ds-color-danger-contrast)"
       }
     })
-    .variant("size", props.size ?? "md", {
+    .variant("controlSize", props.controlSize ?? props.size ?? "md", {
       sm: { fontSize: "0.875rem", padding: "0.45rem 0.8rem" },
       md: { fontSize: "0.95rem", padding: "0.6rem 1rem" },
       lg: { fontSize: "1rem", padding: "0.8rem 1.25rem" }

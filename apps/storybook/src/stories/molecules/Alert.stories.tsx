@@ -7,9 +7,15 @@ export const Showcase = {
   render: function Render() {
     return (
       <Stack gap="sm">
-        <Alert tone="neutral" title="Info">Neutral alert message.</Alert>
-        <Alert tone="success" title="Success">Build completed successfully.</Alert>
-        <Alert tone="danger" title="Error">Unable to publish package.</Alert>
+        <Alert controlSize="sm" tone="neutral" title="Info (sm)">Neutral alert message.</Alert>
+        <Alert controlSize="sm" tone="success" title="Success (sm)">Build completed successfully.</Alert>
+        <Alert controlSize="sm" tone="danger" title="Error (sm)">Unable to publish package.</Alert>
+        <Alert controlSize="md" tone="neutral" title="Info (md)">Neutral alert message.</Alert>
+        <Alert controlSize="md" tone="success" title="Success (md)">Build completed successfully.</Alert>
+        <Alert controlSize="md" tone="danger" title="Error (md)">Unable to publish package.</Alert>
+        <Alert controlSize="lg" tone="neutral" title="Info (lg)">Neutral alert message.</Alert>
+        <Alert controlSize="lg" tone="success" title="Success (lg)">Build completed successfully.</Alert>
+        <Alert controlSize="lg" tone="danger" title="Error (lg)">Unable to publish package.</Alert>
       </Stack>
     );
   }

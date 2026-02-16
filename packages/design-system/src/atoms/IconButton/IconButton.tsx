@@ -5,6 +5,7 @@ import { buildVariants } from "../../utils/buildVariants";
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: ReactNode;
   label: string;
+  controlSize?: "sm" | "md" | "lg";
   size?: "sm" | "md" | "lg";
   tone?: "neutral" | "primary" | "danger";
 }
@@ -22,7 +23,7 @@ const IconButtonRoot = styled.button<IconButtonProps>(function style(props) {
       cursor: "pointer",
       transition: "transform .15s ease, border-color .15s ease"
     })
-    .variant("size", props.size ?? "md", {
+    .variant("controlSize", props.controlSize ?? props.size ?? "md", {
       sm: { width: "1.9rem", height: "1.9rem" },
       md: { width: "2.2rem", height: "2.2rem" },
       lg: { width: "2.6rem", height: "2.6rem" }

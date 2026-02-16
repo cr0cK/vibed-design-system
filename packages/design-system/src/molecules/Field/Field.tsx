@@ -3,30 +3,49 @@ import styled from "@emotion/styled";
 import { Text } from "../../atoms/Text/Text";
 import { buildVariants } from "../../utils/buildVariants";
 
-const FieldRoot = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface FieldLayoutProps {
+  controlSize?: "sm" | "md" | "lg";
+}
+
+const FieldRoot = styled.div<FieldLayoutProps>(function style(props) {
+  return buildVariants<FieldLayoutProps>(props)
     .css({
       display: "grid",
       gap: "var(--ds-space-xs)"
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { gap: "var(--ds-space-xxs)" },
+      md: { gap: "var(--ds-space-xs)" },
+      lg: { gap: "var(--ds-space-sm)" }
+    })
     .end();
 });
 
-const LabelRow = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+const LabelRow = styled.div<FieldLayoutProps>(function style(props) {
+  return buildVariants<FieldLayoutProps>(props)
     .css({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       gap: "var(--ds-space-xs)"
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { gap: "var(--ds-space-xxs)" },
+      md: { gap: "var(--ds-space-xs)" },
+      lg: { gap: "var(--ds-space-sm)" }
+    })
     .end();
 });
 
-const MessageRow = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+const MessageRow = styled.div<FieldLayoutProps>(function style(props) {
+  return buildVariants<FieldLayoutProps>(props)
     .css({
       minHeight: "1.2em"
+    })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { minHeight: "1.1em" },
+      md: { minHeight: "1.2em" },
+      lg: { minHeight: "1.35em" }
     })
     .end();
 });
@@ -39,14 +58,19 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   error?: string;
   required?: boolean;
   action?: ReactNode;
+  controlSize?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg";
 }
 
 export function Field(props: FieldProps) {
+  const controlSize = props.controlSize ?? props.size ?? "md";
+  const textSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "md" : "sm";
+
   return (
-    <FieldRoot className={props.className}>
-      <LabelRow>
+    <FieldRoot className={props.className} controlSize={controlSize}>
+      <LabelRow controlSize={controlSize}>
         <label htmlFor={props.inputId}>
-          <Text as="span" size="sm" weight="semibold">
+          <Text as="span" size={textSize} weight="semibold">
             {props.label}
             {props.required ? " *" : ""}
           </Text>
@@ -56,13 +80,13 @@ export function Field(props: FieldProps) {
 
       {props.children}
 
-      <MessageRow>
+      <MessageRow controlSize={controlSize}>
         {props.error ? (
-          <Text as="span" size="sm" tone="danger">
+          <Text as="span" size={textSize} tone="danger">
             {props.error}
           </Text>
         ) : (
-          <Text as="span" size="sm" tone="muted">
+          <Text as="span" size={textSize} tone="muted">
             {props.hint}
           </Text>
         )}
