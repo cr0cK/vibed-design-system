@@ -5,20 +5,40 @@ import { buildVariants } from "../../utils/buildVariants";
 export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   columns?: number;
+  template?: "equal" | "app-shell";
   gap?: "xs" | "sm" | "md" | "lg";
+  minHeight?: "auto" | "screen";
 }
 
 const GridRoot = styled.div<GridProps>(function style(props) {
+  const gridTemplateColumns = props.template === "app-shell"
+    ? "220px minmax(0, 1fr) minmax(24rem, 33.75rem)"
+    : `repeat(${props.columns ?? 2}, minmax(0, 1fr))`;
+
   return buildVariants<GridProps>(props)
     .css({
       display: "grid",
-      gridTemplateColumns: `repeat(${props.columns ?? 2}, minmax(0, 1fr))`
+      gridTemplateColumns,
+      ...(props.template === "app-shell"
+        ? {
+            "@media (max-width: 1100px)": {
+              gridTemplateColumns: "220px minmax(0, 1fr)"
+            },
+            "@media (max-width: 860px)": {
+              gridTemplateColumns: "1fr"
+            }
+          }
+        : {})
     })
     .variant("gap", props.gap ?? "md", {
       xs: { gap: "var(--ds-space-xs)" },
       sm: { gap: "var(--ds-space-sm)" },
       md: { gap: "var(--ds-space-md)" },
       lg: { gap: "var(--ds-space-lg)" }
+    })
+    .variant("minHeight", props.minHeight ?? "auto", {
+      auto: { minHeight: "auto" },
+      screen: { minHeight: "100vh" }
     })
     .end();
 });

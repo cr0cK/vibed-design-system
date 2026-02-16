@@ -14,7 +14,10 @@ const InlineRoot = styled.div<InlineProps>(function style(props) {
     .css({
       display: "flex",
       flexDirection: "row",
-      flexWrap: "wrap"
+      flexWrap: "wrap",
+      "& > *": {
+        minWidth: 0
+      }
     })
     .variant("gap", props.gap ?? "sm", {
       xxs: { gap: "var(--ds-space-xxs)" },

@@ -3,3 +3,4 @@ dist
 storybook-static
 .DS_Store
 pnpm-lock.yaml
+/*.png

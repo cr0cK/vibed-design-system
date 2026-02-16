@@ -8,6 +8,7 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   tone?: "default" | "muted" | "success" | "danger";
   size?: "sm" | "md" | "lg" | "xl";
   weight?: "regular" | "medium" | "semibold" | "bold";
+  align?: "left" | "center" | "right";
 }
 
 const TextRoot = styled.p<TextProps>(function style(props) {
@@ -38,6 +39,11 @@ const TextRoot = styled.p<TextProps>(function style(props) {
       medium: { fontWeight: 500 },
       semibold: { fontWeight: 600 },
       bold: { fontWeight: 700 }
+    })
+    .variant("align", props.align ?? "left", {
+      left: { textAlign: "left" },
+      center: { textAlign: "center" },
+      right: { textAlign: "right" }
     })
     .end();
 });

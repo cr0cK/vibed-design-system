@@ -12,6 +12,8 @@ const InputRoot = styled.input<InputProps>(function style(props) {
   return buildVariants<InputProps>(props)
     .css({
       width: "100%",
+      minWidth: 0,
+      boxSizing: "border-box",
       border: "1px solid var(--ds-color-border)",
       borderRadius: "var(--ds-radius-sm)",
       backgroundColor: "var(--ds-color-surface)",

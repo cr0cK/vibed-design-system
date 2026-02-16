@@ -11,6 +11,8 @@ const TextareaRoot = styled.textarea<TextareaProps>(function style(props) {
   return buildVariants<TextareaProps>(props)
     .css({
       width: "100%",
+      minWidth: 0,
+      boxSizing: "border-box",
       borderRadius: "var(--ds-radius-sm)",
       border: "1px solid var(--ds-color-border)",
       padding: "0.65rem 0.75rem",
