@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useId, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
@@ -43,15 +43,42 @@ const Bubble = styled.span(function style() {
 
 export function Tooltip(props: TooltipProps) {
   const [open, setOpen] = useState(false);
+  const tooltipId = useId();
+
+  useEffect(function closeOnEscape() {
+    if (!open) {
+      return;
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return function cleanup() {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
     <Root
       className={props.className}
       onMouseEnter={function onMouseEnter() { setOpen(true); }}
       onMouseLeave={function onMouseLeave() { setOpen(false); }}
+      onFocus={function onFocus() { setOpen(true); }}
+      onBlur={function onBlur() { setOpen(false); }}
+      onKeyDown={function onKeyDown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          setOpen(false);
+        }
+      }}
+      aria-describedby={open ? tooltipId : undefined}
     >
       {props.children}
-      {open ? <Bubble role="tooltip">{props.tooltipContent}</Bubble> : null}
+      {open ? <Bubble id={tooltipId} role="tooltip">{props.tooltipContent}</Bubble> : null}
     </Root>
   );
 }

@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { cloneElement, isValidElement, useId } from "react";
 import styled from "@emotion/styled";
 import { Text } from "../../atoms/Text/Text";
 import { buildVariants } from "../../utils/buildVariants";
@@ -65,6 +66,20 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
 export function Field(props: FieldProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const textSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "md" : "sm";
+  const messageId = useId();
+  const describedById = props.error || props.hint ? messageId : undefined;
+  let controlNode: ReactNode = props.children;
+
+  if (isValidElement<Record<string, unknown>>(props.children)) {
+    const currentDescribedBy = typeof props.children.props["aria-describedby"] === "string" ? props.children.props["aria-describedby"] : undefined;
+    const describedBy = describedById ? [currentDescribedBy, describedById].filter(Boolean).join(" ") : currentDescribedBy;
+
+    controlNode = cloneElement(props.children, {
+      id: props.inputId,
+      "aria-describedby": describedBy || undefined,
+      "aria-invalid": props.error ? true : props.children.props["aria-invalid"]
+    });
+  }
 
   return (
     <FieldRoot className={props.className} controlSize={controlSize}>
@@ -78,9 +93,9 @@ export function Field(props: FieldProps) {
         {props.action}
       </LabelRow>
 
-      {props.children}
+      {controlNode}
 
-      <MessageRow controlSize={controlSize}>
+      <MessageRow id={describedById} controlSize={controlSize}>
         {props.error ? (
           <Text as="span" size={textSize} tone="danger">
             {props.error}

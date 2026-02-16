@@ -1,5 +1,5 @@
 import type { ChangeEvent, KeyboardEvent, ReactNode, SelectHTMLAttributes } from "react";
-import { Children, isValidElement, useEffect, useMemo, useRef, useState } from "react";
+import { Children, isValidElement, useEffect, useId, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
@@ -202,6 +202,9 @@ function getOptions(children: ReactNode): SelectOptionItem[] {
 
 export function Select(props: SelectProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const generatedId = useId();
+  const triggerId = props.id ?? generatedId;
+  const listboxId = `${triggerId}-listbox`;
   const options = useMemo(function memoOptions() {
     return getOptions(props.children);
   }, [props.children]);
@@ -315,6 +318,7 @@ export function Select(props: SelectProps) {
     <SelectRoot ref={rootRef}>
       {props.name ? <input type="hidden" name={props.name} value={selectedValue} /> : null}
       <SelectTrigger
+        id={triggerId}
         type="button"
         disabled={props.disabled}
         controlSize={props.controlSize}
@@ -332,13 +336,19 @@ export function Select(props: SelectProps) {
         }}
         onKeyDown={handleTriggerKeyDown}
         aria-haspopup="listbox"
+        aria-controls={open ? listboxId : undefined}
         aria-expanded={open}
+        aria-label={props["aria-label"]}
+        aria-labelledby={props["aria-labelledby"]}
+        aria-describedby={props["aria-describedby"]}
+        aria-required={props.required}
+        aria-invalid={props["aria-invalid"]}
       >
         {selectedOption ? selectedOption.label : ""}
       </SelectTrigger>
       {open ? (
         <OptionsLayer>
-          <OptionsList role="listbox">
+          <OptionsList id={listboxId} role="listbox" aria-labelledby={triggerId}>
             {options.map(function mapOption(option, index) {
               const selected = option.value === selectedValue;
               const highlighted = index === highlightedIndex;
@@ -347,6 +357,8 @@ export function Select(props: SelectProps) {
                 <li key={option.value}>
                   <OptionButton
                     type="button"
+                    role="option"
+                    aria-selected={selected}
                     controlSize={props.controlSize}
                     selected={selected}
                     highlighted={highlighted}

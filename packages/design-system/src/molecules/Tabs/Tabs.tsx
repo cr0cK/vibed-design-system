@@ -1,4 +1,5 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
+import { useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
@@ -61,17 +62,74 @@ const Panel = styled.div<TabsLayoutProps>(function style(props) {
 
 export function Tabs(props: TabsProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
+  const tabsId = useId();
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const selectedIndex = props.items.findIndex(function findById(item) {
+    return item.id === props.value;
+  });
+
+  function focusAndSelect(index: number) {
+    if (props.items.length === 0) {
+      return;
+    }
+
+    const bounded = (index + props.items.length) % props.items.length;
+    const next = props.items[bounded];
+    if (!next) {
+      return;
+    }
+
+    props.onValueChange(next.id);
+    tabRefs.current[bounded]?.focus();
+  }
+
+  function onListKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (props.items.length === 0) {
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      focusAndSelect((selectedIndex >= 0 ? selectedIndex : 0) + 1);
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      focusAndSelect((selectedIndex >= 0 ? selectedIndex : 0) - 1);
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      focusAndSelect(0);
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      focusAndSelect(props.items.length - 1);
+    }
+  }
 
   return (
     <Root className={props.className} controlSize={controlSize}>
-      <List role="tablist" aria-label="Tabs" controlSize={controlSize}>
-        {props.items.map((item) => {
+      <List role="tablist" aria-label="Tabs" controlSize={controlSize} onKeyDown={onListKeyDown}>
+        {props.items.map((item, index) => {
           const isActive: boolean = props.value === item.id;
+          const tabId = `${tabsId}-tab-${item.id}`;
+          const panelId = `${tabsId}-panel-${item.id}`;
           return (
             <Button
               key={item.id}
+              ref={function setRef(node) {
+                tabRefs.current[index] = node;
+              }}
+              id={tabId}
               role="tab"
+              aria-controls={panelId}
               aria-selected={isActive}
+              tabIndex={isActive ? 0 : -1}
               tone={isActive ? "primary" : "neutral"}
               controlSize={controlSize}
               onClick={function onClick() {
@@ -83,7 +141,14 @@ export function Tabs(props: TabsProps) {
           );
         })}
       </List>
-      <Panel role="tabpanel" controlSize={controlSize}>{props.panels?.[props.value]}</Panel>
+      <Panel
+        id={`${tabsId}-panel-${props.value}`}
+        role="tabpanel"
+        aria-labelledby={`${tabsId}-tab-${props.value}`}
+        controlSize={controlSize}
+      >
+        {props.panels?.[props.value]}
+      </Panel>
     </Root>
   );
 }

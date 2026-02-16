@@ -1,13 +1,17 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
+import { Heading } from "../../atoms/Heading/Heading";
 
 export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
   side?: "left" | "right";
+  title?: string;
   children?: ReactNode;
   onClose: () => void;
+  closeOnEscape?: boolean;
 }
 
 interface PanelProps {
@@ -72,6 +76,47 @@ const Panel = styled.div<PanelProps>(function style(props) {
 });
 
 export function Drawer(props: DrawerProps) {
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const previousFocusedRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
+
+  useEffect(function onOpenFocusAndKeyboard() {
+    if (!props.open) {
+      return;
+    }
+
+    previousFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+    const closeButton = closeButtonRef.current;
+    const panel = panelRef.current;
+    if (closeButton) {
+      closeButton.focus();
+    } else if (panel) {
+      panel.focus();
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
+        event.preventDefault();
+        props.onClose();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return function cleanup() {
+      document.removeEventListener("keydown", onKeyDown);
+      previousFocusedRef.current?.focus();
+    };
+  }, [props.open, props.closeOnEscape, props.onClose]);
+
+  function onPanelKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
+      event.preventDefault();
+      props.onClose();
+    }
+  }
+
   if (!props.open) {
     return null;
   }
@@ -79,8 +124,17 @@ export function Drawer(props: DrawerProps) {
   return (
     <>
       <Backdrop onClick={props.onClose} />
-      <Panel side={props.side ?? "right"}>
-        <Button tone="neutral" onClick={props.onClose}>Close</Button>
+      <Panel
+        ref={panelRef}
+        side={props.side ?? "right"}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={props.title ? titleId : undefined}
+        tabIndex={-1}
+        onKeyDown={onPanelKeyDown}
+      >
+        {props.title ? <Heading id={titleId} level={4}>{props.title}</Heading> : null}
+        <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
         {props.children}
       </Panel>
     </>

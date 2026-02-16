@@ -1,4 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { cloneElement, isValidElement, useId } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { HelperText } from "../HelperText/HelperText";
@@ -41,12 +42,34 @@ export interface FormControlProps extends HTMLAttributes<HTMLDivElement> {
 
 export function FormControl(props: FormControlProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
+  const helperTextId = useId();
+  const helperId = props.error || props.hint ? helperTextId : undefined;
+  let controlNode: ReactNode = props.children;
+  let controlId = props.htmlFor;
+
+  if (isValidElement<Record<string, unknown>>(props.children)) {
+    const currentId = typeof props.children.props.id === "string" ? props.children.props.id : undefined;
+    const currentDescribedBy = typeof props.children.props["aria-describedby"] === "string" ? props.children.props["aria-describedby"] : undefined;
+    const describedBy = helperId ? [currentDescribedBy, helperId].filter(Boolean).join(" ") : currentDescribedBy;
+    const invalid = props.error ? true : props.children.props["aria-invalid"];
+    controlId = props.htmlFor ?? currentId;
+
+    controlNode = cloneElement(props.children, {
+      id: controlId,
+      "aria-describedby": describedBy || undefined,
+      "aria-invalid": invalid
+    });
+  }
 
   return (
     <Root className={props.className} controlSize={controlSize}>
-      {props.label ? <Label htmlFor={props.htmlFor} controlSize={controlSize}>{props.label}</Label> : null}
-      {props.children}
-      {props.error ? <HelperText controlSize={controlSize} tone="danger">{props.error}</HelperText> : props.hint ? <HelperText controlSize={controlSize}>{props.hint}</HelperText> : null}
+      {props.label ? <Label htmlFor={controlId} controlSize={controlSize}>{props.label}</Label> : null}
+      {controlNode}
+      {props.error ? (
+        <HelperText id={helperId} controlSize={controlSize} tone="danger">{props.error}</HelperText>
+      ) : props.hint ? (
+        <HelperText id={helperId} controlSize={controlSize}>{props.hint}</HelperText>
+      ) : null}
     </Root>
   );
 }

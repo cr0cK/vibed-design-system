@@ -1,10 +1,11 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode, Ref } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { toBooleanVariant } from "../../utils/variantValue";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
+  ref?: Ref<HTMLButtonElement>;
   tone?: "primary" | "neutral" | "danger";
   controlSize?: "sm" | "md" | "lg";
   size?: "sm" | "md" | "lg";
@@ -75,6 +76,7 @@ export function Button(props: ButtonProps) {
   return (
     <ButtonRoot
       {...props}
+      ref={props.ref}
       disabled={props.disabled || props.loading}
       type={props.type ?? "button"}
       aria-busy={props.loading}
