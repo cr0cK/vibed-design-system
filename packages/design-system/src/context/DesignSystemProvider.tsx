@@ -25,11 +25,43 @@ export interface DesignSystemProviderProps {
   children: ReactNode;
   density?: DensityMode;
   mode?: keyof ThemeModeSet;
+  theme?: ThemeTokens;
   themeOverrides?: Partial<ThemeTokens>;
 }
 
 export function DesignSystemProvider(props: DesignSystemProviderProps) {
   const selectedTheme: ThemeTokens = useMemo(() => {
+    if (props.theme) {
+      if (!props.themeOverrides) {
+        return props.theme;
+      }
+
+      return createTheme({
+        ...props.theme,
+        ...props.themeOverrides,
+        colors: {
+          ...props.theme.colors,
+          ...(props.themeOverrides.colors ?? {})
+        },
+        spacing: {
+          ...props.theme.spacing,
+          ...(props.themeOverrides.spacing ?? {})
+        },
+        radii: {
+          ...props.theme.radii,
+          ...(props.themeOverrides.radii ?? {})
+        },
+        typography: {
+          ...props.theme.typography,
+          ...(props.themeOverrides.typography ?? {})
+        },
+        shadows: {
+          ...props.theme.shadows,
+          ...(props.themeOverrides.shadows ?? {})
+        }
+      });
+    }
+
     const modeKey: keyof ThemeModeSet = props.mode ?? "light";
     const baseTheme: ThemeTokens = defaultThemes[modeKey];
 
@@ -61,7 +93,7 @@ export function DesignSystemProvider(props: DesignSystemProviderProps) {
         ...(props.themeOverrides.shadows ?? {})
       }
     });
-  }, [props.mode, props.themeOverrides]);
+  }, [props.mode, props.theme, props.themeOverrides]);
 
   const contextValue = useMemo(() => {
     return {
