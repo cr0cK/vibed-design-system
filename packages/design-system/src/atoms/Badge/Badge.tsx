@@ -12,9 +12,12 @@ const BadgeRoot = styled.span<BadgeProps>(function style(props) {
     .css({
       display: "inline-flex",
       alignItems: "center",
+      justifyContent: "center",
       borderRadius: "var(--ds-radius-full)",
       padding: "0.1rem 0.5rem",
+      minHeight: "1.35rem",
       fontSize: "0.75rem",
+      lineHeight: 1,
       fontWeight: 600,
       border: "1px solid transparent"
     })

@@ -129,7 +129,7 @@ export const ScreenshotStyle = {
               </Stack>
             </Box>
 
-            <Box marginTop="xs" paddingTop="sm" border="subtle" borderSide="top">
+            <Box mt="xs" pt="sm" border="subtle" borderSide="top">
               <Inline justify="end" gap="xs">
                 <Button tone="neutral">Cancel</Button>
                 <Button tone="primary">Create Digest Schedule</Button>
