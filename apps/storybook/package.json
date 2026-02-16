@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "dev": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
     "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
     "build": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
     "typecheck": "tsc --noEmit"

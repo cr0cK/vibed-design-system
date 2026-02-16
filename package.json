@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "packageManager": "pnpm@10.5.0",
   "scripts": {
+    "dev": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
+    "watch:storybook": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "check": "pnpm typecheck && pnpm build",
-    "dev:storybook": "pnpm --filter @vibed/storybook storybook",
+    "dev:storybook": "pnpm run watch:storybook",
     "build:storybook": "pnpm --filter @vibed/storybook build"
   }
 }
