@@ -1,0 +1,14 @@
+import { AppShell, Card, Stack, Text } from "@vibed/design-system";
+
+const meta = { title: "Organisms/AppShell", component: AppShell, tags: ["autodocs"] };
+export default meta;
+
+export const Showcase = {
+  render: function Render() {
+    return (
+      <AppShell title="Workspace" navigation={<Stack gap="xs"><Text>Foundations</Text><Text>Components</Text></Stack>}>
+        <Card title="Main content"><Text>App shell content area.</Text></Card>
+      </AppShell>
+    );
+  }
+};

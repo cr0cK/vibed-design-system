@@ -47,3 +47,4 @@ pnpm check
 ## Documentation
 
 - See `docs/README.md` for the design-system pattern handbook.
+- Story map: `apps/storybook/src/stories/INDEX.md`
