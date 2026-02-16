@@ -4,10 +4,15 @@ import { buildVariants } from "../../utils/buildVariants";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: ReactNode;
+  controlSize?: "sm" | "md" | "lg";
 }
 
-const LabelRoot = styled.label(function style() {
-  return buildVariants<Record<string, never>>({})
+interface CheckboxLabelProps {
+  controlSize?: "sm" | "md" | "lg";
+}
+
+const LabelRoot = styled.label<CheckboxLabelProps>(function style(props) {
+  return buildVariants<CheckboxLabelProps>(props)
     .css({
       display: "inline-flex",
       alignItems: "center",
@@ -16,11 +21,16 @@ const LabelRoot = styled.label(function style() {
       userSelect: "none",
       minHeight: "1.375rem"
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { minHeight: "1.15rem", gap: "var(--ds-space-xxs)" },
+      md: { minHeight: "1.375rem", gap: "var(--ds-space-xs)" },
+      lg: { minHeight: "1.7rem", gap: "var(--ds-space-sm)" }
+    })
     .end();
 });
 
-const CheckboxInput = styled.input<CheckboxProps>(function style() {
-  return buildVariants<CheckboxProps>({})
+const CheckboxInput = styled.input<CheckboxProps>(function style(props) {
+  return buildVariants<CheckboxProps>(props)
     .css({
       width: "1rem",
       height: "1rem",
@@ -76,25 +86,65 @@ const CheckboxInput = styled.input<CheckboxProps>(function style() {
         color: "var(--ds-color-text-muted)"
       }
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: {
+        width: "0.875rem",
+        height: "0.875rem",
+        borderRadius: "0.18rem",
+        "&::after": {
+          width: "0.22rem",
+          height: "0.42rem",
+          borderWidth: "2px",
+          transform: "translate(-50%, -56%) rotate(45deg) scale(0)"
+        },
+        "&:checked::after": {
+          transform: "translate(-50%, -56%) rotate(45deg) scale(1)"
+        }
+      },
+      md: {
+        width: "1rem",
+        height: "1rem",
+        borderRadius: "0.2rem"
+      },
+      lg: {
+        width: "1.15rem",
+        height: "1.15rem",
+        borderRadius: "0.24rem",
+        "&::after": {
+          width: "0.32rem",
+          height: "0.58rem",
+          borderWidth: "2px",
+          transform: "translate(-50%, -58%) rotate(45deg) scale(0)"
+        },
+        "&:checked::after": {
+          transform: "translate(-50%, -58%) rotate(45deg) scale(1)"
+        }
+      }
+    })
     .end();
 });
 
-const CheckboxText = styled.span(function style() {
-  return buildVariants<Record<string, never>>({})
+const CheckboxText = styled.span<CheckboxLabelProps>(function style(props) {
+  return buildVariants<CheckboxLabelProps>(props)
     .css({
       color: "var(--ds-color-text)",
       fontFamily: "var(--ds-font-body)",
       fontSize: "0.875rem",
       lineHeight: 1.45
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { fontSize: "0.82rem", lineHeight: 1.35 },
+      md: { fontSize: "0.875rem", lineHeight: 1.45 },
+      lg: { fontSize: "0.95rem", lineHeight: 1.5 }
+    })
     .end();
 });
 
 export function Checkbox(props: CheckboxProps) {
   return (
-    <LabelRoot>
+    <LabelRoot controlSize={props.controlSize}>
       <CheckboxInput {...props} type="checkbox" />
-      <CheckboxText>{props.label}</CheckboxText>
+      <CheckboxText controlSize={props.controlSize}>{props.label}</CheckboxText>
     </LabelRoot>
   );
 }

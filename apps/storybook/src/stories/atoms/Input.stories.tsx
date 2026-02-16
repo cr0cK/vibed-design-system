@@ -7,7 +7,9 @@ export const Showcase = {
   render: function Render() {
     return (
       <Stack gap="sm">
-        <Input placeholder="Email" />
+        <Input controlSize="sm" placeholder="Email (sm)" />
+        <Input controlSize="md" placeholder="Email (md)" />
+        <Input controlSize="lg" placeholder="Email (lg)" />
         <Input placeholder="Invalid state" invalid />
       </Stack>
     );

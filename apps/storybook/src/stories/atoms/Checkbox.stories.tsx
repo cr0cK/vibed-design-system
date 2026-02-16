@@ -7,8 +7,9 @@ export const Showcase = {
   render: function Render() {
     return (
       <Stack gap="sm">
-        <Checkbox label="Design updates" defaultChecked />
-        <Checkbox label="Release notifications" />
+        <Checkbox controlSize="sm" label="Design updates (sm)" defaultChecked />
+        <Checkbox controlSize="md" label="Release notifications (md)" />
+        <Checkbox controlSize="lg" label="Billing alerts (lg)" />
       </Stack>
     );
   }

@@ -9,8 +9,9 @@ function Demo() {
 
   return (
     <Stack gap="sm">
-      <Radio name="plan" label="Starter" checked={value === "a"} onChange={function onChange() { setValue("a"); }} />
-      <Radio name="plan" label="Pro" checked={value === "b"} onChange={function onChange() { setValue("b"); }} />
+      <Radio controlSize="sm" name="plan" label="Starter (sm)" checked={value === "a"} onChange={function onChange() { setValue("a"); }} />
+      <Radio controlSize="md" name="plan" label="Pro (md)" checked={value === "b"} onChange={function onChange() { setValue("b"); }} />
+      <Radio controlSize="lg" name="plan" label="Enterprise (lg)" checked={value === "c"} onChange={function onChange() { setValue("c"); }} />
     </Stack>
   );
 }

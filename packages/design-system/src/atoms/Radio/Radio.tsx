@@ -4,10 +4,15 @@ import { buildVariants } from "../../utils/buildVariants";
 
 export interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: ReactNode;
+  controlSize?: "sm" | "md" | "lg";
 }
 
-const LabelRoot = styled.label(function style() {
-  return buildVariants<Record<string, never>>({})
+interface RadioLabelProps {
+  controlSize?: "sm" | "md" | "lg";
+}
+
+const LabelRoot = styled.label<RadioLabelProps>(function style(props) {
+  return buildVariants<RadioLabelProps>(props)
     .css({
       display: "inline-flex",
       alignItems: "center",
@@ -16,11 +21,16 @@ const LabelRoot = styled.label(function style() {
       userSelect: "none",
       minHeight: "1.375rem"
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { minHeight: "1.15rem", gap: "var(--ds-space-xxs)" },
+      md: { minHeight: "1.375rem", gap: "var(--ds-space-xs)" },
+      lg: { minHeight: "1.7rem", gap: "var(--ds-space-sm)" }
+    })
     .end();
 });
 
-const RadioInput = styled.input<RadioProps>(function style() {
-  return buildVariants<RadioProps>({})
+const RadioInput = styled.input<RadioProps>(function style(props) {
+  return buildVariants<RadioProps>(props)
     .css({
       width: "1rem",
       height: "1rem",
@@ -69,25 +79,47 @@ const RadioInput = styled.input<RadioProps>(function style() {
         color: "var(--ds-color-text-muted)"
       }
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: {
+        width: "0.875rem",
+        height: "0.875rem",
+        "&::before": { width: "0.42rem", height: "0.42rem" }
+      },
+      md: {
+        width: "1rem",
+        height: "1rem",
+        "&::before": { width: "0.5rem", height: "0.5rem" }
+      },
+      lg: {
+        width: "1.15rem",
+        height: "1.15rem",
+        "&::before": { width: "0.58rem", height: "0.58rem" }
+      }
+    })
     .end();
 });
 
-const RadioText = styled.span(function style() {
-  return buildVariants<Record<string, never>>({})
+const RadioText = styled.span<RadioLabelProps>(function style(props) {
+  return buildVariants<RadioLabelProps>(props)
     .css({
       color: "var(--ds-color-text)",
       fontFamily: "var(--ds-font-body)",
       fontSize: "0.875rem",
       lineHeight: 1.45
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { fontSize: "0.82rem", lineHeight: 1.35 },
+      md: { fontSize: "0.875rem", lineHeight: 1.45 },
+      lg: { fontSize: "0.95rem", lineHeight: 1.5 }
+    })
     .end();
 });
 
 export function Radio(props: RadioProps) {
   return (
-    <LabelRoot>
+    <LabelRoot controlSize={props.controlSize}>
       <RadioInput {...props} type="radio" />
-      <RadioText>{props.label}</RadioText>
+      <RadioText controlSize={props.controlSize}>{props.label}</RadioText>
     </LabelRoot>
   );
 }

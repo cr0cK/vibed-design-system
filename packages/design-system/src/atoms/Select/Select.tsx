@@ -5,6 +5,7 @@ import { buildVariants } from "../../utils/buildVariants";
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   children?: ReactNode;
+  controlSize?: "sm" | "md" | "lg";
 }
 
 interface SelectOptionItem {
@@ -16,6 +17,7 @@ interface SelectOptionItem {
 interface SelectTriggerProps {
   disabled?: boolean;
   open?: boolean;
+  controlSize?: "sm" | "md" | "lg";
 }
 
 const SelectRoot = styled.div(function style() {
@@ -83,6 +85,26 @@ const SelectTrigger = styled.button<SelectTriggerProps>(function style(props) {
         borderColor: "color-mix(in oklab, var(--ds-color-border) 88%, var(--ds-color-surface-muted))"
       }
     })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: {
+        minHeight: "1.75rem",
+        padding: "0.2rem 1.9rem 0.2rem 0.62rem",
+        fontSize: "0.82rem",
+        lineHeight: 1.45
+      },
+      md: {
+        minHeight: "2rem",
+        padding: "0.3rem 2.1rem 0.3rem 0.72rem",
+        fontSize: "0.875rem",
+        lineHeight: 1.57
+      },
+      lg: {
+        minHeight: "2.4rem",
+        padding: "0.5rem 2.25rem 0.5rem 0.82rem",
+        fontSize: "0.95rem",
+        lineHeight: 1.5
+      }
+    })
     .end();
 });
 
@@ -118,6 +140,7 @@ interface OptionButtonProps {
   selected?: boolean;
   highlighted?: boolean;
   disabled?: boolean;
+  controlSize?: "sm" | "md" | "lg";
 }
 
 const OptionButton = styled.button<OptionButtonProps>(function style(props) {
@@ -136,6 +159,11 @@ const OptionButton = styled.button<OptionButtonProps>(function style(props) {
       backgroundColor: props.selected ? "color-mix(in oklab, var(--ds-color-primary) 16%, var(--ds-color-surface))" : props.highlighted ? "color-mix(in oklab, var(--ds-color-primary) 8%, var(--ds-color-surface))" : "transparent",
       color: props.disabled ? "var(--ds-color-text-muted)" : "var(--ds-color-text)",
       transition: "background-color .12s ease, color .12s ease"
+    })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { padding: "0.3rem 0.5rem", fontSize: "0.82rem", lineHeight: 1.35 },
+      md: { padding: "0.4rem 0.6rem", fontSize: "0.875rem", lineHeight: 1.45 },
+      lg: { padding: "0.52rem 0.7rem", fontSize: "0.95rem", lineHeight: 1.5 }
     })
     .end();
 });
@@ -280,6 +308,7 @@ export function Select(props: SelectProps) {
       <SelectTrigger
         type="button"
         disabled={props.disabled}
+        controlSize={props.controlSize}
         data-disabled={props.disabled ? "true" : "false"}
         data-open={open ? "true" : "false"}
         open={open}
@@ -309,6 +338,7 @@ export function Select(props: SelectProps) {
                 <li key={option.value}>
                   <OptionButton
                     type="button"
+                    controlSize={props.controlSize}
                     selected={selected}
                     highlighted={highlighted}
                     disabled={option.disabled}

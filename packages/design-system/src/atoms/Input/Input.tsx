@@ -4,6 +4,7 @@ import { buildVariants } from "../../utils/buildVariants";
 import { toBooleanVariant } from "../../utils/variantValue";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  controlSize?: "sm" | "md" | "lg";
   inputSize?: "sm" | "md" | "lg";
   invalid?: boolean;
 }
@@ -22,7 +23,7 @@ const InputRoot = styled.input<InputProps>(function style(props) {
       transition: "border-color .16s ease, box-shadow .16s ease",
       outline: "none"
     })
-    .variant("size", props.inputSize ?? "md", {
+    .variant("controlSize", props.controlSize ?? props.inputSize ?? "md", {
       sm: { padding: "0.45rem 0.65rem", fontSize: "0.875rem" },
       md: { padding: "0.6rem 0.75rem", fontSize: "0.95rem" },
       lg: { padding: "0.75rem 0.9rem", fontSize: "1rem" }

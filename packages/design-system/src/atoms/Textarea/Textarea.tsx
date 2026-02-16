@@ -4,6 +4,7 @@ import { buildVariants } from "../../utils/buildVariants";
 import { toBooleanVariant } from "../../utils/variantValue";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  controlSize?: "sm" | "md" | "lg";
   invalid?: boolean;
 }
 
@@ -19,6 +20,11 @@ const TextareaRoot = styled.textarea<TextareaProps>(function style(props) {
       fontFamily: "var(--ds-font-body)",
       backgroundColor: "var(--ds-color-surface)",
       color: "var(--ds-color-text)"
+    })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { padding: "0.5rem 0.65rem", fontSize: "0.875rem", lineHeight: 1.4 },
+      md: { padding: "0.65rem 0.75rem", fontSize: "0.95rem", lineHeight: 1.45 },
+      lg: { padding: "0.78rem 0.9rem", fontSize: "1rem", lineHeight: 1.5 }
     })
     .variant("invalid", toBooleanVariant(props.invalid), {
       true: { borderColor: "var(--ds-color-danger)" },
