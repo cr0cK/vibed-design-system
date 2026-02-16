@@ -119,7 +119,16 @@ const OptionsLayer = styled.div(function style() {
       border: "1px solid color-mix(in oklab, var(--ds-color-border) 88%, #d6dde7)",
       backgroundColor: "var(--ds-color-surface)",
       boxShadow: "0 8px 24px rgba(17, 24, 39, 0.12)",
-      overflow: "hidden"
+      overflow: "hidden",
+      transformOrigin: "top center",
+      animation: "ds-select-layer-in .14s ease-out",
+      "@keyframes ds-select-layer-in": {
+        from: { opacity: 0, transform: "translateY(-4px) scale(0.99)" },
+        to: { opacity: 1, transform: "translateY(0) scale(1)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });

@@ -27,7 +27,16 @@ const Surface = styled.div(function style() {
       backgroundColor: "var(--ds-color-surface)",
       boxShadow: "var(--ds-shadow-sm)",
       padding: "var(--ds-space-sm)",
-      zIndex: 30
+      zIndex: 30,
+      transformOrigin: "top right",
+      animation: "ds-popover-in .16s ease-out",
+      "@keyframes ds-popover-in": {
+        from: { opacity: 0, transform: "translateY(-4px) scale(0.98)" },
+        to: { opacity: 1, transform: "translateY(0) scale(1)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });

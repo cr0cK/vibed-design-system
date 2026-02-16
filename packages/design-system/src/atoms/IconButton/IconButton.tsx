@@ -21,7 +21,23 @@ const IconButtonRoot = styled.button<IconButtonProps>(function style(props) {
       color: "var(--ds-color-text)",
       borderRadius: "var(--ds-radius-full)",
       cursor: "pointer",
-      transition: "transform .15s ease, border-color .15s ease"
+      transition: "transform .15s ease, border-color .15s ease, box-shadow .15s ease",
+      "&:hover": {
+        transform: "translateY(-1px)",
+        boxShadow: "var(--ds-shadow-sm)"
+      },
+      "&:active": {
+        transform: "translateY(0)"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        transition: "border-color .15s ease, box-shadow .15s ease",
+        "&:hover": {
+          transform: "none"
+        },
+        "&:active": {
+          transform: "none"
+        }
+      }
     })
     .variant("controlSize", props.controlSize ?? props.size ?? "md", {
       sm: { width: "1.9rem", height: "1.9rem" },

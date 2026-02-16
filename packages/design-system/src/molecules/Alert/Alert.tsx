@@ -18,7 +18,15 @@ const AlertRoot = styled.div<AlertProps>(function style(props) {
       border: "1px solid",
       padding: "var(--ds-space-sm) var(--ds-space-md)",
       display: "grid",
-      gap: "var(--ds-space-xs)"
+      gap: "var(--ds-space-xs)",
+      animation: "ds-alert-in .2s ease-out",
+      "@keyframes ds-alert-in": {
+        from: { opacity: 0, transform: "translateY(6px)" },
+        to: { opacity: 1, transform: "translateY(0)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .variant("controlSize", props.controlSize ?? props.size ?? "md", {
       sm: { padding: "var(--ds-space-xs) var(--ds-space-sm)", gap: "var(--ds-space-xxs)" },

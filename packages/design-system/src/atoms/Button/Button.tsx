@@ -22,7 +22,23 @@ const ButtonRoot = styled.button<ButtonProps>(function style(props) {
       fontFamily: "var(--ds-font-body)",
       fontWeight: 600,
       transition: "transform .14s ease, box-shadow .14s ease, background-color .14s ease",
-      boxShadow: "var(--ds-shadow-sm)"
+      boxShadow: "var(--ds-shadow-sm)",
+      "&:hover": {
+        transform: "translateY(-1px)",
+        boxShadow: "var(--ds-shadow-md)"
+      },
+      "&:active": {
+        transform: "translateY(0)"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        transition: "background-color .14s ease",
+        "&:hover": {
+          transform: "none"
+        },
+        "&:active": {
+          transform: "none"
+        }
+      }
     })
     .variant("tone", props.tone ?? "primary", {
       primary: {

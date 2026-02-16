@@ -19,7 +19,15 @@ const Backdrop = styled.div(function style() {
       backgroundColor: "rgba(0, 0, 0, 0.35)",
       display: "grid",
       placeItems: "center",
-      zIndex: 50
+      zIndex: 50,
+      animation: "ds-modal-backdrop-in .18s ease-out",
+      "@keyframes ds-modal-backdrop-in": {
+        from: { opacity: 0 },
+        to: { opacity: 1 }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });
@@ -34,7 +42,16 @@ const Panel = styled.div(function style() {
       boxShadow: "var(--ds-shadow-md)",
       padding: "var(--ds-space-lg)",
       display: "grid",
-      gap: "var(--ds-space-md)"
+      gap: "var(--ds-space-md)",
+      animation: "ds-modal-panel-in .2s cubic-bezier(.2,.8,.2,1)",
+      transformOrigin: "top center",
+      "@keyframes ds-modal-panel-in": {
+        from: { opacity: 0, transform: "translateY(10px) scale(0.98)" },
+        to: { opacity: 1, transform: "translateY(0) scale(1)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });

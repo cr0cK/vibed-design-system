@@ -20,7 +20,15 @@ const Backdrop = styled.div(function style() {
       position: "fixed",
       inset: 0,
       backgroundColor: "rgba(0, 0, 0, 0.28)",
-      zIndex: 40
+      zIndex: 40,
+      animation: "ds-drawer-backdrop-in .18s ease-out",
+      "@keyframes ds-drawer-backdrop-in": {
+        from: { opacity: 0 },
+        to: { opacity: 1 }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });
@@ -39,11 +47,26 @@ const Panel = styled.div<PanelProps>(function style(props) {
       padding: "var(--ds-space-lg)",
       display: "grid",
       gap: "var(--ds-space-md)",
-      alignContent: "start"
+      alignContent: "start",
+      willChange: "transform, opacity",
+      animationTimingFunction: "cubic-bezier(.2,.8,.2,1)",
+      animationDuration: ".22s",
+      animationFillMode: "both",
+      "@keyframes ds-drawer-in-right": {
+        from: { opacity: 0, transform: "translateX(18px)" },
+        to: { opacity: 1, transform: "translateX(0)" }
+      },
+      "@keyframes ds-drawer-in-left": {
+        from: { opacity: 0, transform: "translateX(-18px)" },
+        to: { opacity: 1, transform: "translateX(0)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .variant("side", props.side ?? "right", {
-      left: { left: 0 },
-      right: { right: 0 }
+      left: { left: 0, animationName: "ds-drawer-in-left" },
+      right: { right: 0, animationName: "ds-drawer-in-right" }
     })
     .end();
 });

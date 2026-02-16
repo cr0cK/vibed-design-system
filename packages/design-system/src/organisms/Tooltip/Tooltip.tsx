@@ -27,7 +27,16 @@ const Bubble = styled.span(function style() {
       padding: "0.35rem 0.5rem",
       fontSize: "0.75rem",
       whiteSpace: "nowrap",
-      zIndex: 20
+      zIndex: 20,
+      pointerEvents: "none",
+      animation: "ds-tooltip-in .14s ease-out",
+      "@keyframes ds-tooltip-in": {
+        from: { opacity: 0, transform: "translateX(-50%) translateY(4px)" },
+        to: { opacity: 1, transform: "translateX(-50%) translateY(0)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none"
+      }
     })
     .end();
 });
