@@ -46,5 +46,6 @@ pnpm check
 
 ## Documentation
 
-- See `docs/README.md` for the design-system pattern handbook.
+- Primary docs are published in Storybook under the `Documentation/*` section.
+- Source files for those pages live in `apps/storybook/src/stories/documentation`.
 - Story map: `apps/storybook/src/stories/INDEX.md`

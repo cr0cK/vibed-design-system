@@ -10,6 +10,7 @@
     "typecheck": "pnpm -r typecheck",
     "check": "pnpm typecheck && pnpm build",
     "dev:storybook": "pnpm run watch:storybook",
-    "build:storybook": "pnpm --filter @vibed/storybook build"
+    "build:storybook": "pnpm --filter @vibed/storybook build",
+    "update:docs": "bash scripts/update-docs.sh"
   }
 }

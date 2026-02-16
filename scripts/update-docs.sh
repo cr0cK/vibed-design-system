@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #############
-# This script is building the documentation and push it to the `docs` branch.
+# This script is building the documentation and push it to the `ghpages` branch.
 #
 # Usage:
-# npm run update:docs
+# pnpm update:docs
 #############
 
 set -e  # Exit on any error
@@ -31,11 +31,15 @@ if [ ! -d "apps/storybook/storybook-static" ]; then
   exit 1
 fi
 
+# copy the built docs to the root of the `ghpages` branch
+mkdir -p docs
+mv apps/storybook/storybook-static/* ./docs
+
 # commit and push the docs
 CURRENT_HASH=$(git rev-parse HEAD)
 git add .
-git add apps/storybook/storybook-static -f
-git commit -m "Update ghpages from ""$CURRENT_HASH"""
+git add docs -f
+git commit -m "Update docs from ""$CURRENT_HASH"""
 git push -f origin ghpages
 
 # go back on the previous branch and clean

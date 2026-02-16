@@ -1,0 +1,71 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Control Size" parameters={{ options: { showPanel: false } }} />
+
+# Control Size
+
+This page defines the shared size contract for composable controls in the design system.
+
+## Goal
+
+Use one semantic size prop across controls:
+
+- `controlSize?: "sm" | "md" | "lg"`
+
+This keeps layouts and forms visually consistent while still allowing pragmatic composition.
+
+## API Rules
+
+- Prefer `controlSize` for all control-like components.
+- Default to `md`.
+- Keep legacy `size` only as a compatibility alias where it already exists.
+- Resolve once in implementation:
+
+```tsx
+const controlSize = props.controlSize ?? props.size ?? "md";
+```
+
+## Coverage
+
+### Atoms
+
+- `Button`
+- `IconButton`
+- `Switch`
+- `Input`
+- `Textarea`
+- `Select`
+- `Checkbox`
+- `Radio`
+
+### Molecules
+
+- `Tabs`
+- `Pagination`
+- `Field`
+- `FormControl`
+- `HelperText`
+- `Alert`
+
+## Implementation Pattern
+
+1. Add explicit props interface entries for `controlSize` (and `size` only if needed for compatibility).
+2. Add `buildVariants(...).variant("controlSize", ...)` near base styles.
+3. Forward `controlSize` to internal controls and typography.
+4. Keep layout rhythm (gap, padding, min-height, text size) tied to `controlSize`.
+5. Add Storybook examples for `sm`, `md`, and `lg`.
+
+## Layout Rule
+
+- Apply spacing on layout containers (`Stack`, `Grid`, wrappers), not directly on individual fields.
+- Controls should expose size variants and avoid hard-coded external margins.
+
+## Definition Of Done
+
+- Supports `controlSize` with `sm`, `md`, `lg`
+- Defaults to `md`
+- Propagates size to nested controls/text where relevant
+- Storybook includes `sm`/`md`/`lg` examples
+- Build passes:
+  - `pnpm --filter @vibed/design-system build`
+  - `pnpm --filter @vibed/storybook build`

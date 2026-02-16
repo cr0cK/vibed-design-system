@@ -44,3 +44,14 @@
 - `apps/storybook/src/stories/organisms/NotificationCenter.stories.tsx`
 - `apps/storybook/src/stories/organisms/Popover.stories.tsx`
 - `apps/storybook/src/stories/organisms/Tooltip.stories.tsx`
+
+## Documentation
+
+- `apps/storybook/src/stories/documentation/Overview.mdx`
+- `apps/storybook/src/stories/documentation/Architecture.mdx`
+- `apps/storybook/src/stories/documentation/StylingPatterns.mdx`
+- `apps/storybook/src/stories/documentation/ComponentPatterns.mdx`
+- `apps/storybook/src/stories/documentation/StatePatterns.mdx`
+- `apps/storybook/src/stories/documentation/ControlSize.mdx`
+- `apps/storybook/src/stories/documentation/ContributionChecklist.mdx`
+- `apps/storybook/src/stories/documentation/Roadmap.mdx`
