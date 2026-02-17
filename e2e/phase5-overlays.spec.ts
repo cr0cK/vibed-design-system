@@ -177,3 +177,25 @@ test("workspace template story switches to neo mint theme", async function run({
   await expect(themeSelectTrigger).toHaveText("Neo Mint");
   await expect(page.getByRole("heading", { name: "Create Automation" })).toBeVisible();
 });
+
+test("workspace template gallery avoids overlap and horizontal overflow", async function run({ page }) {
+  await page.goto(storyUrl("themes-workspace-template--gallery"));
+
+  const hasHorizontalOverflow = await page.evaluate(function checkOverflow() {
+    return document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
+  });
+  expect(hasHorizontalOverflow).toBeFalsy();
+
+  const firstAutomationsHeading = page.getByRole("heading", { name: "Automations" }).first();
+  const firstCreateAutomationHeading = page.getByRole("heading", { name: "Create Automation" }).first();
+  const automationsBox = await firstAutomationsHeading.boundingBox();
+  const createAutomationBox = await firstCreateAutomationHeading.boundingBox();
+
+  expect(automationsBox).not.toBeNull();
+  expect(createAutomationBox).not.toBeNull();
+  if (!automationsBox || !createAutomationBox) {
+    return;
+  }
+
+  expect(createAutomationBox.y).toBeGreaterThan(automationsBox.y + automationsBox.height + 16);
+});
