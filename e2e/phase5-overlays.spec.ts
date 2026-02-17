@@ -1,7 +1,20 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 function storyUrl(storyId: string): string {
   return `/iframe.html?id=${storyId}&viewMode=story`;
+}
+
+async function expectNoAxeViolations(page: Page, includeSelector?: string): Promise<void> {
+  let builder = new AxeBuilder({ page }).disableRules(["page-has-heading-one", "region"]);
+
+  if (includeSelector) {
+    builder = builder.include(includeSelector);
+  }
+
+  const results = await builder.analyze();
+  expect(results.violations).toEqual([]);
 }
 
 test("modal closes on Escape and restores trigger focus", async function run({ page }) {
@@ -22,6 +35,13 @@ test("modal closes on Escape and restores trigger focus", async function run({ p
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog", { name: "Confirm release" })).toBeHidden();
   await expect(openButton).toBeFocused();
+});
+
+test("modal dialog has no axe violations", async function run({ page }) {
+  await page.goto(storyUrl("organisms-modal--showcase"));
+  await page.getByRole("button", { name: "Open modal" }).click();
+  await expect(page.getByRole("dialog", { name: "Confirm release" })).toBeVisible();
+  await expectNoAxeViolations(page, "[role='dialog']");
 });
 
 test("drawer closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {
@@ -84,6 +104,13 @@ test("command palette opens, focuses input, and closes on Escape", async functio
 
   await page.keyboard.press("Escape");
   await expect(commandInput).toBeHidden();
+});
+
+test("command palette dialog has no axe violations", async function run({ page }) {
+  await page.goto(storyUrl("organisms-commandpalette--showcase"));
+  await page.getByRole("button", { name: "Open command palette" }).click();
+  await expect(page.getByRole("textbox", { name: "Type a command..." })).toBeVisible();
+  await expectNoAxeViolations(page, "[role='dialog']");
 });
 
 test("select supports keyboard navigation", async function run({ page }) {

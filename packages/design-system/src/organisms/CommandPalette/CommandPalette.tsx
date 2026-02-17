@@ -17,6 +17,7 @@ export interface CommandItem {
 export interface CommandPaletteProps extends HTMLAttributes<HTMLDivElement> {
   commands: CommandItem[];
   triggerLabel?: string;
+  dialogLabel?: string;
   closeOnEscape?: boolean;
   portalTarget?: HTMLElement | null;
 }
@@ -211,6 +212,7 @@ export function CommandPalette(props: CommandPaletteProps) {
                   entered={entered}
                   role="dialog"
                   aria-modal="true"
+                  aria-label={props.dialogLabel ?? "Command palette"}
                 >
                   <Input
                     ref={inputRef}
