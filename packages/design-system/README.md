@@ -23,7 +23,7 @@ Pragmatic React design-system library focused on composable small components.
 
 - Package export is configured through `exports` and `types` in `package.json`.
 - Runtime peer dependencies are `react` and `react-dom`.
-- Build output is emitted to `dist` using `tsup`.
+- Build output is emitted to `dist` using `tsdown`.
 
 ## Theme tooling
 
