@@ -169,7 +169,7 @@ function WorkspaceTemplate(props: WorkspaceTemplateProps) {
   if (props.compact) {
     return (
       <Box surface="background" minHeight={shellMinHeight}>
-        <Stack gap="none">
+        <Stack gap="xxs">
           {sidebar}
           {mainContent}
           {formPanel}

@@ -1,19 +1,20 @@
 import { Popover, Select, Stack, Text } from "@vibed/design-system";
 import { useState } from "react";
+import type { PopoverPlacement } from "@vibed/design-system";
 
 const meta = { title: "Organisms/Popover", component: Popover, tags: ["autodocs"] };
 export default meta;
 
 export const Showcase = {
   render: function Render() {
-    const [placement, setPlacement] = useState("bottom-left");
+    const [placement, setPlacement] = useState<PopoverPlacement>("bottom-left");
 
     return (
       <Stack gap="sm" align="start">
         <Select
           value={placement}
           onChange={function onChange(event) {
-            setPlacement(event.target.value);
+            setPlacement(event.target.value as PopoverPlacement);
           }}
         >
           <option value="bottom-left">bottom-left</option>

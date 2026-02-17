@@ -1,19 +1,20 @@
 import { Button, Select, Stack, Tooltip } from "@vibed/design-system";
 import { useState } from "react";
+import type { TooltipPlacement } from "@vibed/design-system";
 
 const meta = { title: "Organisms/Tooltip", component: Tooltip, tags: ["autodocs"] };
 export default meta;
 
 export const Showcase = {
   render: function Render() {
-    const [placement, setPlacement] = useState("top");
+    const [placement, setPlacement] = useState<TooltipPlacement>("top");
 
     return (
       <Stack gap="sm" align="start">
         <Select
           value={placement}
           onChange={function onChange(event) {
-            setPlacement(event.target.value);
+            setPlacement(event.target.value as TooltipPlacement);
           }}
         >
           <option value="top">top</option>

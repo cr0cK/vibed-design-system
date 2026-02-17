@@ -1,19 +1,20 @@
 import { Button, Select, Sheet, Stack, Text } from "@vibed/design-system";
 import { useState } from "react";
+import type { SheetProps } from "@vibed/design-system";
 
 const meta = { title: "Organisms/Sheet", component: Sheet, tags: ["autodocs"] };
 export default meta;
 
 function Demo() {
   const [open, setOpen] = useState(false);
-  const [overlayMode, setOverlayMode] = useState("container");
+  const [overlayMode, setOverlayMode] = useState<NonNullable<SheetProps["overlayMode"]>>("container");
 
   return (
     <Stack gap="sm">
       <Select
         value={overlayMode}
         onChange={function onChange(event) {
-          setOverlayMode(event.target.value);
+          setOverlayMode(event.target.value as NonNullable<SheetProps["overlayMode"]>);
         }}
       >
         <option value="container">container</option>
