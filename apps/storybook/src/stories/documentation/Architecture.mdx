@@ -1,8 +1,20 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Documentation/Architecture" parameters={{ options: { showPanel: false } }} />
+<Meta title="Documentation/2. Architecture" parameters={{ options: { showPanel: false } }} />
 
 # Architecture
+
+## Initial guidance baseline
+
+The implementation follows these original constraints:
+
+- latest React runtime
+- CSS-in-JS with `@emotion/styled` and `@productive-codebases/build-variants`
+- explicit props interfaces for each component
+- no prop destructuring in function signatures
+- context for cross-tree concerns, no unnecessary prop drilling
+- pragmatic atom/molecule/organism layering
+- lightweight stores (`zustand`) for local complex state
 
 ## Workspace
 
@@ -20,6 +32,7 @@ import { Meta } from "@storybook/blocks";
 - `src/atoms`
 - `src/molecules`
 - `src/organisms`
+- `src/utilities`
 - `src/context`
 - `src/stores`
 - `src/theme`
@@ -32,12 +45,13 @@ import { Meta } from "@storybook/blocks";
 - Variants declared via `buildVariants(props).css().variant().end()`
 - Shared concerns via Context when appropriate
 - Local UI state with small Zustand stores
+- Overlay behavior standardized via utility composition (`Portal`, `FocusTrap`, `ClickOutside`)
+- Storybook is the public contract and verification surface
 
-## Phase 1 components
+## Engineering constraints
 
-- Foundations/layout: `Grid`, `Container`, `Spacer`, `Divider`, `Heading`, `Link`
-- Controls: `ButtonGroup`, `Checkbox`, `Radio`, `Switch`
-- Inputs/forms: `Textarea`, `Select`, `FormControl`, `HelperText`
-- Feedback: `Badge`, `Alert`, `Spinner`, `Skeleton`
-- Navigation: `Tabs`, `Breadcrumb`, `Pagination`
-- Overlays: `Modal`, `Drawer`, `Tooltip`, `Popover`
+- no styles created inside render functions
+- one shared `buildVariants` factory
+- deterministic variants with string unions
+- controlled/uncontrolled semantics documented in stories
+- accessibility behavior validated through keyboard + E2E flows

@@ -1,25 +1,35 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Documentation/Overview" parameters={{ options: { showPanel: false } }} />
+<Meta title="Documentation/1. Presentation" parameters={{ options: { showPanel: false } }} />
 
-# Design System Documentation
+# Presentation
 
-Storybook is the primary public documentation site for this design system.
+Vibed Design System is built as a guided, LLM-driven implementation project.
 
-## Sections
+The core idea is simple:
 
-- `Documentation/Architecture`
-- `Documentation/Styling Patterns`
-- `Documentation/Component Patterns`
-- `Documentation/State Patterns`
-- `Documentation/Control Size`
-- `Documentation/Contribution Checklist`
-- `Documentation/Roadmap`
-- `Documentation/Release Workflow`
-- `Documentation/Changelog Policy`
-- `Documentation/Migration Guide`
-- `Utilities/*` stories for lower-level composition helpers
+- define strict engineering rules first
+- implement iteratively with short feedback loops
+- validate with typecheck, build, stories, and E2E tests
+- keep architecture and patterns explicit in docs
 
-## Current status
+## Vibed-coded philosophy
 
-- Phases 1 to 4 in `Documentation/Roadmap` are completed.
+This design system does not come from ad-hoc UI work.  
+It is generated and maintained through focused LLM sessions, constrained by clear conventions:
+
+- explicit and typed APIs
+- composable atomic architecture
+- shared accessibility utilities
+- theme and token discipline
+- pragmatic consistency over ceremony
+
+## Documentation map
+
+- `Documentation/1. Presentation`: project vision and implementation philosophy.
+- `Documentation/2. Architecture`: structural and technical decisions.
+- `Documentation/3. Patterns`: repeatable implementation patterns and guardrails.
+- `Documentation/4. Features`: capabilities shipped by the design system.
+- `Documentation/5. Roadmap`: planned phases and delivery priorities.
+- `Documentation/6. Contributions`: issue-driven maintenance flow.
+- `Documentation/7. Public Usage`: practical guidance for external consumers.

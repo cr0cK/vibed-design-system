@@ -1,22 +1,36 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Documentation/Contribution Checklist" parameters={{ options: { showPanel: false } }} />
+<Meta title="Documentation/6. Contributions" parameters={{ options: { showPanel: false } }} />
 
-# Contribution Checklist
+# Contributions
 
-## Before opening PR
+## Contribution model
 
-1. Component follows atom/molecule/organism placement.
-2. Props interface is explicit and complete.
-3. No prop destructuring in function signature.
-4. Styling uses `styled.*` + `buildVariants(props)`.
-5. Variant values use explicit string unions.
-6. If component extends `HTMLAttributes`, pass supported DOM props through to the root element; otherwise do not extend it.
-7. Overlay-like behavior (`outside click`, `focus trap`, `portal`) reuses utility components unless a clear reason is documented.
-8. Shared state uses context or small Zustand slices where needed.
-9. Storybook story added or updated when component behavior changes.
-10. `pnpm typecheck` passes.
-11. `pnpm build` passes.
-12. `pnpm --filter @vibed/storybook build` passes.
-13. `pnpm test:e2e` passes (Playwright against built Storybook).
-14. If interaction behavior changed, add or update focused interaction/a11y tests.
+This project is not currently open to direct external code contributions.
+
+Preferred flow:
+
+1. Open an issue with the problem.
+2. Provide concrete context:
+   - what component/story is affected
+   - expected vs actual behavior
+   - screenshots or recordings when relevant
+   - reproduction steps
+3. Include clear acceptance criteria.
+4. The issue is then handled in dedicated LLM implementation sessions with validation and traceable commits.
+
+## Issue quality checklist
+
+- Scope is narrow and actionable.
+- Reproduction is deterministic.
+- Impact and priority are explicit.
+- Constraints are stated (design, API, accessibility, backward compatibility).
+
+## Internal implementation checklist
+
+When an issue is picked up for implementation, the session validates:
+
+1. `pnpm typecheck`
+2. `pnpm --filter @vibed/design-system build`
+3. `pnpm --filter @vibed/storybook build`
+4. `pnpm test:e2e`

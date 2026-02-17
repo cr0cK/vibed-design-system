@@ -1,0 +1,39 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/4. Features" parameters={{ options: { showPanel: false } }} />
+
+# Features
+
+## Core capabilities
+
+- Themeable components with token-driven styling.
+- Shared design tokens for color, spacing, radius, shadows, and typography.
+- Composable atom/molecule/organism architecture.
+- Context and Zustand support for local complex state.
+- Storybook-first documentation and showcase coverage.
+- Playwright E2E validation for critical interaction flows.
+
+## Theming and tokens
+
+- Components consume semantic tokens instead of hard-coded colors.
+- Themes can be swapped through provider context.
+- Variant styling remains consistent via `buildVariants`.
+
+## Accessibility baseline
+
+- Focus management utilities (`FocusTrap`, `ClickOutside`, `Portal`) reused by overlays.
+- Escape and outside-click behavior standardized in overlay patterns.
+- Keyboard navigation implemented for interactive controls.
+- Automated E2E checks include keyboard interaction and targeted axe assertions.
+
+## Composition model
+
+- Atoms provide low-level reusable primitives.
+- Molecules compose atoms into richer controls.
+- Organisms orchestrate full UI flows with minimal ceremony.
+
+## Engineering quality
+
+- Explicit props and stable APIs.
+- Build and typecheck gates.
+- Storybook static build as public artifact.

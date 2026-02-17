@@ -1,10 +1,10 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Documentation/Component Patterns" parameters={{ options: { showPanel: false } }} />
+<Meta title="Documentation/3. Patterns" parameters={{ options: { showPanel: false } }} />
 
-# Component Patterns
+# Patterns
 
-## Authoring rules
+## Component authoring rules
 
 - Declare a full `Props` interface for each component.
 - Do not destructure props in component signatures.
@@ -12,11 +12,11 @@ import { Meta } from "@storybook/blocks";
 - Prefer composition over deeply configurable single components.
 - Keep prop contracts honest: when using `extends HTMLAttributes<...>`, forward supported props to the root node.
 
-## HTML props contract
+## Consistency rules
 
-- If the component intentionally only supports `className`, use a narrow interface instead of `HTMLAttributes`.
-- If the component extends DOM attributes, forward `id`, `data-*`, ARIA attributes, and handlers to its root.
-- Avoid typing broad DOM props that are dropped at runtime.
+- Reuse existing tokens and variants before introducing new ones.
+- Favor `controlSize` and semantic tone variants over inline one-off styling.
+- Keep naming uniform across families (`open`, `onClose`, `tone`, `controlSize`).
 
 ## Overlay composition
 
@@ -25,6 +25,12 @@ import { Meta } from "@storybook/blocks";
   - `FocusTrap`
   - `ClickOutside`
 - Add custom handling only for behavior unique to that component.
+
+## HTML props contract
+
+- If the component intentionally only supports `className`, use a narrow interface instead of `HTMLAttributes`.
+- If the component extends DOM attributes, forward `id`, `data-*`, ARIA attributes, and handlers to its root.
+- Avoid typing broad DOM props that are dropped at runtime.
 
 ## Component template
 
@@ -52,8 +58,14 @@ export function Example(props: ExampleProps) {
 }
 ```
 
-## Atomic structure
+## Architecture pattern
 
 - Atoms should stay generic and reusable.
 - Molecules compose atoms with minimal behavior.
 - Organisms may connect to context/store and orchestrate flows.
+
+## Pattern references
+
+- `Documentation/3. Patterns/Styling`
+- `Documentation/3. Patterns/State`
+- `Documentation/3. Patterns/Control Size`
