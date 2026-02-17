@@ -80,6 +80,28 @@ test("sheet closes on Escape in viewport mode and outside click in container mod
   await expect(page.getByRole("dialog", { name: "Quick settings" })).toBeHidden();
 });
 
+test("sheet viewport mode keeps full-height side panel", async function run({ page }) {
+  await page.goto(storyUrl("organisms-sheet--showcase"));
+  await page.getByRole("button", { name: "Open sheet" }).click();
+  const dialog = page.getByRole("dialog", { name: "Quick settings" });
+  await expect(dialog).toBeVisible();
+
+  const panelBox = await dialog.boundingBox();
+  expect(panelBox).not.toBeNull();
+  if (!panelBox) {
+    return;
+  }
+
+  const viewport = page.viewportSize();
+  expect(viewport).not.toBeNull();
+  if (!viewport) {
+    return;
+  }
+
+  expect(panelBox.y).toBeLessThanOrEqual(1);
+  expect(panelBox.height).toBeGreaterThan(viewport.height * 0.9);
+});
+
 test("popover closes on outside click", async function run({ page }) {
   const openButton = page.getByRole("button", { name: "Open popover" });
 

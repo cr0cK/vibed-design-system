@@ -52,6 +52,8 @@ const Backdrop = styled.div<BackdropProps>(function style(props) {
 });
 
 const Panel = styled.div<PanelProps>(function style(props) {
+  const overlayMode = props.overlayMode ?? "viewport";
+
   return buildVariants<PanelProps>(props)
     .css({
       position: "fixed",
@@ -63,6 +65,7 @@ const Panel = styled.div<PanelProps>(function style(props) {
       display: "grid",
       gap: "var(--ds-space-sm)",
       alignContent: "start",
+      overflowY: "auto",
       willChange: "transform, opacity",
       animationDuration: ".24s",
       animationTimingFunction: "cubic-bezier(.2,.8,.2,1)",
@@ -88,14 +91,28 @@ const Panel = styled.div<PanelProps>(function style(props) {
       }
     })
     .variant("overlayMode", props.overlayMode ?? "viewport", {
-      viewport: { position: "fixed" },
+      viewport: { position: "fixed", maxHeight: "100dvh" },
       container: { position: "absolute" }
     })
     .variant("side", props.side ?? "right", {
-      right: { top: 0, right: 0, width: "min(26rem, 96vw)", height: "100%", maxHeight: "100vh", animationName: "ds-sheet-in-right" },
-      left: { top: 0, left: 0, width: "min(26rem, 96vw)", height: "100%", maxHeight: "100vh", animationName: "ds-sheet-in-left" },
-      top: { top: 0, left: 0, width: "100vw", minHeight: "12rem", animationName: "ds-sheet-in-top" },
-      bottom: { bottom: 0, left: 0, width: "100vw", minHeight: "12rem", animationName: "ds-sheet-in-bottom" }
+      right: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        width: "min(26rem, 96vw)",
+        height: overlayMode === "viewport" ? "100dvh" : "100%",
+        animationName: "ds-sheet-in-right"
+      },
+      left: {
+        top: 0,
+        left: 0,
+        bottom: 0,
+        width: "min(26rem, 96vw)",
+        height: overlayMode === "viewport" ? "100dvh" : "100%",
+        animationName: "ds-sheet-in-left"
+      },
+      top: { top: 0, left: 0, right: 0, width: "100%", minHeight: "12rem", animationName: "ds-sheet-in-top" },
+      bottom: { bottom: 0, left: 0, right: 0, width: "100%", minHeight: "12rem", animationName: "ds-sheet-in-bottom" }
     })
     .end();
 });
