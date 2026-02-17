@@ -104,7 +104,7 @@ export function DesignSystemProvider(props: DesignSystemProviderProps) {
 
   return (
     <DesignSystemContext.Provider value={contextValue}>
-      <ProviderRoot style={toThemeCssVars(selectedTheme)}>
+      <ProviderRoot data-ds-portal-root="true" style={toThemeCssVars(selectedTheme)}>
         {props.children}
       </ProviderRoot>
     </DesignSystemContext.Provider>

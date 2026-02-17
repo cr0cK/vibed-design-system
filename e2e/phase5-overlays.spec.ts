@@ -47,19 +47,26 @@ test("modal dialog has no axe violations", async function run({ page }) {
 test("drawer closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {
   const modeSelectTrigger = page.getByRole("button", { name: "viewport" });
   const openButton = page.getByRole("button", { name: "Open drawer" });
+  const dialog = page.getByRole("dialog");
 
   await page.goto(storyUrl("organisms-drawer--showcase"));
   await openButton.click();
-  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(dialog).toBeVisible();
+  const viewportBox = await dialog.boundingBox();
+  expect(viewportBox).not.toBeNull();
+  if (!viewportBox) {
+    return;
+  }
+  expect(viewportBox.width).toBeGreaterThan(240);
   await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(dialog).toBeHidden();
 
   await modeSelectTrigger.click();
   await page.getByRole("option", { name: "container" }).click();
   await openButton.click();
-  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(dialog).toBeVisible();
   await page.mouse.click(4, 4);
-  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(dialog).toBeHidden();
 });
 
 test("sheet closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {

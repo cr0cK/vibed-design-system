@@ -21,7 +21,11 @@ export function Portal(props: PortalProps) {
     return null;
   }
 
-  const target = props.target ?? (typeof document !== "undefined" ? document.body : null);
+  const inferredTarget =
+    typeof document !== "undefined"
+      ? document.querySelector<HTMLElement>("[data-ds-portal-root='true']")
+      : null;
+  const target = props.target ?? inferredTarget ?? (typeof document !== "undefined" ? document.body : null);
   if (!target) {
     return null;
   }
