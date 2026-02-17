@@ -22,13 +22,17 @@ const Root = styled.div<NumberInputLayoutProps>(function style(props) {
       alignItems: "center",
       border: "1px solid var(--ds-color-border)",
       backgroundColor: "var(--ds-color-surface)",
-      borderRadius: "var(--ds-radius-sm)",
-      overflow: "hidden",
+      borderRadius: "var(--ds-radius-md)",
       transition: "border-color .16s ease, box-shadow .16s ease",
       "&:focus-within": {
         borderColor: "var(--ds-color-primary)",
         boxShadow: "0 0 0 2px color-mix(in oklab, var(--ds-color-primary) 20%, transparent)"
       }
+    })
+    .variant("controlSize", props.controlSize ?? "md", {
+      sm: { minHeight: "2rem" },
+      md: { minHeight: "2.3rem" },
+      lg: { minHeight: "2.7rem" }
     })
     .end();
 });
@@ -51,9 +55,9 @@ const InputElement = styled.input<NumberInputLayoutProps>(function style(props) 
       }
     })
     .variant("controlSize", props.controlSize ?? "md", {
-      sm: { fontSize: "0.85rem", padding: "0.4rem 0.35rem", minHeight: "2rem" },
-      md: { fontSize: "0.92rem", padding: "0.52rem 0.45rem", minHeight: "2.25rem" },
-      lg: { fontSize: "1rem", padding: "0.65rem 0.5rem", minHeight: "2.5rem" }
+      sm: { fontSize: "0.84rem", padding: "0.2rem 0.35rem" },
+      md: { fontSize: "0.92rem", padding: "0.28rem 0.45rem" },
+      lg: { fontSize: "1rem", padding: "0.36rem 0.5rem" }
     })
     .end();
 });
@@ -61,26 +65,41 @@ const InputElement = styled.input<NumberInputLayoutProps>(function style(props) 
 const StepButton = styled.button<NumberInputLayoutProps>(function style(props) {
   return buildVariants<NumberInputLayoutProps>(props)
     .css({
-      border: "none",
-      backgroundColor: "var(--ds-color-surface-muted)",
-      color: "var(--ds-color-text)",
+      border: "1px solid transparent",
+      backgroundColor: "transparent",
+      color: "var(--ds-color-text-muted)",
       cursor: "pointer",
       fontFamily: "var(--ds-font-body)",
       fontWeight: 600,
-      minWidth: "2rem",
-      transition: "background-color .14s ease",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "0.45rem",
+      marginInline: "0.3rem",
+      marginBlock: "0.2rem",
+      lineHeight: 1,
+      transition: "background-color .14s ease, border-color .14s ease, color .14s ease",
       "&:hover": {
-        backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 10%, var(--ds-color-surface-muted))"
+        backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 8%, var(--ds-color-surface))",
+        borderColor: "color-mix(in oklab, var(--ds-color-primary) 22%, var(--ds-color-border))",
+        color: "var(--ds-color-text)"
+      },
+      "&:focus-visible": {
+        outline: "none",
+        borderColor: "var(--ds-color-primary)",
+        boxShadow: "0 0 0 2px color-mix(in oklab, var(--ds-color-primary) 18%, transparent)"
       },
       "&:disabled": {
         cursor: "not-allowed",
-        color: "var(--ds-color-text-muted)"
+        color: "var(--ds-color-text-muted)",
+        borderColor: "transparent",
+        backgroundColor: "transparent"
       }
     })
     .variant("controlSize", props.controlSize ?? "md", {
-      sm: { minWidth: "1.8rem", fontSize: "0.92rem" },
-      md: { minWidth: "2rem", fontSize: "1rem" },
-      lg: { minWidth: "2.2rem", fontSize: "1.05rem" }
+      sm: { width: "1.35rem", height: "1.35rem", fontSize: "0.9rem" },
+      md: { width: "1.55rem", height: "1.55rem", fontSize: "1rem" },
+      lg: { width: "1.75rem", height: "1.75rem", fontSize: "1.08rem" }
     })
     .end();
 });
