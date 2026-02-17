@@ -14,7 +14,10 @@ const Shell = styled.div<ShellProps>(function style(props) {
   return buildVariants<ShellProps>(props)
     .css({
       display: "grid",
-      minHeight: "100vh"
+      minHeight: "100vh",
+      "@media (max-width: 860px)": {
+        gridTemplateColumns: "minmax(0, 1fr)"
+      }
     })
     .variant("density", props.density, {
       comfortable: { gridTemplateColumns: "260px 1fr" },
@@ -28,7 +31,11 @@ const Side = styled.aside(function style() {
     .css({
       borderRight: "1px solid var(--ds-color-border)",
       padding: "var(--ds-space-lg)",
-      backgroundColor: "var(--ds-color-surface)"
+      backgroundColor: "var(--ds-color-surface)",
+      "@media (max-width: 860px)": {
+        borderRight: "none",
+        borderBottom: "1px solid var(--ds-color-border)"
+      }
     })
     .end();
 });
@@ -39,7 +46,11 @@ const Main = styled.main(function style() {
       padding: "var(--ds-space-xl)",
       display: "grid",
       gap: "var(--ds-space-lg)",
-      alignContent: "start"
+      alignContent: "start",
+      minWidth: 0,
+      "@media (max-width: 860px)": {
+        padding: "var(--ds-space-lg)"
+      }
     })
     .end();
 });
@@ -50,7 +61,8 @@ const TopRow = styled.div(function style() {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      gap: "var(--ds-space-md)"
+      gap: "var(--ds-space-md)",
+      flexWrap: "wrap"
     })
     .end();
 });

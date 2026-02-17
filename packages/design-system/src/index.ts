@@ -6,6 +6,7 @@ export { createTheme } from "./theme/createTheme";
 export { lightTheme, darkTheme, defaultThemes } from "./theme/tokens";
 export type { ThemeTokens, ThemeModeSet } from "./theme/tokens";
 export { orangeMotionTheme } from "./theme/presets/orangeMotionTheme";
+export { neoMintTheme } from "./theme/presets/neoMintTheme";
 
 export { useUIStore } from "./stores/uiStore";
 export { useNotificationsStore } from "./stores/notificationsStore";

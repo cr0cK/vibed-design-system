@@ -1,4 +1,4 @@
-import { Box, Button, DesignSystemProvider, Grid, Heading, Inline, Input, Select, Stack, Text, orangeMotionTheme } from "@vibed/design-system";
+import { Box, Button, DesignSystemProvider, Grid, Heading, Inline, Input, Select, Stack, Text, neoMintTheme, orangeMotionTheme } from "@vibed/design-system";
 
 const meta = {
   title: "Themes/Overview",
@@ -13,11 +13,14 @@ interface ThemePreviewCardProps {
   description: string;
   mode?: "light" | "dark";
   useOrangeMotion?: boolean;
+  useNeoMint?: boolean;
 }
 
 function ThemePreviewCard(props: ThemePreviewCardProps) {
+  const selectedTheme = props.useOrangeMotion ? orangeMotionTheme : props.useNeoMint ? neoMintTheme : undefined;
+
   return (
-    <DesignSystemProvider mode={props.mode ?? "light"} theme={props.useOrangeMotion ? orangeMotionTheme : undefined}>
+    <DesignSystemProvider mode={props.mode ?? "light"} theme={selectedTheme}>
       <Box surface="background" padding="md" radius="md" border="subtle">
         <Stack gap="sm">
           <Stack gap="xxs">
@@ -48,10 +51,11 @@ function ThemePreviewCard(props: ThemePreviewCardProps) {
 export const Showcase = {
   render: function Render() {
     return (
-      <Grid columns={3} gap="md">
+      <Grid columns={2} gap="md">
         <ThemePreviewCard title="Default Light" description="Balanced daytime palette with neutral surfaces." mode="light" />
         <ThemePreviewCard title="Default Dark" description="Higher contrast for low-light environments." mode="dark" />
         <ThemePreviewCard title="Orange Motion" description="Warm accent theme focused on energetic primary actions." useOrangeMotion />
+        <ThemePreviewCard title="Neo Mint" description="Modern aqua accents with cooler neutrals and softer geometry." useNeoMint />
       </Grid>
     );
   }

@@ -151,3 +151,29 @@ test("select supports keyboard navigation", async function run({ page }) {
   await page.keyboard.press("Enter");
   await expect(firstSelectTrigger).toHaveText("Enterprise");
 });
+
+test("app shell remains usable on mobile viewport", async function run({ page }) {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(storyUrl("organisms-appshell--showcase"));
+
+  const hasHorizontalOverflow = await page.evaluate(function checkOverflow() {
+    return document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
+  });
+  expect(hasHorizontalOverflow).toBeFalsy();
+
+  const toggleButton = page.getByRole("button", { name: "Hide nav" });
+  await toggleButton.click();
+  await expect(page.getByRole("button", { name: "Show nav" })).toBeVisible();
+  await page.getByRole("button", { name: "Show nav" }).click();
+  await expect(page.getByText("Foundations")).toBeVisible();
+});
+
+test("workspace template story switches to neo mint theme", async function run({ page }) {
+  await page.goto(storyUrl("themes-workspace-template--theme-switcher"));
+  const themeSelectTrigger = page.locator("button[aria-haspopup='listbox']").first();
+
+  await themeSelectTrigger.click();
+  await page.getByRole("option", { name: "Neo Mint" }).click();
+  await expect(themeSelectTrigger).toHaveText("Neo Mint");
+  await expect(page.getByRole("heading", { name: "Create Automation" })).toBeVisible();
+});
