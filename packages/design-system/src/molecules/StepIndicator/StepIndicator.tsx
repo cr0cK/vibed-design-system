@@ -48,8 +48,6 @@ const Dot = styled.span<StepNodeProps>(function style(props) {
       border: "2px solid var(--ds-color-border)",
       display: "inline-grid",
       placeItems: "center",
-      fontSize: "0.65rem",
-      fontWeight: 700,
       color: "var(--ds-color-surface)"
     })
     .variant("status", props.status ?? "pending", {
@@ -65,6 +63,18 @@ const Dot = styled.span<StepNodeProps>(function style(props) {
         borderColor: "var(--ds-color-success)",
         backgroundColor: "var(--ds-color-success)"
       }
+    })
+    .end();
+});
+
+const DoneCheck = styled.span(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      width: "0.36rem",
+      height: "0.2rem",
+      borderLeft: "2px solid currentColor",
+      borderBottom: "2px solid currentColor",
+      transform: "translateY(-0.02rem) rotate(-45deg)"
     })
     .end();
 });
@@ -97,7 +107,7 @@ export function StepIndicator(props: StepIndicatorProps) {
         const status = statusById[step.id] ?? "pending";
         return (
           <StepRow key={step.id}>
-            <Dot status={status}>{status === "done" ? "✓" : ""}</Dot>
+            <Dot status={status}>{status === "done" ? <DoneCheck aria-hidden="true" /> : null}</Dot>
             <div>
               <Text size="sm" weight={status === "active" ? "semibold" : "regular"}>{step.label}</Text>
               {step.description ? <Text size="sm" tone="muted">{step.description}</Text> : null}
