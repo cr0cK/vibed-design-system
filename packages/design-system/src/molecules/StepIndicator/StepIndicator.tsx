@@ -48,7 +48,8 @@ const Dot = styled.span<StepNodeProps>(function style(props) {
       border: "2px solid var(--ds-color-border)",
       display: "inline-grid",
       placeItems: "center",
-      color: "var(--ds-color-surface)"
+      color: "var(--ds-color-surface)",
+      position: "relative"
     })
     .variant("status", props.status ?? "pending", {
       pending: {
@@ -70,11 +71,14 @@ const Dot = styled.span<StepNodeProps>(function style(props) {
 const DoneCheck = styled.span(function style() {
   return buildVariants<Record<string, never>>({})
     .css({
-      width: "0.36rem",
-      height: "0.2rem",
+      width: "0.34rem",
+      height: "0.18rem",
       borderLeft: "2px solid currentColor",
       borderBottom: "2px solid currentColor",
-      transform: "translateY(-0.02rem) rotate(-45deg)"
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -44%) rotate(-45deg)"
     })
     .end();
 });
