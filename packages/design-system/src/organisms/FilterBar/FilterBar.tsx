@@ -15,6 +15,7 @@ const Root = styled.div(function style() {
       justifyContent: "space-between",
       gap: "var(--ds-space-sm)",
       width: "100%",
+      boxSizing: "border-box",
       border: "1px solid var(--ds-color-border)",
       borderRadius: "var(--ds-radius-md)",
       padding: "var(--ds-space-sm)",
@@ -25,13 +26,20 @@ const Root = styled.div(function style() {
 
 const Left = styled.div(function style() {
   return buildVariants<Record<string, never>>({})
-    .css({ display: "flex", alignItems: "center", gap: "var(--ds-space-xs)", flexWrap: "wrap", minWidth: 0 })
+    .css({
+      display: "flex",
+      alignItems: "center",
+      gap: "var(--ds-space-xs)",
+      flexWrap: "wrap",
+      minWidth: 0,
+      flex: "1 1 auto"
+    })
     .end();
 });
 
 const Right = styled.div(function style() {
   return buildVariants<Record<string, never>>({})
-    .css({ display: "flex", alignItems: "center", gap: "var(--ds-space-xs)" })
+    .css({ display: "flex", alignItems: "center", gap: "var(--ds-space-xs)", flexShrink: 0 })
     .end();
 });
 

@@ -21,6 +21,7 @@ const Root = styled.header(function style() {
   return buildVariants<Record<string, never>>({})
     .css({
       width: "100%",
+      boxSizing: "border-box",
       borderBottom: "1px solid var(--ds-color-border)",
       backgroundColor: "var(--ds-color-surface)",
       padding: "0.65rem var(--ds-space-md)",
@@ -34,7 +35,32 @@ const Root = styled.header(function style() {
 
 const Nav = styled.nav(function style() {
   return buildVariants<Record<string, never>>({})
-    .css({ display: "inline-flex", alignItems: "center", gap: "var(--ds-space-xs)" })
+    .css({
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "var(--ds-space-xs)",
+      flexWrap: "wrap",
+      minWidth: 0
+    })
+    .end();
+});
+
+const Left = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      minWidth: 0,
+      flex: "1 1 auto"
+    })
+    .end();
+});
+
+const Actions = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      display: "inline-flex",
+      alignItems: "center",
+      flexShrink: 0
+    })
     .end();
 });
 
@@ -60,30 +86,32 @@ const ItemButton = styled.button<ItemButtonProps>(function style(props) {
 export function Navbar(props: NavbarProps) {
   return (
     <Root className={props.className}>
-      <Inline gap="md" align="center">
-        <Heading level={5}>{props.brand}</Heading>
-        {props.items && props.items.length > 0 ? (
-          <Nav aria-label="Primary navigation">
-            {props.items.map(function mapItem(item) {
-              return (
-                <ItemButton
-                  key={item.id}
-                  type="button"
-                  active={props.activeItemId === item.id}
-                  onClick={function onClick() {
-                    if (props.onItemSelect) {
-                      props.onItemSelect(item.id);
-                    }
-                  }}
-                >
-                  {item.label}
-                </ItemButton>
-              );
-            })}
-          </Nav>
-        ) : null}
-      </Inline>
-      {props.actions ? <div>{props.actions}</div> : null}
+      <Left>
+        <Inline gap="md" align="center">
+          <Heading level={5}>{props.brand}</Heading>
+          {props.items && props.items.length > 0 ? (
+            <Nav aria-label="Primary navigation">
+              {props.items.map(function mapItem(item) {
+                return (
+                  <ItemButton
+                    key={item.id}
+                    type="button"
+                    active={props.activeItemId === item.id}
+                    onClick={function onClick() {
+                      if (props.onItemSelect) {
+                        props.onItemSelect(item.id);
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </ItemButton>
+                );
+              })}
+            </Nav>
+          ) : null}
+        </Inline>
+      </Left>
+      {props.actions ? <Actions>{props.actions}</Actions> : null}
     </Root>
   );
 }

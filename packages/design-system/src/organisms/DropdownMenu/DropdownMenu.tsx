@@ -11,22 +11,38 @@ export interface DropdownMenuProps extends HTMLAttributes<HTMLDivElement> {
   items: MenuItem[];
   selectedId?: string;
   onItemSelect?: (id: string) => void;
+  placement?: "start" | "end";
 }
 
-const Root = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface RootProps {
+  placement?: "start" | "end";
+}
+
+const Root = styled.div<RootProps>(function style(props) {
+  return buildVariants<RootProps>(props)
     .css({ position: "relative", display: "inline-block" })
+    .variant("placement", props.placement ?? "start", {
+      start: { width: "max-content", maxWidth: "100%" },
+      end: { width: "max-content", maxWidth: "100%" }
+    })
     .end();
 });
 
-const Surface = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface SurfaceProps {
+  placement?: "start" | "end";
+}
+
+const Surface = styled.div<SurfaceProps>(function style(props) {
+  return buildVariants<SurfaceProps>(props)
     .css({
       position: "absolute",
       top: "calc(100% + 0.35rem)",
-      right: 0,
       minWidth: "13rem",
       zIndex: 30
+    })
+    .variant("placement", props.placement ?? "start", {
+      start: { left: 0 },
+      end: { right: 0 }
     })
     .end();
 });
@@ -34,6 +50,22 @@ const Surface = styled.div(function style() {
 export function DropdownMenu(props: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const placement = props.placement ?? "start";
+  const rootProps = {
+    id: props.id,
+    role: props.role,
+    style: props.style,
+    title: props.title,
+    tabIndex: props.tabIndex,
+    onKeyDown: props.onKeyDown,
+    onFocus: props.onFocus,
+    onBlur: props.onBlur,
+    onMouseEnter: props.onMouseEnter,
+    onMouseLeave: props.onMouseLeave,
+    "aria-label": props["aria-label"],
+    "aria-labelledby": props["aria-labelledby"],
+    "aria-describedby": props["aria-describedby"]
+  };
 
   useEffect(function closeOutside() {
     function onMouseDown(event: MouseEvent) {
@@ -48,10 +80,15 @@ export function DropdownMenu(props: DropdownMenuProps) {
   }, []);
 
   return (
-    <Root className={props.className} ref={rootRef}>
+    <Root
+      ref={rootRef}
+      className={props.className}
+      placement={placement}
+      {...rootProps}
+    >
       <Button tone="neutral" onClick={function onClick() { setOpen(!open); }}>{props.triggerLabel}</Button>
       {open ? (
-        <Surface>
+        <Surface placement={placement}>
           <Menu
             items={props.items}
             selectedId={props.selectedId}

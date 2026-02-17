@@ -8,8 +8,7 @@ Last updated: 2026-02-17
 
 Status note:
 
-- Component scope for Phases 1 to 4 is implemented.
-- A verification pass identified follow-up quality items now tracked below.
+- Phases 1 to 4 are completed.
 
 ## Objective
 
@@ -97,7 +96,7 @@ Acceptance criteria:
 
 ## Phase 4: Quality + Distribution
 
-Status: Completed with follow-ups  
+Status: Completed  
 Target: Weeks of 2026-03-30 and 2026-04-06
 
 Scope:
@@ -113,12 +112,58 @@ Acceptance criteria:
 2. Publish flow is repeatable and documented.
 3. Consumers can adopt components with clear migration notes.
 
-## Follow-up quality backlog
+## Phase 5: First-Class System Maturity
 
-1. Add focused interaction/a11y tests for state-heavy components (`Select`, overlays, command components).
-2. Standardize props passthrough contract: either forward DOM attributes or narrow interfaces.
-3. Align `Sheet` interaction/a11y behavior with `Modal` and `Drawer` (escape, focus trap/restore, label wiring).
-4. Increase reuse of `Portal`, `FocusTrap`, and `ClickOutside` in overlay components.
+Status: Planned  
+Target: Weeks of 2026-04-13 and 2026-04-20
+
+Objective:
+
+Move from a strong component library to a first-class design system with production-grade accessibility, reliability, and governance.
+
+Scope:
+
+- Accessibility hardening:
+  - overlay parity (`Modal`, `Drawer`, `Sheet`, `Popover`, `CommandPalette`) with shared focus/outside-click/escape patterns
+  - keyboard and screen-reader behavior audit across interactive components
+- Testing and quality gates:
+  - interaction tests for state-heavy components (`Select`, `Combobox`, `Autocomplete`, `MultiSelect`, overlays)
+  - visual regression snapshots for theme + control-size permutations
+- API and consistency:
+  - standardized DOM props passthrough policy (forward attrs or narrow interfaces)
+  - align naming and controlled/uncontrolled behavior docs across form primitives
+- Theming and token robustness:
+  - semantic token tiers (`surface`, `interactive`, `feedback`, `text`) with guidance and usage contracts
+  - dark/light parity checks and contrast validation for all shipped themes
+- Distribution and governance:
+  - deprecation policy + compatibility matrix in docs
+  - component lifecycle states (`alpha`, `beta`, `stable`, `deprecated`) surfaced in Storybook
+
+Acceptance criteria:
+
+1. Critical interactive components have automated interaction + a11y tests in CI.
+2. Overlay components share a consistent behavior contract and utility composition.
+3. API consistency rules are documented and enforced for new components.
+4. Theme tokens pass contrast checks for key UI states (default/hover/focus/disabled/error).
+5. Storybook clearly communicates component maturity and migration/deprecation paths.
+
+## Phase 6: Adoption and Scale
+
+Status: Planned  
+Target: Weeks of 2026-04-27 and 2026-05-04
+
+Scope:
+
+- Provide starter templates and reference app integrations.
+- Add codemod support for common API migrations.
+- Add telemetry-ready examples (optional instrumentation hooks).
+- Publish an adoption playbook for teams (rollout strategy, QA checklist, contribution workflow).
+
+Acceptance criteria:
+
+1. New consumers can bootstrap with documented templates.
+2. Breaking migrations have codemod or script-assisted paths.
+3. Adoption playbook is available in Storybook docs.
 
 ## Working rules (all phases)
 

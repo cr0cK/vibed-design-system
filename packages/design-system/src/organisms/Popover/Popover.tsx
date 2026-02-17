@@ -4,23 +4,32 @@ import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
 
+export type PopoverPlacement = "bottom-left" | "bottom-right" | "top-left" | "top-right";
+
 export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   triggerLabel: string;
   popoverContent: ReactNode;
+  placement?: PopoverPlacement;
 }
 
-const Root = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
-    .css({ position: "relative", display: "inline-block" })
+interface RootProps {
+  placement: PopoverPlacement;
+}
+
+const Root = styled.div<RootProps>(function style(props) {
+  return buildVariants<RootProps>(props)
+    .css({ position: "relative", display: "inline-block", width: "max-content", maxWidth: "100%" })
     .end();
 });
 
-const Surface = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface SurfaceProps {
+  placement: PopoverPlacement;
+}
+
+const Surface = styled.div<SurfaceProps>(function style(props) {
+  return buildVariants<SurfaceProps>(props)
     .css({
       position: "absolute",
-      top: "calc(100% + 8px)",
-      right: 0,
       minWidth: "14rem",
       border: "1px solid var(--ds-color-border)",
       borderRadius: "var(--ds-radius-md)",
@@ -28,15 +37,20 @@ const Surface = styled.div(function style() {
       boxShadow: "var(--ds-shadow-sm)",
       padding: "var(--ds-space-sm)",
       zIndex: 30,
-      transformOrigin: "top right",
       animation: "ds-popover-in .16s ease-out",
       "@keyframes ds-popover-in": {
-        from: { opacity: 0, transform: "translateY(-4px) scale(0.98)" },
+        from: { opacity: 0, transform: "translateY(-4px) scale(0.985)" },
         to: { opacity: 1, transform: "translateY(0) scale(1)" }
       },
       "@media (prefers-reduced-motion: reduce)": {
         animation: "none"
       }
+    })
+    .variant("placement", props.placement, {
+      "bottom-left": { top: "calc(100% + 8px)", left: 0, transformOrigin: "top left" },
+      "bottom-right": { top: "calc(100% + 8px)", right: 0, transformOrigin: "top right" },
+      "top-left": { bottom: "calc(100% + 8px)", left: 0, transformOrigin: "bottom left" },
+      "top-right": { bottom: "calc(100% + 8px)", right: 0, transformOrigin: "bottom right" }
     })
     .end();
 });
@@ -46,6 +60,7 @@ export function Popover(props: PopoverProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const surfaceRef = useRef<HTMLDivElement | null>(null);
   const popoverId = useId();
+  const placement = props.placement ?? "bottom-left";
 
   useEffect(function closeOnOutsideClick() {
     if (!open) {
@@ -73,6 +88,7 @@ export function Popover(props: PopoverProps) {
   return (
     <Root
       ref={rootRef}
+      placement={placement}
       className={props.className}
       onKeyDown={function onKeyDown(event) {
         if (event.key === "Escape") {
@@ -93,7 +109,11 @@ export function Popover(props: PopoverProps) {
       >
         {props.triggerLabel}
       </Button>
-      {open ? <Surface ref={surfaceRef} id={popoverId} role="dialog" tabIndex={-1}>{props.popoverContent}</Surface> : null}
+      {open ? (
+        <Surface ref={surfaceRef} id={popoverId} role="dialog" tabIndex={-1} placement={placement}>
+          {props.popoverContent}
+        </Surface>
+      ) : null}
     </Root>
   );
 }

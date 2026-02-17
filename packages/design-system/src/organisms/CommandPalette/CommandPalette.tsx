@@ -16,29 +16,46 @@ export interface CommandPaletteProps extends HTMLAttributes<HTMLDivElement> {
   triggerLabel?: string;
 }
 
-const Backdrop = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface BackdropProps {
+  entered: boolean;
+}
+
+const Backdrop = styled.div<BackdropProps>(function style(props) {
+  return buildVariants<BackdropProps>(props)
     .css({
       position: "fixed",
       inset: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.3)",
+      backgroundColor: props.entered ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0)",
       display: "grid",
       placeItems: "start center",
       paddingTop: "12vh",
-      zIndex: 70
+      zIndex: 70,
+      transition: "background-color .18s ease"
     })
     .end();
 });
 
-const Panel = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface PanelProps {
+  entered: boolean;
+}
+
+const Panel = styled.div<PanelProps>(function style(props) {
+  return buildVariants<PanelProps>(props)
     .css({
       width: "min(34rem, 92vw)",
       border: "1px solid var(--ds-color-border)",
       borderRadius: "var(--ds-radius-lg)",
       backgroundColor: "var(--ds-color-surface)",
       boxShadow: "var(--ds-shadow-md)",
-      overflow: "hidden"
+      overflow: "hidden",
+      opacity: props.entered ? 1 : 0,
+      transform: props.entered ? "translateY(0) scale(1)" : "translateY(-8px) scale(0.985)",
+      transition: "opacity .2s ease, transform .2s cubic-bezier(.2,.8,.2,1)",
+      "@media (prefers-reduced-motion: reduce)": {
+        transition: "none",
+        opacity: 1,
+        transform: "none"
+      }
     })
     .end();
 });
@@ -83,6 +100,7 @@ const Empty = styled.div(function style() {
 
 export function CommandPalette(props: CommandPaletteProps) {
   const [open, setOpen] = useState(false);
+  const [entered, setEntered] = useState(false);
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
@@ -140,6 +158,21 @@ export function CommandPalette(props: CommandPaletteProps) {
     setHighlightedIndex(0);
   }
 
+  useEffect(function animateOpen() {
+    if (!open) {
+      setEntered(false);
+      return;
+    }
+
+    const rafId = window.requestAnimationFrame(function onFrame() {
+      setEntered(true);
+    });
+
+    return function cleanup() {
+      window.cancelAnimationFrame(rafId);
+    };
+  }, [open]);
+
   return (
     <>
       <Button tone="neutral" onClick={function onClick() { setOpen(true); }}>
@@ -147,11 +180,13 @@ export function CommandPalette(props: CommandPaletteProps) {
       </Button>
       {open ? (
         <Backdrop
+          entered={entered}
           onClick={function onClick() {
             setOpen(false);
           }}
         >
           <Panel
+            entered={entered}
             role="dialog"
             aria-modal="true"
             onClick={function onClick(event) {

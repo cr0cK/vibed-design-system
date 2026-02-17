@@ -3,9 +3,20 @@ import { useEffect, useId, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 
+export type TooltipPlacement =
+  | "top"
+  | "top-left"
+  | "top-right"
+  | "bottom"
+  | "bottom-left"
+  | "bottom-right"
+  | "left"
+  | "right";
+
 export interface TooltipProps extends HTMLAttributes<HTMLSpanElement> {
   children: ReactNode;
   tooltipContent: ReactNode;
+  placement?: TooltipPlacement;
 }
 
 const Root = styled.span(function style() {
@@ -14,13 +25,14 @@ const Root = styled.span(function style() {
     .end();
 });
 
-const Bubble = styled.span(function style() {
-  return buildVariants<Record<string, never>>({})
+interface BubbleProps {
+  placement: TooltipPlacement;
+}
+
+const Bubble = styled.span<BubbleProps>(function style(props) {
+  return buildVariants<BubbleProps>(props)
     .css({
       position: "absolute",
-      bottom: "calc(100% + 8px)",
-      left: "50%",
-      transform: "translateX(-50%)",
       backgroundColor: "var(--ds-color-text)",
       color: "var(--ds-color-surface)",
       borderRadius: "var(--ds-radius-sm)",
@@ -31,12 +43,22 @@ const Bubble = styled.span(function style() {
       pointerEvents: "none",
       animation: "ds-tooltip-in .14s ease-out",
       "@keyframes ds-tooltip-in": {
-        from: { opacity: 0, transform: "translateX(-50%) translateY(4px)" },
-        to: { opacity: 1, transform: "translateX(-50%) translateY(0)" }
+        from: { opacity: 0 },
+        to: { opacity: 1 }
       },
       "@media (prefers-reduced-motion: reduce)": {
         animation: "none"
       }
+    })
+    .variant("placement", props.placement, {
+      top: { bottom: "calc(100% + 8px)", left: "50%", transform: "translateX(-50%)" },
+      "top-left": { bottom: "calc(100% + 8px)", left: 0 },
+      "top-right": { bottom: "calc(100% + 8px)", right: 0 },
+      bottom: { top: "calc(100% + 8px)", left: "50%", transform: "translateX(-50%)" },
+      "bottom-left": { top: "calc(100% + 8px)", left: 0 },
+      "bottom-right": { top: "calc(100% + 8px)", right: 0 },
+      left: { right: "calc(100% + 8px)", top: "50%", transform: "translateY(-50%)" },
+      right: { left: "calc(100% + 8px)", top: "50%", transform: "translateY(-50%)" }
     })
     .end();
 });
@@ -44,6 +66,7 @@ const Bubble = styled.span(function style() {
 export function Tooltip(props: TooltipProps) {
   const [open, setOpen] = useState(false);
   const tooltipId = useId();
+  const placement = props.placement ?? "top";
 
   useEffect(function closeOnEscape() {
     if (!open) {
@@ -78,7 +101,11 @@ export function Tooltip(props: TooltipProps) {
       aria-describedby={open ? tooltipId : undefined}
     >
       {props.children}
-      {open ? <Bubble id={tooltipId} role="tooltip">{props.tooltipContent}</Bubble> : null}
+      {open ? (
+        <Bubble id={tooltipId} role="tooltip" placement={placement}>
+          {props.tooltipContent}
+        </Bubble>
+      ) : null}
     </Root>
   );
 }

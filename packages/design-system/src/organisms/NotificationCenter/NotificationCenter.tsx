@@ -14,8 +14,12 @@ const Root = styled.div(function style() {
     .end();
 });
 
-const Item = styled.article(function style() {
-  return buildVariants<Record<string, never>>({})
+interface ItemProps {
+  index: number;
+}
+
+const Item = styled.article<ItemProps>(function style(props) {
+  return buildVariants<ItemProps>(props)
     .css({
       border: "1px solid var(--ds-color-border)",
       backgroundColor: "var(--ds-color-surface)",
@@ -23,7 +27,24 @@ const Item = styled.article(function style() {
       padding: "var(--ds-space-md)",
       boxShadow: "var(--ds-shadow-sm)",
       display: "grid",
-      gap: "var(--ds-space-xs)"
+      gap: "var(--ds-space-xs)",
+      opacity: 0,
+      transform: "translateY(8px) scale(0.995)",
+      animationName: "ds-notification-in",
+      animationDuration: ".26s",
+      animationTimingFunction: "cubic-bezier(.2,.8,.2,1)",
+      animationFillMode: "forwards",
+      animationDelay: `${Math.min(props.index, 6) * 45}ms`,
+      willChange: "opacity, transform",
+      "@keyframes ds-notification-in": {
+        from: { opacity: 0, transform: "translateY(8px) scale(0.995)" },
+        to: { opacity: 1, transform: "translateY(0) scale(1)" }
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        animation: "none",
+        opacity: 1,
+        transform: "none"
+      }
     })
     .end();
 });
@@ -57,14 +78,20 @@ export function NotificationCenter(props: NotificationCenterProps) {
 
   return (
     <Root>
-      {items.map((item) => {
+      {items.map(function mapItem(item, index) {
         return (
-          <Item key={item.id}>
+          <Item key={item.id} index={index}>
             <ItemHeader>
               <Text as="h4" size="md" weight="semibold" tone={item.tone === "danger" ? "danger" : "default"}>
                 {item.title}
               </Text>
-              <Button tone="neutral" size="sm" onClick={() => dismissNotification(item.id)}>
+              <Button
+                tone="neutral"
+                size="sm"
+                onClick={function onClick() {
+                  dismissNotification(item.id);
+                }}
+              >
                 Dismiss
               </Button>
             </ItemHeader>
