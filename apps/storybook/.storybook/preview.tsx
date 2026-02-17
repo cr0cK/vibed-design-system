@@ -28,6 +28,12 @@ const preview: Preview = {
   ],
   parameters: {
     layout: "fullscreen",
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: "920px"
+      }
+    },
     options: {
       storySort: function storySort(a, b) {
         const titleA =
