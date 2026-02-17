@@ -1,5 +1,5 @@
 import { Badge, Box, Button, DesignSystemProvider, Grid, Heading, Inline, Input, Select, Stack, Text, Textarea, neoMintTheme, orangeMotionTheme } from "@vibed/design-system";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const meta = {
   title: "Themes/Workspace Template",
@@ -211,40 +211,6 @@ function WorkspaceWithTheme(props: { selectedTheme: ThemeOption; compact?: boole
   );
 }
 
-function SwitcherDemo() {
-  const [selectedTheme, setSelectedTheme] = useState<ThemeOption>("default-light");
-
-  return (
-    <Stack gap="sm">
-      <Box padding="sm" border="subtle" borderSide="bottom" surface="surface">
-        <Inline gap="sm" align="center">
-          <Text size="sm" weight="semibold">Theme:</Text>
-          <Box flex="field">
-            <Select
-              value={selectedTheme}
-              onChange={function onChange(event) {
-                setSelectedTheme(event.target.value as ThemeOption);
-              }}
-            >
-              <option value="default-light">Default Light</option>
-              <option value="default-dark">Default Dark</option>
-              <option value="orange-motion">Orange Motion</option>
-              <option value="neo-mint">Neo Mint</option>
-            </Select>
-          </Box>
-        </Inline>
-      </Box>
-      <WorkspaceWithTheme selectedTheme={selectedTheme} />
-    </Stack>
-  );
-}
-
-export const ThemeSwitcher = {
-  render: function Render() {
-    return <SwitcherDemo />;
-  }
-};
-
 export const Gallery = {
   render: function Render() {
     return (
@@ -275,5 +241,29 @@ export const Gallery = {
         </Box>
       </Stack>
     );
+  }
+};
+
+export const DefaultLight = {
+  render: function Render() {
+    return <WorkspaceWithTheme selectedTheme="default-light" compact />;
+  }
+};
+
+export const DefaultDark = {
+  render: function Render() {
+    return <WorkspaceWithTheme selectedTheme="default-dark" compact />;
+  }
+};
+
+export const OrangeMotion = {
+  render: function Render() {
+    return <WorkspaceWithTheme selectedTheme="orange-motion" compact />;
+  }
+};
+
+export const NeoMint = {
+  render: function Render() {
+    return <WorkspaceWithTheme selectedTheme="neo-mint" compact />;
   }
 };

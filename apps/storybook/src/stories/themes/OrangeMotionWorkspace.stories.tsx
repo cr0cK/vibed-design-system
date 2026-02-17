@@ -11,7 +11,7 @@ const meta = {
 
 export default meta;
 
-export const Showcase = {
+export const Gallery = {
   render: function Render() {
     return (
       <DesignSystemProvider theme={orangeMotionTheme}>

@@ -168,13 +168,8 @@ test("app shell remains usable on mobile viewport", async function run({ page })
   await expect(page.getByText("Foundations")).toBeVisible();
 });
 
-test("workspace template story switches to neo mint theme", async function run({ page }) {
-  await page.goto(storyUrl("themes-workspace-template--theme-switcher"));
-  const themeSelectTrigger = page.locator("button[aria-haspopup='listbox']").first();
-
-  await themeSelectTrigger.click();
-  await page.getByRole("option", { name: "Neo Mint" }).click();
-  await expect(themeSelectTrigger).toHaveText("Neo Mint");
+test("workspace template neo mint story renders", async function run({ page }) {
+  await page.goto(storyUrl("themes-workspace-template--neo-mint"));
   await expect(page.getByRole("heading", { name: "Create Automation" })).toBeVisible();
 });
 

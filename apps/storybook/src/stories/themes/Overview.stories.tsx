@@ -48,7 +48,7 @@ function ThemePreviewCard(props: ThemePreviewCardProps) {
   );
 }
 
-export const Showcase = {
+export const Gallery = {
   render: function Render() {
     return (
       <Grid columns={2} gap="md">
