@@ -36,5 +36,11 @@ jobs:
       - name: Build Storybook static site
         run: pnpm --filter @vibed/storybook build
 
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run Playwright E2E
+        run: pnpm test:e2e
+
       - name: Build workspace
         run: pnpm build

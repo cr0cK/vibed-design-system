@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "packageManager": "pnpm@10.5.0",
+  "devDependencies": {
+    "@playwright/test": "^1.53.1"
+  },
   "scripts": {
     "dev": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
     "watch:storybook": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
@@ -10,6 +13,7 @@
     "build:design-system": "pnpm --filter @vibed/design-system build",
     "typecheck": "pnpm -r typecheck",
     "check": "pnpm typecheck && pnpm build",
+    "test:e2e": "playwright test",
     "ci:validate": "pnpm typecheck && pnpm --filter @vibed/design-system build && pnpm --filter @vibed/storybook build && pnpm build",
     "dev:storybook": "pnpm run watch:storybook",
     "build:storybook": "pnpm --filter @vibed/storybook build",
