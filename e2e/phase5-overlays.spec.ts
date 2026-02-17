@@ -17,7 +17,7 @@ test("modal closes on Escape and restores trigger focus", async function run({ p
 });
 
 test("drawer closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {
-  const modeSelect = page.getByRole("combobox");
+  const modeSelectTrigger = page.getByRole("button", { name: "viewport" });
   const openButton = page.getByRole("button", { name: "Open drawer" });
 
   await page.goto(storyUrl("organisms-drawer--showcase"));
@@ -26,7 +26,8 @@ test("drawer closes on Escape in viewport mode and outside click in container mo
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toBeHidden();
 
-  await modeSelect.selectOption("container");
+  await modeSelectTrigger.click();
+  await page.getByRole("option", { name: "container" }).click();
   await openButton.click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.mouse.click(4, 4);
@@ -34,7 +35,7 @@ test("drawer closes on Escape in viewport mode and outside click in container mo
 });
 
 test("sheet closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {
-  const modeSelect = page.getByRole("combobox");
+  const modeSelectTrigger = page.getByRole("button", { name: "viewport" });
   const openButton = page.getByRole("button", { name: "Open sheet" });
 
   await page.goto(storyUrl("organisms-sheet--showcase"));
@@ -43,7 +44,8 @@ test("sheet closes on Escape in viewport mode and outside click in container mod
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog", { name: "Quick settings" })).toBeHidden();
 
-  await modeSelect.selectOption("container");
+  await modeSelectTrigger.click();
+  await page.getByRole("option", { name: "container" }).click();
   await openButton.click();
   await expect(page.getByRole("dialog", { name: "Quick settings" })).toBeVisible();
   await page.mouse.click(4, 4);
@@ -75,10 +77,14 @@ test("command palette opens, focuses input, and closes on Escape", async functio
 });
 
 test("select supports keyboard navigation", async function run({ page }) {
-  const firstSelect = page.getByRole("combobox").first();
+  const firstSelectTrigger = page.locator("button[aria-haspopup='listbox']").first();
+  const listbox = page.getByRole("listbox");
 
   await page.goto(storyUrl("atoms-select--showcase"));
-  await firstSelect.focus();
+  await firstSelectTrigger.focus();
+  await page.keyboard.press("Enter");
+  await expect(listbox).toBeVisible();
   await page.keyboard.press("ArrowDown");
-  await expect(firstSelect).toHaveValue("enterprise");
+  await page.keyboard.press("Enter");
+  await expect(firstSelectTrigger).toHaveText("Enterprise");
 });
