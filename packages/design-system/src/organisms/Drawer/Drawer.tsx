@@ -1,9 +1,12 @@
-import type { HTMLAttributes, KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
 import { Heading } from "../../atoms/Heading/Heading";
+import { Portal } from "../../utilities/Portal/Portal";
+import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
+import { ClickOutside } from "../../utilities/ClickOutside/ClickOutside";
 
 export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
@@ -12,14 +15,21 @@ export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   onClose: () => void;
   closeOnEscape?: boolean;
+  portalTarget?: HTMLElement | null;
+  overlayMode?: "viewport" | "container";
 }
 
 interface PanelProps {
   side?: "left" | "right";
+  overlayMode?: "viewport" | "container";
 }
 
-const Backdrop = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface BackdropProps {
+  overlayMode?: "viewport" | "container";
+}
+
+const Backdrop = styled.div<BackdropProps>(function style(props) {
+  return buildVariants<BackdropProps>(props)
     .css({
       position: "fixed",
       inset: 0,
@@ -33,6 +43,10 @@ const Backdrop = styled.div(function style() {
       "@media (prefers-reduced-motion: reduce)": {
         animation: "none"
       }
+    })
+    .variant("overlayMode", props.overlayMode ?? "viewport", {
+      viewport: { position: "fixed" },
+      container: { position: "absolute" }
     })
     .end();
 });
@@ -68,6 +82,10 @@ const Panel = styled.div<PanelProps>(function style(props) {
         animation: "none"
       }
     })
+    .variant("overlayMode", props.overlayMode ?? "viewport", {
+      viewport: { position: "fixed", height: "100vh" },
+      container: { position: "absolute", height: "100%" }
+    })
     .variant("side", props.side ?? "right", {
       left: { left: 0, animationName: "ds-drawer-in-left" },
       right: { right: 0, animationName: "ds-drawer-in-right" }
@@ -78,26 +96,16 @@ const Panel = styled.div<PanelProps>(function style(props) {
 export function Drawer(props: DrawerProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const previousFocusedRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
+  const overlayMode = props.overlayMode ?? "viewport";
 
-  useEffect(function onOpenFocusAndKeyboard() {
+  useEffect(function onOpenKeyboard() {
     if (!props.open) {
       return;
     }
 
-    previousFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-
-    const closeButton = closeButtonRef.current;
-    const panel = panelRef.current;
-    if (closeButton) {
-      closeButton.focus();
-    } else if (panel) {
-      panel.focus();
-    }
-
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
+      if (event.key === "Escape" && (props.closeOnEscape ?? true) && panelRef.current?.contains(document.activeElement)) {
         event.preventDefault();
         props.onClose();
       }
@@ -106,37 +114,43 @@ export function Drawer(props: DrawerProps) {
     document.addEventListener("keydown", onKeyDown);
     return function cleanup() {
       document.removeEventListener("keydown", onKeyDown);
-      previousFocusedRef.current?.focus();
     };
   }, [props.open, props.closeOnEscape, props.onClose]);
-
-  function onPanelKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
-    if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
-      event.preventDefault();
-      props.onClose();
-    }
-  }
 
   if (!props.open) {
     return null;
   }
 
-  return (
-    <>
-      <Backdrop onClick={props.onClose} />
-      <Panel
-        ref={panelRef}
-        side={props.side ?? "right"}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={props.title ? titleId : undefined}
-        tabIndex={-1}
-        onKeyDown={onPanelKeyDown}
-      >
-        {props.title ? <Heading id={titleId} level={4}>{props.title}</Heading> : null}
-        <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
-        {props.children}
-      </Panel>
-    </>
+  const content = (
+      <Backdrop overlayMode={overlayMode}>
+        <ClickOutside onClickOutside={props.onClose}>
+          <FocusTrap active initialFocusRef={closeButtonRef}>
+            <Panel
+              ref={panelRef}
+              className={props.className}
+              overlayMode={overlayMode}
+              side={props.side ?? "right"}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={props.title ? titleId : undefined}
+              tabIndex={-1}
+              id={props.id}
+              style={props.style}
+              aria-label={props["aria-label"]}
+              aria-describedby={props["aria-describedby"]}
+            >
+              {props.title ? <Heading id={titleId} level={4}>{props.title}</Heading> : null}
+              <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
+              {props.children}
+            </Panel>
+          </FocusTrap>
+        </ClickOutside>
+      </Backdrop>
   );
+
+  if (overlayMode === "container") {
+    return content;
+  }
+
+  return <Portal target={props.portalTarget}>{content}</Portal>;
 }

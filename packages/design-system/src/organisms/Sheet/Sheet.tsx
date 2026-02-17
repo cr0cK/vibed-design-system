@@ -1,8 +1,12 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
 import { Heading } from "../../atoms/Heading/Heading";
+import { Portal } from "../../utilities/Portal/Portal";
+import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
+import { ClickOutside } from "../../utilities/ClickOutside/ClickOutside";
 
 export interface SheetProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
@@ -10,14 +14,22 @@ export interface SheetProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   children?: ReactNode;
   onClose: () => void;
+  closeOnEscape?: boolean;
+  portalTarget?: HTMLElement | null;
+  overlayMode?: "viewport" | "container";
 }
 
 interface PanelProps {
   side?: "left" | "right" | "top" | "bottom";
+  overlayMode?: "viewport" | "container";
 }
 
-const Backdrop = styled.div(function style() {
-  return buildVariants<Record<string, never>>({})
+interface BackdropProps {
+  overlayMode?: "viewport" | "container";
+}
+
+const Backdrop = styled.div<BackdropProps>(function style(props) {
+  return buildVariants<BackdropProps>(props)
     .css({
       position: "fixed",
       inset: 0,
@@ -31,6 +43,10 @@ const Backdrop = styled.div(function style() {
       "@media (prefers-reduced-motion: reduce)": {
         animation: "none"
       }
+    })
+    .variant("overlayMode", props.overlayMode ?? "viewport", {
+      viewport: { position: "fixed" },
+      container: { position: "absolute" }
     })
     .end();
 });
@@ -71,9 +87,13 @@ const Panel = styled.div<PanelProps>(function style(props) {
         animation: "none"
       }
     })
+    .variant("overlayMode", props.overlayMode ?? "viewport", {
+      viewport: { position: "fixed" },
+      container: { position: "absolute" }
+    })
     .variant("side", props.side ?? "right", {
-      right: { top: 0, right: 0, width: "min(26rem, 96vw)", height: "100vh", animationName: "ds-sheet-in-right" },
-      left: { top: 0, left: 0, width: "min(26rem, 96vw)", height: "100vh", animationName: "ds-sheet-in-left" },
+      right: { top: 0, right: 0, width: "min(26rem, 96vw)", height: "100%", maxHeight: "100vh", animationName: "ds-sheet-in-right" },
+      left: { top: 0, left: 0, width: "min(26rem, 96vw)", height: "100%", maxHeight: "100vh", animationName: "ds-sheet-in-left" },
       top: { top: 0, left: 0, width: "100vw", minHeight: "12rem", animationName: "ds-sheet-in-top" },
       bottom: { bottom: 0, left: 0, width: "100vw", minHeight: "12rem", animationName: "ds-sheet-in-bottom" }
     })
@@ -81,18 +101,63 @@ const Panel = styled.div<PanelProps>(function style(props) {
 });
 
 export function Sheet(props: SheetProps) {
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const titleId = useId();
+  const overlayMode = props.overlayMode ?? "viewport";
+
+  useEffect(function onOpenKeyboard() {
+    if (!props.open) {
+      return;
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape" && (props.closeOnEscape ?? true) && panelRef.current?.contains(document.activeElement)) {
+        event.preventDefault();
+        props.onClose();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return function cleanup() {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [props.closeOnEscape, props.onClose, props.open]);
+
   if (!props.open) {
     return null;
   }
 
-  return (
-    <>
-      <Backdrop onClick={props.onClose} />
-      <Panel side={props.side} role="dialog" aria-modal="true">
-        {props.title ? <Heading level={4}>{props.title}</Heading> : null}
-        <Button tone="neutral" size="sm" onClick={props.onClose}>Close</Button>
-        {props.children}
-      </Panel>
-    </>
+  const content = (
+      <Backdrop overlayMode={overlayMode}>
+        <ClickOutside onClickOutside={props.onClose}>
+          <FocusTrap active initialFocusRef={closeButtonRef}>
+            <Panel
+              ref={panelRef}
+              className={props.className}
+              overlayMode={overlayMode}
+              side={props.side}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={props.title ? titleId : undefined}
+              tabIndex={-1}
+              id={props.id}
+              style={props.style}
+              aria-label={props["aria-label"]}
+              aria-describedby={props["aria-describedby"]}
+            >
+              {props.title ? <Heading id={titleId} level={4}>{props.title}</Heading> : null}
+              <Button ref={closeButtonRef} tone="neutral" size="sm" onClick={props.onClose}>Close</Button>
+              {props.children}
+            </Panel>
+          </FocusTrap>
+        </ClickOutside>
+      </Backdrop>
   );
+
+  if (overlayMode === "container") {
+    return content;
+  }
+
+  return <Portal target={props.portalTarget}>{content}</Portal>;
 }

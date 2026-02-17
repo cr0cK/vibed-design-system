@@ -6,11 +6,12 @@ import { buildVariants } from "../../utils/buildVariants";
 export interface ClickOutsideProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   onClickOutside?: () => void;
+  enabled?: boolean;
 }
 
 const Root = styled.div(function style() {
   return buildVariants<Record<string, never>>({})
-    .css({ width: "100%" })
+    .css({ minWidth: 0 })
     .end();
 });
 
@@ -18,7 +19,11 @@ export function ClickOutside(props: ClickOutsideProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(function bindOutside() {
-    function onMouseDown(event: MouseEvent) {
+    if (props.enabled === false) {
+      return;
+    }
+
+    function onPointerDown(event: PointerEvent) {
       if (rootRef.current && event.target instanceof Node && !rootRef.current.contains(event.target)) {
         if (props.onClickOutside) {
           props.onClickOutside();
@@ -26,11 +31,28 @@ export function ClickOutside(props: ClickOutsideProps) {
       }
     }
 
-    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("pointerdown", onPointerDown);
     return function cleanup() {
-      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("pointerdown", onPointerDown);
     };
-  }, [props.onClickOutside]);
+  }, [props.enabled, props.onClickOutside]);
 
-  return <Root ref={rootRef} className={props.className}>{props.children}</Root>;
+  return (
+    <Root
+      ref={rootRef}
+      className={props.className}
+      id={props.id}
+      role={props.role}
+      style={props.style}
+      tabIndex={props.tabIndex}
+      onKeyDown={props.onKeyDown}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      aria-label={props["aria-label"]}
+      aria-labelledby={props["aria-labelledby"]}
+      aria-describedby={props["aria-describedby"]}
+    >
+      {props.children}
+    </Root>
+  );
 }

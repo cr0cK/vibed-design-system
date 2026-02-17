@@ -1,9 +1,12 @@
-import type { HTMLAttributes, KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
 import { Heading } from "../../atoms/Heading/Heading";
+import { Portal } from "../../utilities/Portal/Portal";
+import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
+import { ClickOutside } from "../../utilities/ClickOutside/ClickOutside";
 
 export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   open: boolean;
@@ -11,6 +14,7 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   onClose: () => void;
   closeOnEscape?: boolean;
+  portalTarget?: HTMLElement | null;
 }
 
 const Backdrop = styled.div(function style() {
@@ -61,104 +65,54 @@ const Panel = styled.div(function style() {
 export function Modal(props: ModalProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const previousFocusedRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
 
-  useEffect(function onOpenFocusAndKeyboard() {
+  useEffect(function onOpenKeyboard() {
     if (!props.open) {
       return;
     }
 
-    previousFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-
-    const panel = panelRef.current;
-    const closeButton = closeButtonRef.current;
-    if (closeButton) {
-      closeButton.focus();
-    } else if (panel) {
-      panel.focus();
-    }
-
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
+      if (event.key === "Escape" && (props.closeOnEscape ?? true) && panelRef.current?.contains(document.activeElement)) {
         event.preventDefault();
         props.onClose();
-      }
-
-      if (event.key !== "Tab") {
-        return;
-      }
-
-      const root = panelRef.current;
-      if (!root) {
-        return;
-      }
-
-      const focusable = Array.from(
-        root.querySelectorAll<HTMLElement>(
-          "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
-        )
-      ).filter(function filterFocusable(node) {
-        return !node.hasAttribute("disabled") && node.getAttribute("aria-hidden") !== "true";
-      });
-
-      if (focusable.length === 0) {
-        event.preventDefault();
-        root.focus();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const active = document.activeElement;
-      if (!first || !last) {
-        return;
-      }
-
-      if (event.shiftKey && active === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && active === last) {
-        event.preventDefault();
-        first.focus();
       }
     }
 
     document.addEventListener("keydown", onKeyDown);
     return function cleanup() {
       document.removeEventListener("keydown", onKeyDown);
-      previousFocusedRef.current?.focus();
     };
   }, [props.open, props.onClose, props.closeOnEscape]);
-
-  function onPanelKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
-    if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
-      event.preventDefault();
-      props.onClose();
-    }
-  }
 
   if (!props.open) {
     return null;
   }
 
   return (
-    <Backdrop onClick={props.onClose}>
-      <Panel
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={props.title ? titleId : undefined}
-        tabIndex={-1}
-        onKeyDown={onPanelKeyDown}
-        onClick={function onClick(event) {
-          event.stopPropagation();
-        }}
-      >
-        <Heading id={props.title ? titleId : undefined} level={3}>{props.title ?? "Dialog"}</Heading>
-        <div>{props.children}</div>
-        <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
-      </Panel>
-    </Backdrop>
+    <Portal target={props.portalTarget}>
+      <Backdrop>
+        <ClickOutside onClickOutside={props.onClose}>
+          <FocusTrap active initialFocusRef={closeButtonRef}>
+            <Panel
+              ref={panelRef}
+              className={props.className}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={props.title ? titleId : undefined}
+              tabIndex={-1}
+              id={props.id}
+              style={props.style}
+              aria-label={props["aria-label"]}
+              aria-describedby={props["aria-describedby"]}
+            >
+              <Heading id={props.title ? titleId : undefined} level={3}>{props.title ?? "Dialog"}</Heading>
+              <div>{props.children}</div>
+              <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
+            </Panel>
+          </FocusTrap>
+        </ClickOutside>
+      </Backdrop>
+    </Portal>
   );
 }

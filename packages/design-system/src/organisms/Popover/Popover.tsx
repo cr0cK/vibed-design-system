@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
+import { ClickOutside } from "../../utilities/ClickOutside/ClickOutside";
 
 export type PopoverPlacement = "bottom-left" | "bottom-right" | "top-left" | "top-right";
 
@@ -57,27 +58,9 @@ const Surface = styled.div<SurfaceProps>(function style(props) {
 
 export function Popover(props: PopoverProps) {
   const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement | null>(null);
   const surfaceRef = useRef<HTMLDivElement | null>(null);
   const popoverId = useId();
   const placement = props.placement ?? "bottom-left";
-
-  useEffect(function closeOnOutsideClick() {
-    if (!open) {
-      return;
-    }
-
-    function onMouseDown(event: MouseEvent) {
-      if (rootRef.current && event.target instanceof Node && !rootRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", onMouseDown);
-    return function cleanup() {
-      document.removeEventListener("mousedown", onMouseDown);
-    };
-  }, [open]);
 
   useEffect(function focusSurfaceOnOpen() {
     if (open) {
@@ -86,34 +69,43 @@ export function Popover(props: PopoverProps) {
   }, [open]);
 
   return (
-    <Root
-      ref={rootRef}
-      placement={placement}
-      className={props.className}
-      onKeyDown={function onKeyDown(event) {
-        if (event.key === "Escape") {
-          event.preventDefault();
-          setOpen(false);
-        }
-      }}
-    >
-      <Button
-        tone="neutral"
-        size="sm"
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={popoverId}
-        onClick={function onClick() {
-          setOpen(!open);
+    <ClickOutside enabled={open} onClickOutside={function onClickOutside() { setOpen(false); }}>
+      <Root
+        placement={placement}
+        className={props.className}
+        id={props.id}
+        style={props.style}
+        onKeyDown={function onKeyDown(event) {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            setOpen(false);
+          }
+          if (props.onKeyDown) {
+            props.onKeyDown(event);
+          }
         }}
+        aria-label={props["aria-label"]}
+        aria-labelledby={props["aria-labelledby"]}
+        aria-describedby={props["aria-describedby"]}
       >
-        {props.triggerLabel}
-      </Button>
-      {open ? (
-        <Surface ref={surfaceRef} id={popoverId} role="dialog" tabIndex={-1} placement={placement}>
-          {props.popoverContent}
-        </Surface>
-      ) : null}
-    </Root>
+        <Button
+          tone="neutral"
+          size="sm"
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-controls={popoverId}
+          onClick={function onClick() {
+            setOpen(!open);
+          }}
+        >
+          {props.triggerLabel}
+        </Button>
+        {open ? (
+          <Surface ref={surfaceRef} id={popoverId} role="dialog" tabIndex={-1} placement={placement}>
+            {props.popoverContent}
+          </Surface>
+        ) : null}
+      </Root>
+    </ClickOutside>
   );
 }

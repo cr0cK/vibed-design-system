@@ -1,8 +1,11 @@
 import type { HTMLAttributes } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
 import { Button } from "../../atoms/Button/Button";
+import { Portal } from "../../utilities/Portal/Portal";
+import { ClickOutside } from "../../utilities/ClickOutside/ClickOutside";
+import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
 
 export interface CommandItem {
   id: string;
@@ -14,6 +17,8 @@ export interface CommandItem {
 export interface CommandPaletteProps extends HTMLAttributes<HTMLDivElement> {
   commands: CommandItem[];
   triggerLabel?: string;
+  closeOnEscape?: boolean;
+  portalTarget?: HTMLElement | null;
 }
 
 interface BackdropProps {
@@ -103,6 +108,8 @@ export function CommandPalette(props: CommandPaletteProps) {
   const [entered, setEntered] = useState(false);
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(function keyboardShortcut() {
     function onKeyDown(event: KeyboardEvent) {
@@ -111,7 +118,7 @@ export function CommandPalette(props: CommandPaletteProps) {
         event.preventDefault();
         setOpen(true);
       }
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && (props.closeOnEscape ?? true)) {
         setOpen(false);
       }
     }
@@ -120,28 +127,26 @@ export function CommandPalette(props: CommandPaletteProps) {
     return function cleanup() {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, []);
+  }, [props.closeOnEscape]);
 
-  const filtered = useMemo(function filterCommands() {
+  const filtered = props.commands.filter(function filter(command) {
     const normalized = query.toLowerCase().trim();
     if (!normalized) {
-      return props.commands;
+      return true;
     }
 
-    return props.commands.filter(function filter(command) {
-      if (command.label.toLowerCase().includes(normalized)) {
-        return true;
-      }
+    if (command.label.toLowerCase().includes(normalized)) {
+      return true;
+    }
 
-      if (command.keywords) {
-        return command.keywords.some(function some(keyword) {
-          return keyword.toLowerCase().includes(normalized);
-        });
-      }
+    if (command.keywords) {
+      return command.keywords.some(function some(keyword) {
+        return keyword.toLowerCase().includes(normalized);
+      });
+    }
 
-      return false;
-    });
-  }, [props.commands, query]);
+    return false;
+  });
 
   function selectCommand(index: number) {
     const command = filtered[index];
@@ -173,75 +178,93 @@ export function CommandPalette(props: CommandPaletteProps) {
     };
   }, [open]);
 
+  useEffect(function onEscapeWhenOpen() {
+    if (!open || props.closeOnEscape === false) {
+      return;
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape" && rootRef.current?.contains(document.activeElement)) {
+        event.preventDefault();
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return function cleanup() {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, props.closeOnEscape]);
+
   return (
     <>
       <Button tone="neutral" onClick={function onClick() { setOpen(true); }}>
         {props.triggerLabel ?? "Open command palette"}
       </Button>
       {open ? (
-        <Backdrop
-          entered={entered}
-          onClick={function onClick() {
-            setOpen(false);
-          }}
-        >
-          <Panel
-            entered={entered}
-            role="dialog"
-            aria-modal="true"
-            onClick={function onClick(event) {
-              event.stopPropagation();
-            }}
-          >
-            <Input
-              autoFocus
-              value={query}
-              placeholder="Type a command..."
-              onChange={function onChange(event) {
-                setQuery(event.target.value);
-                setHighlightedIndex(0);
-              }}
-              onKeyDown={function onKeyDown(event) {
-                if (event.key === "ArrowDown") {
-                  event.preventDefault();
-                  setHighlightedIndex(Math.min(filtered.length - 1, highlightedIndex + 1));
-                  return;
-                }
-                if (event.key === "ArrowUp") {
-                  event.preventDefault();
-                  setHighlightedIndex(Math.max(0, highlightedIndex - 1));
-                  return;
-                }
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  selectCommand(highlightedIndex);
-                }
-              }}
-            />
-            {filtered.length === 0 ? (
-              <Empty>No commands found</Empty>
-            ) : (
-              <div>
-                {filtered.map(function mapCommand(command, index) {
-                  return (
-                    <Item
-                      key={command.id}
-                      highlighted={index === highlightedIndex}
-                      onMouseEnter={function onMouseEnter() {
-                        setHighlightedIndex(index);
-                      }}
-                      onClick={function onClick() {
-                        selectCommand(index);
-                      }}
-                    >
-                      {command.label}
-                    </Item>
-                  );
-                })}
-              </div>
-            )}
-          </Panel>
-        </Backdrop>
+        <Portal target={props.portalTarget}>
+          <Backdrop entered={entered}>
+            <ClickOutside onClickOutside={function onClickOutside() { setOpen(false); }}>
+              <FocusTrap active initialFocusRef={inputRef}>
+                <Panel
+                  ref={rootRef}
+                  entered={entered}
+                  role="dialog"
+                  aria-modal="true"
+                >
+                  <Input
+                    ref={inputRef}
+                    autoFocus
+                    value={query}
+                    placeholder="Type a command..."
+                    onChange={function onChange(event) {
+                      setQuery(event.target.value);
+                      setHighlightedIndex(0);
+                    }}
+                    onKeyDown={function onKeyDown(event) {
+                      if (event.key === "ArrowDown") {
+                        event.preventDefault();
+                        setHighlightedIndex(Math.min(filtered.length - 1, highlightedIndex + 1));
+                        return;
+                      }
+                      if (event.key === "ArrowUp") {
+                        event.preventDefault();
+                        setHighlightedIndex(Math.max(0, highlightedIndex - 1));
+                        return;
+                      }
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        selectCommand(highlightedIndex);
+                      }
+                    }}
+                  />
+                  {filtered.length === 0 ? (
+                    <Empty>No commands found</Empty>
+                  ) : (
+                    <div>
+                      {filtered.map(function mapCommand(command, index) {
+                        return (
+                          <Item
+                            key={command.id}
+                            highlighted={index === highlightedIndex}
+                            onMouseEnter={function onMouseEnter() {
+                              setHighlightedIndex(index);
+                            }}
+                            onClick={function onClick() {
+                              selectCommand(index);
+                            }}
+                          >
+                            {command.label}
+                          </Item>
+                        );
+                      })}
+                    </div>
+                  )}
+                </Panel>
+              </FocusTrap>
+            </ClickOutside>
+          </Backdrop>
+        </Portal>
       ) : null}
     </>
   );
