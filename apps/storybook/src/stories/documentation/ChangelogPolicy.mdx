@@ -1,0 +1,23 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Changelog Policy" parameters={{ options: { showPanel: false } }} />
+
+# Changelog Policy
+
+`CHANGELOG.md` is the canonical source of release notes.
+
+## Format
+
+- Keep an `Unreleased` section at the top.
+- Group entries by `Added`, `Changed`, `Fixed`, `Removed`.
+- Keep entries user-focused and concise.
+
+## Expectations per PR
+
+1. Add at least one changelog entry when behavior changes.
+2. Reference the component or token surface affected.
+3. Add migration notes for any API rename/removal.
+
+## Current file
+
+- `CHANGELOG.md`

@@ -1,0 +1,24 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Migration Guide" parameters={{ options: { showPanel: false } }} />
+
+# Migration Guide
+
+Consumer migration notes are tracked in `MIGRATIONS.md`.
+
+## Current notable renames
+
+- `Toast`: use `heading` prop (instead of `title`).
+- `Sidebar`: use `heading` prop (instead of `title`).
+- `Menu` / `DropdownMenu`: use `onItemSelect` (instead of `onSelect`).
+
+## Upgrade workflow
+
+1. Upgrade dependency version.
+2. Run `pnpm typecheck` in the consumer app.
+3. Fix renamed props from the migration notes.
+4. Verify visual output against Storybook.
+
+## Source file
+
+- `MIGRATIONS.md`

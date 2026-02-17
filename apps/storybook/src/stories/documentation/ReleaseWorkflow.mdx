@@ -1,0 +1,33 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Release Workflow" parameters={{ options: { showPanel: false } }} />
+
+# Release Workflow
+
+This repository publishes `@vibed/design-system` from `packages/design-system`.
+
+## Release checks
+
+1. Run `pnpm ci:validate` locally.
+2. Ensure `CHANGELOG.md` and `MIGRATIONS.md` are updated.
+3. Ensure Storybook docs still build with `pnpm build:storybook`.
+
+## CI and release automation
+
+- CI workflow: `.github/workflows/ci.yml`
+- Release workflow: `.github/workflows/release.yml`
+
+The release workflow supports dry-run packaging by default and optional npm publish when dispatched with `publish=true` and a configured `NPM_TOKEN` secret.
+
+## Commands
+
+```bash
+pnpm ci:validate
+pnpm release:dry-run
+```
+
+## Publish notes
+
+- Package metadata is defined in `packages/design-system/package.json`.
+- `prepublishOnly` builds artifacts before publish.
+- npm provenance is enabled in the release workflow.

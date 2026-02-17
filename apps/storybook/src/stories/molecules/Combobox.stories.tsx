@@ -1,0 +1,25 @@
+import { Combobox, Stack, Text } from "@vibed/design-system";
+import { useState } from "react";
+
+const meta = { title: "Molecules/Combobox", component: Combobox, tags: ["autodocs"] };
+export default meta;
+
+const options = [
+  { value: "engineering", label: "Engineering" },
+  { value: "design", label: "Design" },
+  { value: "product", label: "Product" },
+  { value: "ops", label: "Operations" }
+];
+
+function Demo() {
+  const [value, setValue] = useState("design");
+
+  return (
+    <Stack gap="sm">
+      <Combobox options={options} value={value} onValueChange={setValue} placeholder="Select team" />
+      <Text size="sm" tone="muted">Selected: {value}</Text>
+    </Stack>
+  );
+}
+
+export const Showcase = { render: function Render() { return <Demo />; } };

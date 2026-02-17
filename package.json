@@ -7,10 +7,13 @@
     "dev": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
     "watch:storybook": "pnpm -r --parallel --filter @vibed/design-system --filter @vibed/storybook run dev",
     "build": "pnpm -r build",
+    "build:design-system": "pnpm --filter @vibed/design-system build",
     "typecheck": "pnpm -r typecheck",
     "check": "pnpm typecheck && pnpm build",
+    "ci:validate": "pnpm typecheck && pnpm --filter @vibed/design-system build && pnpm --filter @vibed/storybook build && pnpm build",
     "dev:storybook": "pnpm run watch:storybook",
     "build:storybook": "pnpm --filter @vibed/storybook build",
+    "release:dry-run": "pnpm check && pnpm --filter @vibed/design-system pack",
     "update:docs": "bash scripts/update-docs.sh"
   }
 }

@@ -1,0 +1,72 @@
+import type { HTMLAttributes, ReactNode } from "react";
+import styled from "@emotion/styled";
+import { buildVariants } from "../../utils/buildVariants";
+
+export interface MenuItem {
+  id: string;
+  label: ReactNode;
+  disabled?: boolean;
+}
+
+export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
+  items: MenuItem[];
+  selectedId?: string;
+  onItemSelect?: (id: string) => void;
+}
+
+const Root = styled.div(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      display: "grid",
+      gap: "0.2rem",
+      padding: "0.25rem",
+      border: "1px solid var(--ds-color-border)",
+      borderRadius: "var(--ds-radius-md)",
+      backgroundColor: "var(--ds-color-surface)"
+    })
+    .end();
+});
+
+interface ItemProps {
+  selected?: boolean;
+  disabled?: boolean;
+}
+
+const ItemButton = styled.button<ItemProps>(function style(props) {
+  return buildVariants<ItemProps>(props)
+    .css({
+      border: "none",
+      textAlign: "left",
+      borderRadius: "var(--ds-radius-sm)",
+      padding: "0.5rem 0.6rem",
+      backgroundColor: props.selected ? "color-mix(in oklab, var(--ds-color-primary) 14%, var(--ds-color-surface))" : "transparent",
+      color: props.disabled ? "var(--ds-color-text-muted)" : "var(--ds-color-text)",
+      cursor: props.disabled ? "not-allowed" : "pointer"
+    })
+    .end();
+});
+
+export function Menu(props: MenuProps) {
+  return (
+    <Root className={props.className} role="menu">
+      {props.items.map(function mapItem(item) {
+        return (
+          <ItemButton
+            key={item.id}
+            type="button"
+            role="menuitem"
+              disabled={item.disabled}
+              selected={props.selectedId === item.id}
+              onClick={function onClick() {
+              if (!item.disabled && props.onItemSelect) {
+                props.onItemSelect(item.id);
+              }
+            }}
+          >
+            {item.label}
+          </ItemButton>
+        );
+      })}
+    </Root>
+  );
+}

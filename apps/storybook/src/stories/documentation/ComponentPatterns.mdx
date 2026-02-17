@@ -10,6 +10,21 @@ import { Meta } from "@storybook/blocks";
 - Do not destructure props in component signatures.
 - Keep style declarations outside component render bodies.
 - Prefer composition over deeply configurable single components.
+- Keep prop contracts honest: when using `extends HTMLAttributes<...>`, forward supported props to the root node.
+
+## HTML props contract
+
+- If the component intentionally only supports `className`, use a narrow interface instead of `HTMLAttributes`.
+- If the component extends DOM attributes, forward `id`, `data-*`, ARIA attributes, and handlers to its root.
+- Avoid typing broad DOM props that are dropped at runtime.
+
+## Overlay composition
+
+- Reuse utility components for common behavior:
+  - `Portal`
+  - `FocusTrap`
+  - `ClickOutside`
+- Add custom handling only for behavior unique to that component.
 
 ## Component template
 

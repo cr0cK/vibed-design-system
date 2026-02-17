@@ -36,6 +36,18 @@ pnpm build
 pnpm check
 ```
 
+## CI-equivalent validation
+
+```bash
+pnpm ci:validate
+```
+
+## Release dry run
+
+```bash
+pnpm release:dry-run
+```
+
 ## Conventions applied
 
 - Explicit props interfaces
@@ -49,3 +61,5 @@ pnpm check
 - Primary docs are published in Storybook under the `Documentation/*` section.
 - Source files for those pages live in `apps/storybook/src/stories/documentation`.
 - Story map: `apps/storybook/src/stories/INDEX.md`
+- Changelog: `CHANGELOG.md`
+- Migration notes: `MIGRATIONS.md`

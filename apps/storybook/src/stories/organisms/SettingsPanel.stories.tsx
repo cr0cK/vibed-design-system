@@ -1,0 +1,38 @@
+import { Button, FormControl, Input, SettingsPanel, Stack, Switch } from "@vibed/design-system";
+import { useState } from "react";
+
+const meta = { title: "Organisms/SettingsPanel", component: SettingsPanel, tags: ["autodocs"] };
+export default meta;
+
+function Demo() {
+  const [enabled, setEnabled] = useState(true);
+
+  return (
+    <SettingsPanel
+      heading="Workspace settings"
+      sections={[
+        {
+          id: "profile",
+          title: "Profile",
+          description: "Basic identity and display settings.",
+          content: (
+            <Stack gap="sm">
+              <FormControl label="Workspace name" htmlFor="workspace-name">
+                <Input id="workspace-name" defaultValue="Orange Motion" />
+              </FormControl>
+              <Button tone="primary" size="sm">Save profile</Button>
+            </Stack>
+          )
+        },
+        {
+          id: "notifications",
+          title: "Notifications",
+          description: "Control automated delivery behavior.",
+          content: <Switch checked={enabled} onCheckedChange={setEnabled} label="Enable system alerts" />
+        }
+      ]}
+    />
+  );
+}
+
+export const Showcase = { render: function Render() { return <Demo />; } };

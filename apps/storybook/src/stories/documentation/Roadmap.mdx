@@ -4,7 +4,12 @@ import { Meta } from "@storybook/blocks";
 
 # Design System Roadmap
 
-Last updated: 2026-02-16
+Last updated: 2026-02-17
+
+Status note:
+
+- Component scope for Phases 1 to 4 is implemented.
+- A verification pass identified follow-up quality items now tracked below.
 
 ## Objective
 
@@ -12,7 +17,7 @@ Deliver a pragmatic, composable React design system with strong accessibility, c
 
 ## Phase 1: Core System Hardening
 
-Status: In progress  
+Status: Completed  
 Target: Week of 2026-02-16
 
 Scope:
@@ -38,7 +43,7 @@ Acceptance criteria:
 
 ## Phase 1.1: Accessibility + Interaction Pass
 
-Status: In progress  
+Status: Completed  
 Target: Week of 2026-02-23
 
 Scope:
@@ -56,7 +61,7 @@ Acceptance criteria:
 
 ## Phase 2: Advanced Inputs + Data
 
-Status: In progress  
+Status: Completed  
 Target: Weeks of 2026-03-02 and 2026-03-09
 
 Scope:
@@ -74,7 +79,7 @@ Acceptance criteria:
 
 ## Phase 3: Navigation + App Patterns
 
-Status: Planned  
+Status: Completed  
 Target: Weeks of 2026-03-16 and 2026-03-23
 
 Scope:
@@ -92,7 +97,7 @@ Acceptance criteria:
 
 ## Phase 4: Quality + Distribution
 
-Status: Planned  
+Status: Completed with follow-ups  
 Target: Weeks of 2026-03-30 and 2026-04-06
 
 Scope:
@@ -107,6 +112,13 @@ Acceptance criteria:
 1. CI validates typecheck/build/storybook build.
 2. Publish flow is repeatable and documented.
 3. Consumers can adopt components with clear migration notes.
+
+## Follow-up quality backlog
+
+1. Add focused interaction/a11y tests for state-heavy components (`Select`, overlays, command components).
+2. Standardize props passthrough contract: either forward DOM attributes or narrow interfaces.
+3. Align `Sheet` interaction/a11y behavior with `Modal` and `Drawer` (escape, focus trap/restore, label wiring).
+4. Increase reuse of `Portal`, `FocusTrap`, and `ClickOutside` in overlay components.
 
 ## Working rules (all phases)
 

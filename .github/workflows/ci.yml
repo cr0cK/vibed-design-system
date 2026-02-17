@@ -27,8 +27,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck
+      - name: Typecheck workspace
         run: pnpm typecheck
 
-      - name: Build
+      - name: Build design-system package
+        run: pnpm --filter @vibed/design-system build
+
+      - name: Build Storybook static site
+        run: pnpm --filter @vibed/storybook build
+
+      - name: Build workspace
         run: pnpm build

@@ -11,7 +11,10 @@ import { Meta } from "@storybook/blocks";
 3. No prop destructuring in function signature.
 4. Styling uses `styled.*` + `buildVariants(props)`.
 5. Variant values use explicit string unions.
-6. Shared state uses context or small Zustand slices where needed.
-7. Storybook story added or updated when component behavior changes.
-8. `pnpm typecheck` passes.
-9. `pnpm build` passes.
+6. If component extends `HTMLAttributes`, pass supported DOM props through to the root element; otherwise do not extend it.
+7. Overlay-like behavior (`outside click`, `focus trap`, `portal`) reuses utility components unless a clear reason is documented.
+8. Shared state uses context or small Zustand slices where needed.
+9. Storybook story added or updated when component behavior changes.
+10. `pnpm typecheck` passes.
+11. `pnpm build` passes.
+12. If interaction behavior changed, add or update focused interaction/a11y tests.
