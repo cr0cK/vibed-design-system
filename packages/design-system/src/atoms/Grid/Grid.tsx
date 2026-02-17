@@ -12,7 +12,7 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
 
 const GridRoot = styled.div<GridProps>(function style(props) {
   const gridTemplateColumns = props.template === "app-shell"
-    ? "220px minmax(0, 1fr) minmax(24rem, 33.75rem)"
+    ? "240px minmax(0, 1fr) minmax(28rem, 40rem)"
     : `repeat(${props.columns ?? 2}, minmax(0, 1fr))`;
 
   return buildVariants<GridProps>(props)
@@ -21,7 +21,7 @@ const GridRoot = styled.div<GridProps>(function style(props) {
       gridTemplateColumns,
       ...(props.template === "app-shell"
         ? {
-            "@media (max-width: 1100px)": {
+            "@media (max-width: 1200px)": {
               gridTemplateColumns: "220px minmax(0, 1fr)"
             },
             "@media (max-width: 860px)": {

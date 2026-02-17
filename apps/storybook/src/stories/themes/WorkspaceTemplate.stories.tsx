@@ -20,49 +20,87 @@ interface WorkspaceTemplateProps {
 
 function WorkspaceTemplate(props: WorkspaceTemplateProps) {
   const shellMinHeight = props.compact ? "auto" : "screen";
+  const sidePadding = props.compact ? "md" : "lg";
+  const mainPadding = props.compact ? "lg" : "xl";
+  const panelPadding = props.compact ? "md" : "lg";
+  const stackGap = props.compact ? "md" : "lg";
 
   return (
     <Box surface="background" minHeight={shellMinHeight}>
       <Grid template="app-shell" minHeight={shellMinHeight}>
-        <Box as="aside" padding={props.compact ? "sm" : "md"} surface="surface" border="subtle" borderSide="right">
-          <Stack gap="sm">
+        <Box as="aside" padding={sidePadding} surface="surface" border="subtle" borderSide="right">
+          <Stack gap={stackGap}>
             <Heading level={5}>Control Center</Heading>
-            <Text size="sm" tone="muted">Overview</Text>
-            <Text size="sm" tone="muted">Channels</Text>
-            <Text size="sm" tone="muted">Automations</Text>
-            <Box surface="muted" radius="sm" padding="sm">
-              <Text size="sm" weight="semibold">Digest Builder</Text>
+            <Stack gap="sm">
+              <Text size="sm" tone="muted">Overview</Text>
+              <Text size="sm" tone="muted">Channels</Text>
+              <Text size="sm" tone="muted">Automations</Text>
+              <Box surface="muted" radius="sm" padding="sm">
+                <Text size="sm" weight="semibold">Digest Builder</Text>
+              </Box>
+              <Text size="sm" tone="muted">Audiences</Text>
+              <Text size="sm" tone="muted">Settings</Text>
+            </Stack>
+            <Box surface="elevated" radius="md" padding="sm">
+              <Stack gap="xxs">
+                <Text size="sm" weight="semibold">Performance</Text>
+                <Text size="sm" tone="muted">3 workflows active this week</Text>
+              </Stack>
             </Box>
-            <Text size="sm" tone="muted">Audiences</Text>
-            <Text size="sm" tone="muted">Settings</Text>
           </Stack>
         </Box>
 
-        <Box as="main" padding={props.compact ? "md" : "lg"} border="subtle" borderSide="right">
-          <Stack gap="md">
-            <Heading level={2}>Automations</Heading>
-            <Text tone="muted">Schedule and monitor recurring updates for your team.</Text>
+        <Box as="main" padding={mainPadding} border="subtle" borderSide="right">
+          <Stack gap={stackGap}>
+            <Stack gap="sm">
+              <Inline justify="between" align="center">
+                <Heading level={2}>Automations</Heading>
+                <Button tone="primary" controlSize="sm">New automation</Button>
+              </Inline>
+              <Text tone="muted">Schedule and monitor recurring updates for your team.</Text>
+            </Stack>
 
-            <Box surface="surface" radius="sm" border="subtle" overflow="hidden">
-              <Box padding="sm" border="subtle" borderSide="bottom">
+            <Grid columns={3} gap="sm">
+              <Box surface="elevated" radius="md" padding="md">
+                <Stack gap="xxs">
+                  <Text size="sm" tone="muted">Active</Text>
+                  <Heading level={4}>24</Heading>
+                </Stack>
+              </Box>
+              <Box surface="elevated" radius="md" padding="md">
+                <Stack gap="xxs">
+                  <Text size="sm" tone="muted">Paused</Text>
+                  <Heading level={4}>5</Heading>
+                </Stack>
+              </Box>
+              <Box surface="elevated" radius="md" padding="md">
+                <Stack gap="xxs">
+                  <Text size="sm" tone="muted">Errors</Text>
+                  <Heading level={4}>1</Heading>
+                </Stack>
+              </Box>
+            </Grid>
+
+            <Box surface="surface" radius="md" border="subtle" overflow="hidden">
+              <Box padding="md" border="subtle" borderSide="bottom">
                 <Inline justify="between" align="center">
                   <Text weight="semibold" size="sm">Workflow</Text>
                   <Text weight="semibold" size="sm">Status</Text>
                 </Inline>
               </Box>
-              <Box padding="sm" border="subtle" borderSide="bottom">
+              <Box padding="md" border="subtle" borderSide="bottom">
                 <Inline justify="between" align="center">
                   <Text size="sm">Morning Pulse</Text>
                   <Badge tone="success">Live</Badge>
                 </Inline>
               </Box>
-              <Box padding="sm" border="subtle" borderSide="bottom">
+              <Box padding="md" border="subtle" borderSide="bottom">
                 <Inline justify="between" align="center">
                   <Text size="sm">Ops Digest</Text>
                   <Badge tone="neutral">Paused</Badge>
                 </Inline>
               </Box>
-              <Box padding="sm">
+              <Box padding="md">
                 <Inline justify="between" align="center">
                   <Text size="sm">Leadership Weekly</Text>
                   <Badge tone="neutral">Draft</Badge>
@@ -72,8 +110,8 @@ function WorkspaceTemplate(props: WorkspaceTemplateProps) {
           </Stack>
         </Box>
 
-        <Box as="aside" padding={props.compact ? "sm" : "md"}>
-          <Stack gap="sm">
+        <Box as="aside" padding={panelPadding}>
+          <Stack gap={stackGap}>
             <Heading level={3}>Create Automation</Heading>
             <Text tone="muted" size="sm">Compose the next digest with structured controls.</Text>
 
@@ -106,6 +144,18 @@ function WorkspaceTemplate(props: WorkspaceTemplateProps) {
                 </Stack>
               </Box>
             </Inline>
+            <Box surface="muted" radius="sm" padding="md">
+              <Stack gap="xxs">
+                <Inline gap="xxs">
+                  <Text size="sm" weight="semibold">Schedule:</Text>
+                  <Text size="sm">Weekdays at 9:00 AM ET</Text>
+                </Inline>
+                <Inline gap="xxs">
+                  <Text size="sm" weight="semibold" tone="muted">Next run:</Text>
+                  <Text size="sm" tone="muted">Tomorrow at 9:00 AM ET</Text>
+                </Inline>
+              </Stack>
+            </Box>
             <Inline justify="end" gap="xs">
               <Button tone="neutral">Cancel</Button>
               <Button tone="primary">Launch</Button>
@@ -177,25 +227,25 @@ export const Gallery = {
   render: function Render() {
     return (
       <Stack gap="md">
-        <Box surface="surface" border="subtle" radius="md" overflow="hidden">
+        <Box surface="surface" border="subtle" radius="lg" overflow="hidden">
           <Box padding="sm" border="subtle" borderSide="bottom">
             <Heading level={4}>Default Light</Heading>
           </Box>
           <WorkspaceWithTheme selectedTheme="default-light" compact />
         </Box>
-        <Box surface="surface" border="subtle" radius="md" overflow="hidden">
+        <Box surface="surface" border="subtle" radius="lg" overflow="hidden">
           <Box padding="sm" border="subtle" borderSide="bottom">
             <Heading level={4}>Default Dark</Heading>
           </Box>
           <WorkspaceWithTheme selectedTheme="default-dark" compact />
         </Box>
-        <Box surface="surface" border="subtle" radius="md" overflow="hidden">
+        <Box surface="surface" border="subtle" radius="lg" overflow="hidden">
           <Box padding="sm" border="subtle" borderSide="bottom">
             <Heading level={4}>Orange Motion</Heading>
           </Box>
           <WorkspaceWithTheme selectedTheme="orange-motion" compact />
         </Box>
-        <Box surface="surface" border="subtle" radius="md" overflow="hidden">
+        <Box surface="surface" border="subtle" radius="lg" overflow="hidden">
           <Box padding="sm" border="subtle" borderSide="bottom">
             <Heading level={4}>Neo Mint</Heading>
           </Box>
