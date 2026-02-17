@@ -6,7 +6,7 @@ export default meta;
 
 function Demo() {
   const [open, setOpen] = useState(false);
-  const [overlayMode, setOverlayMode] = useState("viewport");
+  const [overlayMode, setOverlayMode] = useState("container");
 
   return (
     <Stack gap="sm">
@@ -16,8 +16,8 @@ function Demo() {
           setOverlayMode(event.target.value);
         }}
       >
-        <option value="viewport">viewport</option>
         <option value="container">container</option>
+        <option value="viewport">viewport</option>
       </Select>
       <Button tone="neutral" onClick={function onClick() { setOpen(true); }}>Open sheet</Button>
       <Sheet open={open} overlayMode={overlayMode} side="right" title="Quick settings" onClose={function onClose() { setOpen(false); }}>

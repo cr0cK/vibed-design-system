@@ -63,10 +63,12 @@ test("drawer closes on Escape in viewport mode and outside click in container mo
 });
 
 test("sheet closes on Escape in viewport mode and outside click in container mode", async function run({ page }) {
-  const modeSelectTrigger = page.getByRole("button", { name: "viewport" });
+  const modeSelectTrigger = page.locator("button[aria-haspopup='listbox']").first();
   const openButton = page.getByRole("button", { name: "Open sheet" });
 
   await page.goto(storyUrl("organisms-sheet--showcase"));
+  await modeSelectTrigger.click();
+  await page.getByRole("option", { name: "viewport" }).click();
   await openButton.click();
   await expect(page.getByRole("dialog", { name: "Quick settings" })).toBeVisible();
   await page.keyboard.press("Escape");
@@ -82,6 +84,8 @@ test("sheet closes on Escape in viewport mode and outside click in container mod
 
 test("sheet viewport mode keeps full-height side panel", async function run({ page }) {
   await page.goto(storyUrl("organisms-sheet--showcase"));
+  await page.locator("button[aria-haspopup='listbox']").first().click();
+  await page.getByRole("option", { name: "viewport" }).click();
   await page.getByRole("button", { name: "Open sheet" }).click();
   const dialog = page.getByRole("dialog", { name: "Quick settings" });
   await expect(dialog).toBeVisible();
