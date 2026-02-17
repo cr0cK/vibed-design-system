@@ -81,8 +81,8 @@ export const lightTheme: ThemeTokens = {
     full: "999px"
   },
   typography: {
-    body: "'IBM Plex Sans', 'Segoe UI', sans-serif",
-    display: "'Space Grotesk', 'Segoe UI', sans-serif",
+    body: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
+    display: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
     mono: "'IBM Plex Mono', ui-monospace, monospace"
   },
   shadows: {
@@ -120,8 +120,8 @@ export const darkTheme: ThemeTokens = {
     full: "999px"
   },
   typography: {
-    body: "'IBM Plex Sans', 'Segoe UI', sans-serif",
-    display: "'Space Grotesk', 'Segoe UI', sans-serif",
+    body: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
+    display: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
     mono: "'IBM Plex Mono', ui-monospace, monospace"
   },
   shadows: {

@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import type { ReactNode } from "react";
 import { DesignSystemProvider } from "@vibed/design-system";
+import "../src/styles/fonts.css";
 
 interface ProviderShellProps {
   children: ReactNode;

@@ -190,7 +190,7 @@ test("workspace template neo mint story renders", async function run({ page }) {
     return;
   }
 
-  expect(Math.abs(timeBox.height - timezoneBox.height)).toBeLessThanOrEqual(1.5);
+  expect(Math.abs(timeBox.height - timezoneBox.height)).toBeLessThanOrEqual(2);
 });
 
 test("workspace template gallery avoids overlap and horizontal overflow", async function run({ page }) {

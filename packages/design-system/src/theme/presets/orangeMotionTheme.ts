@@ -29,8 +29,8 @@ export const orangeMotionTheme: ThemeTokens = {
     full: "999px"
   },
   typography: {
-    body: "'Inter', 'Segoe UI', sans-serif",
-    display: "'Inter', 'Segoe UI', sans-serif",
+    body: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
+    display: "'Nunito Sans Local', 'Nunito Sans', 'Segoe UI', sans-serif",
     mono: "'IBM Plex Mono', ui-monospace, monospace"
   },
   shadows: {
