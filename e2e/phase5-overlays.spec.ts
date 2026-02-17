@@ -6,10 +6,18 @@ function storyUrl(storyId: string): string {
 
 test("modal closes on Escape and restores trigger focus", async function run({ page }) {
   const openButton = page.getByRole("button", { name: "Open modal" });
+  const closeButton = page.getByRole("button", { name: "Close" });
 
   await page.goto(storyUrl("organisms-modal--showcase"));
   await openButton.click();
   await expect(page.getByRole("dialog", { name: "Confirm release" })).toBeVisible();
+  await expect(closeButton).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+  await page.keyboard.down("Shift");
+  await page.keyboard.press("Tab");
+  await page.keyboard.up("Shift");
+  await expect(closeButton).toBeFocused();
 
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog", { name: "Confirm release" })).toBeHidden();
@@ -71,6 +79,8 @@ test("command palette opens, focuses input, and closes on Escape", async functio
   await openButton.click();
   await expect(commandInput).toBeVisible();
   await expect(commandInput).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("button", { name: "Create new automation" })).toBeFocused();
 
   await page.keyboard.press("Escape");
   await expect(commandInput).toBeHidden();
