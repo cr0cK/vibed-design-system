@@ -17,4 +17,6 @@ import { Meta } from "@storybook/blocks";
 9. Storybook story added or updated when component behavior changes.
 10. `pnpm typecheck` passes.
 11. `pnpm build` passes.
-12. If interaction behavior changed, add or update focused interaction/a11y tests.
+12. `pnpm --filter @vibed/storybook build` passes.
+13. `pnpm test:e2e` passes (Playwright against built Storybook).
+14. If interaction behavior changed, add or update focused interaction/a11y tests.
