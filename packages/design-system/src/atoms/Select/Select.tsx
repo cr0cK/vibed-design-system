@@ -36,12 +36,12 @@ const SelectTrigger = styled.button<SelectTriggerProps>(function style(props) {
       width: "100%",
       minWidth: 0,
       boxSizing: "border-box",
-      minHeight: "2rem",
+      minHeight: "2.48rem",
       borderRadius: "0.375rem",
       border: "1px solid color-mix(in oklab, var(--ds-color-border) 92%, #cfd6df)",
-      padding: "0.3rem 2.1rem 0.3rem 0.72rem",
-      fontSize: "0.875rem",
-      lineHeight: 1.57,
+      padding: "0.6rem 2.1rem 0.6rem 0.75rem",
+      fontSize: "0.95rem",
+      lineHeight: 1.2,
       fontFamily: "var(--ds-font-body)",
       backgroundColor: "var(--ds-color-surface)",
       color: "var(--ds-color-text)",
@@ -87,22 +87,22 @@ const SelectTrigger = styled.button<SelectTriggerProps>(function style(props) {
     })
     .variant("controlSize", props.controlSize ?? "md", {
       sm: {
-        minHeight: "1.75rem",
-        padding: "0.2rem 1.9rem 0.2rem 0.62rem",
-        fontSize: "0.82rem",
-        lineHeight: 1.45
+        minHeight: "2.05rem",
+        padding: "0.45rem 1.9rem 0.45rem 0.65rem",
+        fontSize: "0.875rem",
+        lineHeight: 1.2
       },
       md: {
-        minHeight: "2rem",
-        padding: "0.3rem 2.1rem 0.3rem 0.72rem",
-        fontSize: "0.875rem",
-        lineHeight: 1.57
+        minHeight: "2.48rem",
+        padding: "0.6rem 2.1rem 0.6rem 0.75rem",
+        fontSize: "0.95rem",
+        lineHeight: 1.2
       },
       lg: {
-        minHeight: "2.4rem",
-        padding: "0.5rem 2.25rem 0.5rem 0.82rem",
-        fontSize: "0.95rem",
-        lineHeight: 1.5
+        minHeight: "2.9rem",
+        padding: "0.75rem 2.25rem 0.75rem 0.9rem",
+        fontSize: "1rem",
+        lineHeight: 1.2
       }
     })
     .end();

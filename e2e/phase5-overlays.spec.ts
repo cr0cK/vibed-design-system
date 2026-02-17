@@ -171,6 +171,19 @@ test("app shell remains usable on mobile viewport", async function run({ page })
 test("workspace template neo mint story renders", async function run({ page }) {
   await page.goto(storyUrl("themes-workspace-template--neo-mint"));
   await expect(page.getByRole("heading", { name: "Create Automation" })).toBeVisible();
+
+  const timeInput = page.locator("input[value='9:00 AM']").first();
+  const timezoneSelect = page.locator("button[aria-haspopup='listbox']").first();
+  const timeBox = await timeInput.boundingBox();
+  const timezoneBox = await timezoneSelect.boundingBox();
+
+  expect(timeBox).not.toBeNull();
+  expect(timezoneBox).not.toBeNull();
+  if (!timeBox || !timezoneBox) {
+    return;
+  }
+
+  expect(Math.abs(timeBox.height - timezoneBox.height)).toBeLessThanOrEqual(1.5);
 });
 
 test("workspace template gallery avoids overlap and horizontal overflow", async function run({ page }) {
