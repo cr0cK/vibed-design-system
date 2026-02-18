@@ -22,7 +22,9 @@ const Root = styled.div(function style() {
       padding: "0.25rem",
       border: "1px solid var(--ds-color-border)",
       borderRadius: "var(--ds-radius-md)",
-      backgroundColor: "var(--ds-color-surface)"
+      backgroundColor: "var(--ds-color-surface)",
+      fontFamily: "var(--ds-font-body)",
+      fontSize: "0.95rem"
     })
     .end();
 });
@@ -35,10 +37,14 @@ interface ItemProps {
 const ItemButton = styled.button<ItemProps>(function style(props) {
   return buildVariants<ItemProps>(props)
     .css({
+      appearance: "none",
       border: "none",
       textAlign: "left",
       borderRadius: "var(--ds-radius-sm)",
       padding: "0.5rem 0.6rem",
+      fontFamily: "inherit",
+      fontSize: "inherit",
+      lineHeight: 1.35,
       backgroundColor: props.selected ? "color-mix(in oklab, var(--ds-color-primary) 14%, var(--ds-color-surface))" : "transparent",
       color: props.disabled ? "var(--ds-color-text-muted)" : "var(--ds-color-text)",
       cursor: props.disabled ? "not-allowed" : "pointer"
@@ -47,19 +53,21 @@ const ItemButton = styled.button<ItemProps>(function style(props) {
 });
 
 export function Menu(props: MenuProps) {
+  const { items, selectedId, onItemSelect, className, ...restProps } = props;
+
   return (
-    <Root className={props.className} role="menu">
-      {props.items.map(function mapItem(item) {
+    <Root className={className} role="menu" {...restProps}>
+      {items.map(function mapItem(item) {
         return (
           <ItemButton
             key={item.id}
             type="button"
             role="menuitem"
               disabled={item.disabled}
-              selected={props.selectedId === item.id}
+              selected={selectedId === item.id}
               onClick={function onClick() {
-              if (!item.disabled && props.onItemSelect) {
-                props.onItemSelect(item.id);
+              if (!item.disabled && onItemSelect) {
+                onItemSelect(item.id);
               }
             }}
           >
