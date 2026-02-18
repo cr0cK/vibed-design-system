@@ -88,3 +88,8 @@ export function Example() {
 - `Documentation/5. Roadmap`
 - `Documentation/6. Contributions`
 - `Documentation/7. Public Usage`
+
+## LLM Usage Docs
+
+- `LLM_USAGE.md` (detailed AI/agent usage guidance)
+- `llms.txt` (compact index for LLM tooling)

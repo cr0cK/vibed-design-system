@@ -1,0 +1,22 @@
+Vibed Design System (LLM entrypoint)
+
+Primary guide:
+- ./LLM_USAGE.md
+
+Repository:
+- https://github.com/cr0cK/vibed-design-system
+
+Main package:
+- @vibed/design-system
+
+Examples and docs sources:
+- ./apps/storybook/src/stories/documentation
+- ./apps/storybook/src/stories/atoms
+- ./apps/storybook/src/stories/molecules
+- ./apps/storybook/src/stories/organisms
+
+Quick usage pattern:
+1. Wrap app with DesignSystemProvider.
+2. Prefer Box/Stack/Inline/Grid for layout.
+3. Use semantic props/tokens and controlSize variants.
+4. Reuse molecules/organisms before custom implementations.
