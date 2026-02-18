@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Atoms/Radio", component: Radio, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState("a");
 
   return (
@@ -14,6 +15,5 @@ function Demo() {
       <Radio controlSize="lg" name="plan" label="Enterprise (lg)" checked={value === "c"} onChange={function onChange() { setValue("c"); }} />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

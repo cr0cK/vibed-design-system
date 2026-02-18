@@ -11,7 +11,8 @@ const options = [
   { value: "webhook", label: "Webhook" }
 ];
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState<string[]>(["email", "slack"]);
 
   return (
@@ -20,6 +21,5 @@ function Demo() {
       <Text size="sm" tone="muted">Selected: {value.join(", ") || "none"}</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

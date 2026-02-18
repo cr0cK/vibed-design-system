@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Organisms/SettingsPanel", component: SettingsPanel, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [enabled, setEnabled] = useState(true);
 
   return (
@@ -33,6 +34,5 @@ function Demo() {
       ]}
     />
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

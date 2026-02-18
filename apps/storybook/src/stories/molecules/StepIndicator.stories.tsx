@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Molecules/StepIndicator", component: StepIndicator, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [activeStep, setActiveStep] = useState("schedule");
 
   return (
@@ -22,6 +23,5 @@ function Demo() {
       </Button>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

@@ -5,7 +5,8 @@ import type { SheetProps } from "@vibed/design-system";
 const meta = { title: "Organisms/Sheet", component: Sheet, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [open, setOpen] = useState(false);
   const [overlayMode, setOverlayMode] = useState<NonNullable<SheetProps["overlayMode"]>>("container");
 
@@ -26,6 +27,5 @@ function Demo() {
       </Sheet>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

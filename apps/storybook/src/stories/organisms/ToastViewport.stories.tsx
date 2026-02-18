@@ -3,7 +3,8 @@ import { Button, Stack, ToastViewport, useToastStore } from "@vibed/design-syste
 const meta = { title: "Organisms/ToastViewport", component: ToastViewport, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const pushToast = useToastStore(function getPush(state) {
     return state.pushToast;
   });
@@ -25,6 +26,5 @@ function Demo() {
       <ToastViewport />
     </>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

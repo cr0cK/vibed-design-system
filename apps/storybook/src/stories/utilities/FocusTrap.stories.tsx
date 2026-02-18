@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Utilities/FocusTrap", component: FocusTrap, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [active, setActive] = useState(true);
 
   return (
@@ -20,6 +21,5 @@ function Demo() {
       <Text size="sm" tone="muted">Use Tab / Shift+Tab to verify cycling while trap is active.</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

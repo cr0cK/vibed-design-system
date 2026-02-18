@@ -11,7 +11,8 @@ const options = [
   { value: "ops", label: "Operations" }
 ];
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState("design");
 
   return (
@@ -20,6 +21,5 @@ function Demo() {
       <Text size="sm" tone="muted">Selected: {value}</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

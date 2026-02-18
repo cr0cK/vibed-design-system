@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Molecules/Tabs", component: Tabs, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [valueSm, setValueSm] = useState("overview");
   const [valueMd, setValueMd] = useState("overview");
   const [valueLg, setValueLg] = useState("overview");
@@ -46,6 +47,5 @@ function Demo() {
       />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

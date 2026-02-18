@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Molecules/Autocomplete", component: Autocomplete, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState("");
 
   return (
@@ -18,6 +19,5 @@ function Demo() {
       <Text size="sm" tone="muted">Value: {value || "-"}</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

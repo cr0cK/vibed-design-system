@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Organisms/Navbar", component: Navbar, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [active, setActive] = useState("workspace");
 
   return (
@@ -23,6 +24,5 @@ function Demo() {
       <Text size="sm" tone="muted">Active: {active}</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

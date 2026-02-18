@@ -3,7 +3,8 @@ import { Button, NotificationCenter, Stack, useNotificationsStore } from "@vibed
 const meta = { title: "Organisms/NotificationCenter", component: NotificationCenter, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const pushNotification = useNotificationsStore((state) => state.pushNotification);
 
   return (
@@ -19,6 +20,5 @@ function Demo() {
       <NotificationCenter emptyText="No notifications" />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

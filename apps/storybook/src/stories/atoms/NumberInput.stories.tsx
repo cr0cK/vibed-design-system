@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Atoms/NumberInput", component: NumberInput, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState(5);
 
   return (
@@ -17,6 +18,5 @@ function Demo() {
       </Stack>
     </Container>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

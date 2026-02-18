@@ -5,7 +5,8 @@ import type { DrawerProps } from "@vibed/design-system";
 const meta = { title: "Organisms/Drawer", component: Drawer, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [open, setOpen] = useState(false);
   const [overlayMode, setOverlayMode] = useState<NonNullable<DrawerProps["overlayMode"]>>("viewport");
 
@@ -26,6 +27,5 @@ function Demo() {
       </Drawer>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

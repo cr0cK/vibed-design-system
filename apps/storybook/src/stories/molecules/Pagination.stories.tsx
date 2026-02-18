@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Molecules/Pagination", component: Pagination, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [pageSm, setPageSm] = useState(2);
   const [pageMd, setPageMd] = useState(4);
   const [pageLg, setPageLg] = useState(6);
@@ -16,6 +17,5 @@ function Demo() {
       <Pagination controlSize="lg" page={pageLg} totalPages={8} onPageChange={setPageLg} />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Organisms/DropdownMenu", component: DropdownMenu, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [selectedId, setSelectedId] = useState("profile");
 
   return (
@@ -23,6 +24,5 @@ function Demo() {
       <Text size="sm" tone="muted">Selected: {selectedId}</Text>
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

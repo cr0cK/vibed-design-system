@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Organisms/Sidebar", component: Sidebar, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [active, setActive] = useState("inbox");
 
   return (
@@ -34,6 +35,5 @@ function Demo() {
       footer={<Text size="sm" tone="muted">v0.1.0</Text>}
     />
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

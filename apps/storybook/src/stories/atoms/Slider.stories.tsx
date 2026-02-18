@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Atoms/Slider", component: Slider, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState(35);
 
   return (
@@ -14,6 +15,5 @@ function Demo() {
       <Slider controlSize="lg" min={0} max={100} value={value} onValueChange={setValue} showValue />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};

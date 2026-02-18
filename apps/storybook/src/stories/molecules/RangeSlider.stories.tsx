@@ -4,7 +4,8 @@ import { useState } from "react";
 const meta = { title: "Molecules/RangeSlider", component: RangeSlider, tags: ["autodocs"] };
 export default meta;
 
-function Demo() {
+export const Showcase = {
+  render: function Render() {
   const [value, setValue] = useState<[number, number]>([20, 80]);
 
   return (
@@ -13,6 +14,5 @@ function Demo() {
       <RangeSlider value={value} onValueChange={setValue} />
     </Stack>
   );
-}
-
-export const Showcase = { render: function Render() { return <Demo />; } };
+  }
+};
