@@ -6,11 +6,24 @@ export default meta;
 export const Showcase = {
   render: function Render() {
     return (
-      <Box surface="elevated" padding="md" radius="md">
-        <Stack>
-          <Text>Top</Text>
-          <Spacer size="lg" />
-          <Text>Bottom</Text>
+      <Box surface="elevated" padding="md" radius="md" border="subtle">
+        <Stack gap="md">
+          <Text weight="semibold">Spacer sizes</Text>
+
+          <Box surface="muted" padding="sm" radius="sm">
+            <Stack gap="sm">
+              <Text size="sm">`xs` (1px)</Text>
+              <Spacer size="xs" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Text size="sm">`sm` (2px)</Text>
+              <Spacer size="sm" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Text size="sm">`md` (3px)</Text>
+              <Spacer size="md" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Text size="sm">`lg` (4px)</Text>
+              <Spacer size="lg" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Text size="sm">`xl` (5px)</Text>
+              <Spacer size="xl" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+            </Stack>
+          </Box>
         </Stack>
       </Box>
     );

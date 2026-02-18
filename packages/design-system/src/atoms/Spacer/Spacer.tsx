@@ -12,11 +12,11 @@ const SpacerRoot = styled.div<SpacerProps>(function style(props) {
       width: "100%"
     })
     .variant("size", props.size ?? "md", {
-      xs: { height: "var(--ds-space-xs)" },
-      sm: { height: "var(--ds-space-sm)" },
-      md: { height: "var(--ds-space-md)" },
-      lg: { height: "var(--ds-space-lg)" },
-      xl: { height: "var(--ds-space-xl)" }
+      xs: { height: "1px" },
+      sm: { height: "2px" },
+      md: { height: "3px" },
+      lg: { height: "4px" },
+      xl: { height: "5px" }
     })
     .end();
 });
