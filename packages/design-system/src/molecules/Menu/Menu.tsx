@@ -24,7 +24,8 @@ const Root = styled.div(function style() {
       borderRadius: "var(--ds-radius-md)",
       backgroundColor: "var(--ds-color-surface)",
       fontFamily: "var(--ds-font-body)",
-      fontSize: "0.95rem"
+      fontSize: "0.875rem",
+      lineHeight: 1.4
     })
     .end();
 });
@@ -42,9 +43,7 @@ const ItemButton = styled.button<ItemProps>(function style(props) {
       textAlign: "left",
       borderRadius: "var(--ds-radius-sm)",
       padding: "0.5rem 0.6rem",
-      fontFamily: "inherit",
-      fontSize: "inherit",
-      lineHeight: 1.35,
+      font: "inherit",
       backgroundColor: props.selected ? "color-mix(in oklab, var(--ds-color-primary) 14%, var(--ds-color-surface))" : "transparent",
       color: props.disabled ? "var(--ds-color-text-muted)" : "var(--ds-color-text)",
       cursor: props.disabled ? "not-allowed" : "pointer"
