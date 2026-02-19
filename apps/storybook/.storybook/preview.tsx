@@ -51,6 +51,7 @@ const preview: Preview = {
           b && typeof b === "object" && "title" in b && typeof b.title === "string" ? b.title : "";
 
         const docsPrefix = "Documentation/";
+        const showcasePrefix = "Showcase/";
         const docsOrder = [
           "1. Presentation",
           "2. Architecture",
@@ -64,12 +65,20 @@ const preview: Preview = {
 
         const aIsDocs = titleA.startsWith(docsPrefix);
         const bIsDocs = titleB.startsWith(docsPrefix);
+        const aIsShowcase = titleA.startsWith(showcasePrefix);
+        const bIsShowcase = titleB.startsWith(showcasePrefix);
 
         if (aIsDocs && !bIsDocs) {
           return -1;
         }
         if (!aIsDocs && bIsDocs) {
           return 1;
+        }
+        if (aIsShowcase && !bIsShowcase) {
+          return aIsDocs ? 1 : -1;
+        }
+        if (!aIsShowcase && bIsShowcase) {
+          return bIsDocs ? -1 : 1;
         }
         if (aIsDocs && bIsDocs) {
           const partsA = titleA.split("/");
