@@ -2,7 +2,6 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
-import { Button } from "../../atoms/Button/Button";
 import { Heading } from "../../atoms/Heading/Heading";
 import { Portal } from "../../utilities/Portal/Portal";
 import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
@@ -68,25 +67,24 @@ const CloseIconButton = styled.button(function style() {
   return buildVariants<Record<string, never>>({})
     .css({
       position: "absolute",
-      top: "0.7rem",
-      right: "0.7rem",
-      width: "1.9rem",
-      height: "1.9rem",
-      borderRadius: "var(--ds-radius-full)",
-      border: "1px solid var(--ds-color-border)",
-      backgroundColor: "var(--ds-color-surface)",
+      top: "0.6rem",
+      right: "0.6rem",
+      width: "1.5rem",
+      height: "1.5rem",
+      borderRadius: "var(--ds-radius-sm)",
+      border: "none",
+      backgroundColor: "transparent",
       color: "var(--ds-color-text-muted)",
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "1.1rem",
+      fontSize: "1.15rem",
       lineHeight: 1,
       cursor: "pointer",
-      transition: "background-color .14s ease, border-color .14s ease, color .14s ease",
+      transition: "background-color .14s ease, color .14s ease",
       "&:hover": {
         color: "var(--ds-color-text)",
-        borderColor: "color-mix(in oklab, var(--ds-color-primary) 34%, var(--ds-color-border))",
-        backgroundColor: "color-mix(in oklab, var(--ds-color-surface) 92%, var(--ds-color-primary))"
+        backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 10%, transparent)"
       },
       "&:focus-visible": {
         outline: "none",
@@ -99,10 +97,9 @@ const CloseIconButton = styled.button(function style() {
 export function Modal(props: ModalProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const iconCloseButtonRef = useRef<HTMLButtonElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const titleId = useId();
   const showCloseIcon = props.showCloseIcon ?? true;
-  const initialFocusRef = showCloseIcon ? iconCloseButtonRef : closeButtonRef;
+  const initialFocusRef = showCloseIcon ? iconCloseButtonRef : undefined;
 
   useEffect(function onOpenKeyboard() {
     if (!props.open) {
@@ -156,7 +153,6 @@ export function Modal(props: ModalProps) {
               ) : null}
               <Heading id={props.title ? titleId : undefined} level={3}>{props.title ?? "Dialog"}</Heading>
               <div>{props.children}</div>
-              <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
             </Panel>
           </FocusTrap>
         </ClickOutside>

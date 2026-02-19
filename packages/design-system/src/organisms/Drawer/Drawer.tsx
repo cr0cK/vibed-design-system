@@ -2,7 +2,6 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useId, useRef } from "react";
 import styled from "@emotion/styled";
 import { buildVariants } from "../../utils/buildVariants";
-import { Button } from "../../atoms/Button/Button";
 import { Heading } from "../../atoms/Heading/Heading";
 import { Portal } from "../../utilities/Portal/Portal";
 import { FocusTrap } from "../../utilities/FocusTrap/FocusTrap";
@@ -15,6 +14,7 @@ export interface DrawerProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   onClose: () => void;
   closeOnEscape?: boolean;
+  showCloseIcon?: boolean;
   portalTarget?: HTMLElement | null;
   overlayMode?: "viewport" | "container";
 }
@@ -54,7 +54,7 @@ const Backdrop = styled.div<BackdropProps>(function style(props) {
 const Panel = styled.div<PanelProps>(function style(props) {
   return buildVariants<PanelProps>(props)
     .css({
-      position: "fixed",
+      position: "relative",
       top: 0,
       height: "100vh",
       width: "min(22rem, 92vw)",
@@ -93,11 +93,44 @@ const Panel = styled.div<PanelProps>(function style(props) {
     .end();
 });
 
+const CloseIconButton = styled.button(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      position: "absolute",
+      top: "0.6rem",
+      right: "0.6rem",
+      width: "1.5rem",
+      height: "1.5rem",
+      borderRadius: "var(--ds-radius-sm)",
+      border: "none",
+      backgroundColor: "transparent",
+      color: "var(--ds-color-text-muted)",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "1.15rem",
+      lineHeight: 1,
+      cursor: "pointer",
+      transition: "background-color .14s ease, color .14s ease",
+      "&:hover": {
+        color: "var(--ds-color-text)",
+        backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 10%, transparent)"
+      },
+      "&:focus-visible": {
+        outline: "none",
+        boxShadow: "0 0 0 2px color-mix(in oklab, var(--ds-color-primary) 20%, transparent)"
+      }
+    })
+    .end();
+});
+
 export function Drawer(props: DrawerProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const iconCloseButtonRef = useRef<HTMLButtonElement | null>(null);
   const titleId = useId();
   const overlayMode = props.overlayMode ?? "viewport";
+  const showCloseIcon = props.showCloseIcon ?? true;
+  const initialFocusRef = showCloseIcon ? iconCloseButtonRef : undefined;
 
   useEffect(function onOpenKeyboard() {
     if (!props.open) {
@@ -124,7 +157,7 @@ export function Drawer(props: DrawerProps) {
   const content = (
       <Backdrop overlayMode={overlayMode}>
         <ClickOutside onClickOutside={props.onClose}>
-          <FocusTrap active initialFocusRef={closeButtonRef}>
+          <FocusTrap active initialFocusRef={initialFocusRef}>
             <Panel
               ref={panelRef}
               className={props.className}
@@ -139,8 +172,18 @@ export function Drawer(props: DrawerProps) {
               aria-label={props["aria-label"]}
               aria-describedby={props["aria-describedby"]}
             >
+              {showCloseIcon ? (
+                <CloseIconButton
+                  ref={iconCloseButtonRef}
+                  type="button"
+                  aria-label="Close drawer"
+                  title="Close"
+                  onClick={props.onClose}
+                >
+                  ×
+                </CloseIconButton>
+              ) : null}
               {props.title ? <Heading id={titleId} level={4}>{props.title}</Heading> : null}
-              <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
               {props.children}
             </Panel>
           </FocusTrap>

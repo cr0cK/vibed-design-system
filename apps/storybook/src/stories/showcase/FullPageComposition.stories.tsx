@@ -268,7 +268,22 @@ export const FullPage = {
         >
           <Stack gap="sm">
             <Text size="sm">Use this panel for contextual edits without leaving the page.</Text>
-            <Button tone="neutral" onClick={function onClick() { setOpenDrawer(false); }}>Close panel</Button>
+            <Box>
+              <Text size="sm" weight="semibold">Priority</Text>
+              <Select defaultValue="normal">
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+              </Select>
+            </Box>
+            <Box>
+              <Text size="sm" weight="semibold">Owner</Text>
+              <Input defaultValue="Olivia Jones" />
+            </Box>
+            <Inline justify="end" gap="xs">
+              <Button tone="neutral" onClick={function onClick() { setOpenDrawer(false); }}>Cancel</Button>
+              <Button onClick={function onClick() { setOpenDrawer(false); }}>Save draft</Button>
+            </Inline>
           </Stack>
         </Drawer>
 
