@@ -68,19 +68,17 @@ export const FullPage = {
     return (
       <Box surface="background" minHeight="screen">
         <Box>
-          <Box padding="sm" surface="surface">
-            <Navbar
-              brand="Vibed Console"
-              items={[
-                { id: "workspace", label: "Workspace" },
-                { id: "automation", label: "Automation" },
-                { id: "insights", label: "Insights" }
-              ]}
-              activeItemId={activeTopNav}
-              onItemSelect={setActiveTopNav}
-              actions={<Button controlSize="sm">Create</Button>}
-            />
-          </Box>
+          <Navbar
+            brand="Vibed Console"
+            items={[
+              { id: "workspace", label: "Workspace" },
+              { id: "automation", label: "Automation" },
+              { id: "insights", label: "Insights" }
+            ]}
+            activeItemId={activeTopNav}
+            onItemSelect={setActiveTopNav}
+            actions={<Button controlSize="sm">Create</Button>}
+          />
 
           <Grid template="app-shell" minHeight="screen">
             <Box as="aside" surface="surface" border="subtle" borderSide="right">
