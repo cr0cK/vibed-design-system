@@ -14,6 +14,7 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   onClose: () => void;
   closeOnEscape?: boolean;
+  showCloseIcon?: boolean;
   portalTarget?: HTMLElement | null;
 }
 
@@ -41,6 +42,7 @@ const Backdrop = styled.div(function style() {
 const Panel = styled.div(function style() {
   return buildVariants<Record<string, never>>({})
     .css({
+      position: "relative",
       width: "min(32rem, 90vw)",
       borderRadius: "var(--ds-radius-lg)",
       border: "1px solid var(--ds-color-border)",
@@ -62,10 +64,45 @@ const Panel = styled.div(function style() {
     .end();
 });
 
+const CloseIconButton = styled.button(function style() {
+  return buildVariants<Record<string, never>>({})
+    .css({
+      position: "absolute",
+      top: "0.7rem",
+      right: "0.7rem",
+      width: "1.9rem",
+      height: "1.9rem",
+      borderRadius: "var(--ds-radius-full)",
+      border: "1px solid var(--ds-color-border)",
+      backgroundColor: "var(--ds-color-surface)",
+      color: "var(--ds-color-text-muted)",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "1.1rem",
+      lineHeight: 1,
+      cursor: "pointer",
+      transition: "background-color .14s ease, border-color .14s ease, color .14s ease",
+      "&:hover": {
+        color: "var(--ds-color-text)",
+        borderColor: "color-mix(in oklab, var(--ds-color-primary) 34%, var(--ds-color-border))",
+        backgroundColor: "color-mix(in oklab, var(--ds-color-surface) 92%, var(--ds-color-primary))"
+      },
+      "&:focus-visible": {
+        outline: "none",
+        boxShadow: "0 0 0 2px color-mix(in oklab, var(--ds-color-primary) 20%, transparent)"
+      }
+    })
+    .end();
+});
+
 export function Modal(props: ModalProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const iconCloseButtonRef = useRef<HTMLButtonElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const titleId = useId();
+  const showCloseIcon = props.showCloseIcon ?? true;
+  const initialFocusRef = showCloseIcon ? iconCloseButtonRef : closeButtonRef;
 
   useEffect(function onOpenKeyboard() {
     if (!props.open) {
@@ -93,7 +130,7 @@ export function Modal(props: ModalProps) {
     <Portal target={props.portalTarget}>
       <Backdrop>
         <ClickOutside onClickOutside={props.onClose}>
-          <FocusTrap active initialFocusRef={closeButtonRef}>
+          <FocusTrap active initialFocusRef={initialFocusRef}>
             <Panel
               ref={panelRef}
               className={props.className}
@@ -106,6 +143,17 @@ export function Modal(props: ModalProps) {
               aria-label={props["aria-label"]}
               aria-describedby={props["aria-describedby"]}
             >
+              {showCloseIcon ? (
+                <CloseIconButton
+                  ref={iconCloseButtonRef}
+                  type="button"
+                  aria-label="Close dialog"
+                  title="Close"
+                  onClick={props.onClose}
+                >
+                  ×
+                </CloseIconButton>
+              ) : null}
               <Heading id={props.title ? titleId : undefined} level={3}>{props.title ?? "Dialog"}</Heading>
               <div>{props.children}</div>
               <Button ref={closeButtonRef} tone="neutral" onClick={props.onClose}>Close</Button>
