@@ -27,6 +27,23 @@ import {
 } from "@vibed/design-system";
 import { useState } from "react";
 
+const sourceSnippet = `import { Box, Grid, Navbar, Sidebar, Breadcrumb, PageHeader, Tabs, Table, Modal, Drawer } from "@vibed/design-system";
+
+export function FullPageDemo() {
+  return (
+    <Box surface="background" minHeight="screen">
+      <Navbar /* header */ />
+      <Grid template="app-shell">
+        <Sidebar /* navigation */ />
+        <Box as="main">{/* content, stats, tabs, table */}</Box>
+        <Box as="aside">{/* quick form */}</Box>
+      </Grid>
+      <Modal /* trigger from actions */ />
+      <Drawer /* trigger from actions */ />
+    </Box>
+  );
+}`;
+
 const meta = {
   title: "Showcase/Full Page Composition",
   component: Box,
@@ -175,6 +192,24 @@ export const FullPage = {
                     )
                   }}
                 />
+
+                <Card title="Source snippet" subtitle="Single-story composition pattern">
+                  <Box
+                    as="pre"
+                    surface="muted"
+                    radius="sm"
+                    padding="sm"
+                    style={{
+                      margin: 0,
+                      overflowX: "auto",
+                      fontFamily: "var(--ds-font-mono)",
+                      fontSize: "0.78rem",
+                      lineHeight: 1.45
+                    }}
+                  >
+                    {sourceSnippet}
+                  </Box>
+                </Card>
               </Stack>
             </Box>
 
