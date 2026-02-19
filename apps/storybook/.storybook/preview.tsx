@@ -5,12 +5,15 @@ import "../src/styles/fonts.css";
 
 interface ProviderShellProps {
   children: ReactNode;
+  maxWidthMode: "default" | "full";
 }
 
 function ProviderShell(props: ProviderShellProps) {
+  const maxWidth = props.maxWidthMode === "full" ? "100%" : "960px";
+
   return (
     <DesignSystemProvider mode="light" density="comfortable">
-      <div style={{ width: "100%", maxWidth: "960px", minHeight: "600px", margin: "0 auto", padding: "2rem 2rem 4rem", boxSizing: "border-box" }}>
+      <div style={{ width: "100%", maxWidth, minHeight: "600px", margin: "0 auto", padding: "2rem 2rem 4rem", boxSizing: "border-box" }}>
         {props.children}
       </div>
     </DesignSystemProvider>
@@ -19,9 +22,11 @@ function ProviderShell(props: ProviderShellProps) {
 
 const preview: Preview = {
   decorators: [
-    (Story) => {
+    (Story, context) => {
+      const maxWidthMode = context.parameters?.canvasMaxWidth === "full" ? "full" : "default";
+
       return (
-        <ProviderShell>
+        <ProviderShell maxWidthMode={maxWidthMode}>
           <Story />
         </ProviderShell>
       );

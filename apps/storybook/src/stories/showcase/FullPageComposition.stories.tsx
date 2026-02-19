@@ -33,6 +33,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    canvasMaxWidth: "full",
     docs: {
       story: {
         iframeHeight: "960px"
