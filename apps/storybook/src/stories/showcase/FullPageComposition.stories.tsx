@@ -28,7 +28,7 @@ import {
   neoMintTheme,
   orangeMotionTheme
 } from "@vibed/design-system";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const sourceSnippet = `import { Box, Grid, Navbar, Sidebar, Breadcrumb, PageHeader, Tabs, Table, Modal, Drawer } from "@vibed/design-system";
 
@@ -60,6 +60,7 @@ export default meta;
 
 export const FullPage = {
   render: function Render() {
+    const drawerTargetRef = useRef<HTMLDivElement | null>(null);
     const [themeId, setThemeId] = useState("default-light");
     const [activeTopNav, setActiveTopNav] = useState("workspace");
     const [activeSidebar, setActiveSidebar] = useState("digest");
@@ -74,7 +75,8 @@ export const FullPage = {
         mode={themeId === "default-dark" ? "dark" : "light"}
         theme={themeId === "orange-motion" ? orangeMotionTheme : themeId === "neo-mint" ? neoMintTheme : undefined}
       >
-        <Box surface="background" minHeight="screen">
+        <div ref={drawerTargetRef} style={{ position: "relative" }}>
+          <Box surface="background" minHeight="screen">
           <Box>
             <Navbar
               brand="Vibed Console"
@@ -286,7 +288,8 @@ export const FullPage = {
             open={openDrawer}
             side="right"
             title="Quick actions"
-            overlayMode="viewport"
+            overlayMode="container"
+            portalTarget={drawerTargetRef.current}
             onClose={function onClose() { setOpenDrawer(false); }}
           >
             <Stack gap="sm">
@@ -323,7 +326,8 @@ export const FullPage = {
               </Inline>
             </Stack>
           </Modal>
-        </Box>
+          </Box>
+        </div>
       </DesignSystemProvider>
     );
   }

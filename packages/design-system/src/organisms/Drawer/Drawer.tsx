@@ -192,6 +192,9 @@ export function Drawer(props: DrawerProps) {
   );
 
   if (overlayMode === "container") {
+    if (props.portalTarget) {
+      return <Portal target={props.portalTarget}>{content}</Portal>;
+    }
     return content;
   }
 

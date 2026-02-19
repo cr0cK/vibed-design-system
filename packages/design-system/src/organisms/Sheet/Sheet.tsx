@@ -173,6 +173,9 @@ export function Sheet(props: SheetProps) {
   );
 
   if (overlayMode === "container") {
+    if (props.portalTarget) {
+      return <Portal target={props.portalTarget}>{content}</Portal>;
+    }
     return content;
   }
 
