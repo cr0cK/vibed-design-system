@@ -2,6 +2,7 @@
   "name": "vibed-design-system",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "packageManager": "pnpm@10.5.0",
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
