@@ -10,7 +10,7 @@ interface ProviderShellProps {
 function ProviderShell(props: ProviderShellProps) {
   return (
     <DesignSystemProvider mode="light" density="comfortable">
-      <div style={{ width: "100%", maxWidth: "960px", minHeight: "800px", margin: "0 auto", padding: "2rem 2rem 4rem", boxSizing: "border-box" }}>
+      <div style={{ width: "100%", maxWidth: "960px", minHeight: "600px", margin: "0 auto", padding: "2rem 2rem 4rem", boxSizing: "border-box" }}>
         {props.children}
       </div>
     </DesignSystemProvider>
@@ -32,7 +32,7 @@ const preview: Preview = {
     docs: {
       story: {
         inline: false,
-        iframeHeight: "920px"
+        iframeHeight: "600px"
       }
     },
     options: {
