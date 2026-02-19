@@ -1,0 +1,264 @@
+import {
+  Alert,
+  Badge,
+  Breadcrumb,
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  Drawer,
+  Grid,
+  Heading,
+  Inline,
+  Input,
+  Modal,
+  Navbar,
+  PageHeader,
+  Select,
+  Sidebar,
+  Stack,
+  Stat,
+  Switch,
+  Table,
+  Tabs,
+  Tag,
+  Text,
+  Textarea
+} from "@vibed/design-system";
+import { useState } from "react";
+
+const meta = {
+  title: "Showcase/Full Page Composition",
+  component: Box,
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      story: {
+        iframeHeight: "960px"
+      }
+    }
+  }
+};
+
+export default meta;
+
+export const FullPage = {
+  render: function Render() {
+    const [activeTopNav, setActiveTopNav] = useState("workspace");
+    const [activeSidebar, setActiveSidebar] = useState("digest");
+    const [activeTab, setActiveTab] = useState("overview");
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [scheduleEnabled, setScheduleEnabled] = useState(true);
+    const [sendDigest, setSendDigest] = useState(true);
+
+    return (
+      <Box surface="background" minHeight="screen">
+        <Stack gap="xxs">
+          <Box border="subtle" borderSide="bottom" padding="sm" surface="surface">
+            <Navbar
+              brand="Vibed Console"
+              items={[
+                { id: "workspace", label: "Workspace" },
+                { id: "automation", label: "Automation" },
+                { id: "insights", label: "Insights" }
+              ]}
+              activeItemId={activeTopNav}
+              onItemSelect={setActiveTopNav}
+              actions={<Button controlSize="sm">Create</Button>}
+            />
+          </Box>
+
+          <Grid template="app-shell" minHeight="screen">
+            <Box as="aside" surface="surface" border="subtle" borderSide="right">
+              <Sidebar
+                heading="Control Center"
+                activeItemId={activeSidebar}
+                onItemSelect={setActiveSidebar}
+                groups={[
+                  {
+                    id: "main",
+                    label: "Main",
+                    items: [
+                      { id: "overview", label: "Overview", icon: "◦" },
+                      { id: "digest", label: "Digest Builder", icon: "◦" },
+                      { id: "audience", label: "Audience", icon: "◦" }
+                    ]
+                  },
+                  {
+                    id: "system",
+                    label: "System",
+                    items: [
+                      { id: "settings", label: "Settings", icon: "◦" },
+                      { id: "billing", label: "Billing", icon: "◦", disabled: true }
+                    ]
+                  }
+                ]}
+                footer={<Text size="sm" tone="muted">v0.1.0</Text>}
+              />
+            </Box>
+
+            <Box as="main" padding="lg" border="subtle" borderSide="right">
+              <Stack gap="md">
+                <Breadcrumb
+                  items={[
+                    { label: "Workspace", href: "#" },
+                    { label: "Automations", href: "#" },
+                    { label: "Digest Builder" }
+                  ]}
+                />
+
+                <PageHeader
+                  heading="Digest Builder"
+                  subtitle="Compose, schedule, and monitor recurring digests."
+                  actions={(
+                    <Inline gap="xs">
+                      <Button tone="neutral" controlSize="sm" onClick={function onClick() { setOpenDrawer(true); }}>
+                        Open drawer
+                      </Button>
+                      <Button controlSize="sm" onClick={function onClick() { setOpenModal(true); }}>
+                        Open modal
+                      </Button>
+                    </Inline>
+                  )}
+                />
+
+                <Alert tone="success" title="Environment healthy">
+                  Delivery workers are online and queue latency is below target.
+                </Alert>
+
+                <Tabs
+                  items={[
+                    { id: "overview", label: "Overview" },
+                    { id: "automation", label: "Automation" },
+                    { id: "history", label: "History" }
+                  ]}
+                  value={activeTab}
+                  onValueChange={setActiveTab}
+                  panels={{
+                    overview: (
+                      <Stack gap="md">
+                        <Grid columns={3} gap="sm">
+                          <Stat label="Active workflows" value="24" trend="+2 this week" tone="success" />
+                          <Stat label="Open issues" value="3" trend="-1 since yesterday" tone="success" />
+                          <Stat label="Escalations" value="12" trend="+4 today" tone="danger" />
+                        </Grid>
+                        <Table
+                          columns={[
+                            { key: "name", header: "Automation" },
+                            { key: "owner", header: "Owner" },
+                            { key: "status", header: "Status", align: "right" }
+                          ]}
+                          rows={[
+                            { id: "r1", cells: { name: "Morning Pulse", owner: "Olivia", status: <Tag tone="success">Active</Tag> } },
+                            { id: "r2", cells: { name: "Ops Snapshot", owner: "Liam", status: <Tag tone="neutral">Paused</Tag> } },
+                            { id: "r3", cells: { name: "Weekly Brief", owner: "Emma", status: <Tag tone="danger">Issue</Tag> } }
+                          ]}
+                        />
+                      </Stack>
+                    ),
+                    automation: (
+                      <Card title="Automation summary" subtitle="Current campaign">
+                        <Stack gap="sm">
+                          <Inline justify="between">
+                            <Text size="sm">Daily Digest</Text>
+                            <Badge tone="success">Live</Badge>
+                          </Inline>
+                          <Text size="sm" tone="muted">Runs every weekday at 9:00 AM ET</Text>
+                        </Stack>
+                      </Card>
+                    ),
+                    history: (
+                      <Card title="Recent history" subtitle="Last 7 days">
+                        <Stack gap="xs">
+                          <Text size="sm">Mon - Delivered (12,420)</Text>
+                          <Text size="sm">Tue - Delivered (12,118)</Text>
+                          <Text size="sm">Wed - Delayed (retry completed)</Text>
+                        </Stack>
+                      </Card>
+                    )
+                  }}
+                />
+              </Stack>
+            </Box>
+
+            <Box as="aside" padding="lg">
+              <Stack gap="md">
+                <Heading level={4}>Quick Setup</Heading>
+
+                <Stack gap="xs">
+                  <Text size="sm" weight="semibold">Name</Text>
+                  <Input placeholder="Daily executive digest" />
+                </Stack>
+
+                <Stack gap="xs">
+                  <Text size="sm" weight="semibold">Audience</Text>
+                  <Select defaultValue="leadership">
+                    <option value="leadership">Leadership</option>
+                    <option value="operations">Operations</option>
+                    <option value="all">All teams</option>
+                  </Select>
+                </Stack>
+
+                <Stack gap="xs">
+                  <Text size="sm" weight="semibold">Message</Text>
+                  <Textarea rows={4} placeholder="Share release, incidents, and key metrics." />
+                </Stack>
+
+                <Stack gap="xs">
+                  <Switch checked={scheduleEnabled} onCheckedChange={setScheduleEnabled} label="Enable schedule" />
+                  <Checkbox
+                    checked={sendDigest}
+                    onChange={function onChange(event) { setSendDigest(event.target.checked); }}
+                  >
+                    Send digest notification
+                  </Checkbox>
+                </Stack>
+
+                <Inline justify="end" gap="xs">
+                  <Button tone="neutral">Cancel</Button>
+                  <Button>Save</Button>
+                </Inline>
+              </Stack>
+            </Box>
+          </Grid>
+
+          <Box surface="surface" border="subtle" borderSide="top" padding="sm">
+            <Inline justify="between">
+              <Text size="sm" tone="muted">Vibed Design System demo workspace</Text>
+              <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
+            </Inline>
+          </Box>
+        </Stack>
+
+        <Drawer
+          open={openDrawer}
+          side="right"
+          title="Quick actions"
+          overlayMode="viewport"
+          onClose={function onClose() { setOpenDrawer(false); }}
+        >
+          <Stack gap="sm">
+            <Text size="sm">Use this panel for contextual edits without leaving the page.</Text>
+            <Button tone="neutral" onClick={function onClick() { setOpenDrawer(false); }}>Close panel</Button>
+          </Stack>
+        </Drawer>
+
+        <Modal
+          open={openModal}
+          title="Publish changes"
+          onClose={function onClose() { setOpenModal(false); }}
+        >
+          <Stack gap="sm">
+            <Text size="sm">Ready to publish this automation setup to your workspace?</Text>
+            <Inline justify="end" gap="xs">
+              <Button tone="neutral" onClick={function onClick() { setOpenModal(false); }}>Not now</Button>
+              <Button onClick={function onClick() { setOpenModal(false); }}>Publish</Button>
+            </Inline>
+          </Stack>
+        </Modal>
+      </Box>
+    );
+  }
+};
