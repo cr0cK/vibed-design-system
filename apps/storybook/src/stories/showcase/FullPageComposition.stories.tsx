@@ -130,7 +130,6 @@ export const FullPage = {
                     ]
                   }
                 ]}
-                footer={<Text size="sm" tone="muted">v0.1.0</Text>}
               />
               </Box>
 
@@ -276,9 +275,9 @@ export const FullPage = {
               </Box>
             </Grid>
 
-            <Box surface="surface" border="subtle" borderSide="top" padding="sm">
-              <Inline justify="between">
-                <Text size="sm" tone="muted">Vibed Design System demo workspace</Text>
+            <Box as="footer" surface="surface" border="subtle" borderSide="top" padding="sm">
+              <Inline justify="between" align="center" style={{ width: "100%" }}>
+                <Text size="sm" tone="muted">v0.1.0 • Vibed Design System demo workspace</Text>
                 <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
               </Inline>
             </Box>
