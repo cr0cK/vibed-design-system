@@ -211,9 +211,8 @@ export const FullPage = {
                   <Checkbox
                     checked={sendDigest}
                     onChange={function onChange(event) { setSendDigest(event.target.checked); }}
-                  >
-                    Send digest notification
-                  </Checkbox>
+                    label="Send digest notification"
+                  />
                 </Stack>
 
                 <Inline justify="end" gap="xs">
