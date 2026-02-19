@@ -67,8 +67,8 @@ export const FullPage = {
 
     return (
       <Box surface="background" minHeight="screen">
-        <Stack gap="xxs">
-          <Box border="subtle" borderSide="bottom" padding="sm" surface="surface">
+        <Box>
+          <Box padding="sm" surface="surface">
             <Navbar
               brand="Vibed Console"
               items={[
@@ -259,7 +259,7 @@ export const FullPage = {
               <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
             </Inline>
           </Box>
-        </Stack>
+        </Box>
 
         <Drawer
           open={openDrawer}
