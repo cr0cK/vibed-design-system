@@ -30,15 +30,9 @@ import { useState } from "react";
 const meta = {
   title: "Showcase/Full Page Composition",
   component: Box,
-  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    canvasMaxWidth: "full",
-    docs: {
-      story: {
-        iframeHeight: "960px"
-      }
-    }
+    canvasMaxWidth: "full"
   }
 };
 
