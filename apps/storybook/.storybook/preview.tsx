@@ -23,7 +23,10 @@ function ProviderShell(props: ProviderShellProps) {
 const preview: Preview = {
   decorators: [
     (Story, context) => {
-      const maxWidthMode = context.parameters?.canvasMaxWidth === "full" ? "full" : "default";
+      const isFullPageShowcase =
+        context.title === "Showcase/Full Page Composition" ||
+        (typeof context.id === "string" && context.id.startsWith("showcase-full-page-composition--"));
+      const maxWidthMode = context.parameters?.canvasMaxWidth === "full" || isFullPageShowcase ? "full" : "default";
 
       return (
         <ProviderShell maxWidthMode={maxWidthMode}>
