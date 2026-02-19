@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   Checkbox,
+  DesignSystemProvider,
   Drawer,
   Grid,
   Heading,
@@ -23,7 +24,9 @@ import {
   Tabs,
   Tag,
   Text,
-  Textarea
+  Textarea,
+  neoMintTheme,
+  orangeMotionTheme
 } from "@vibed/design-system";
 import { useState } from "react";
 
@@ -57,6 +60,7 @@ export default meta;
 
 export const FullPage = {
   render: function Render() {
+    const [themeId, setThemeId] = useState("default-light");
     const [activeTopNav, setActiveTopNav] = useState("workspace");
     const [activeSidebar, setActiveSidebar] = useState("digest");
     const [activeTab, setActiveTab] = useState("overview");
@@ -66,22 +70,42 @@ export const FullPage = {
     const [sendDigest, setSendDigest] = useState(true);
 
     return (
-      <Box surface="background" minHeight="screen">
-        <Box>
-          <Navbar
-            brand="Vibed Console"
-            items={[
-              { id: "workspace", label: "Workspace" },
-              { id: "automation", label: "Automation" },
-              { id: "insights", label: "Insights" }
-            ]}
-            activeItemId={activeTopNav}
-            onItemSelect={setActiveTopNav}
-            actions={<Button controlSize="sm">Create</Button>}
-          />
+      <DesignSystemProvider
+        mode={themeId === "default-dark" ? "dark" : "light"}
+        theme={themeId === "orange-motion" ? orangeMotionTheme : themeId === "neo-mint" ? neoMintTheme : undefined}
+      >
+        <Box surface="background" minHeight="screen">
+          <Box>
+            <Navbar
+              brand="Vibed Console"
+              items={[
+                { id: "workspace", label: "Workspace" },
+                { id: "automation", label: "Automation" },
+                { id: "insights", label: "Insights" }
+              ]}
+              activeItemId={activeTopNav}
+              onItemSelect={setActiveTopNav}
+              actions={(
+                <Inline gap="xs" align="center">
+                  <Select
+                    controlSize="sm"
+                    value={themeId}
+                    onChange={function onChange(event) { setThemeId(event.target.value); }}
+                    aria-label="Theme selector"
+                    style={{ minWidth: "11.5rem" }}
+                  >
+                    <option value="default-light">Default Light</option>
+                    <option value="default-dark">Default Dark</option>
+                    <option value="orange-motion">Orange Motion</option>
+                    <option value="neo-mint">Neo Mint</option>
+                  </Select>
+                  <Button controlSize="sm">Create</Button>
+                </Inline>
+              )}
+            />
 
-          <Grid template="app-shell" minHeight="screen">
-            <Box as="aside" surface="surface" border="subtle" borderSide="right">
+            <Grid template="app-shell" minHeight="screen">
+              <Box as="aside" surface="surface" border="subtle" borderSide="right">
               <Sidebar
                 heading="Control Center"
                 activeItemId={activeSidebar}
@@ -107,9 +131,9 @@ export const FullPage = {
                 ]}
                 footer={<Text size="sm" tone="muted">v0.1.0</Text>}
               />
-            </Box>
+              </Box>
 
-            <Box as="main" padding="lg" border="subtle" borderSide="right">
+              <Box as="main" padding="lg" border="subtle" borderSide="right">
               <Stack gap="md">
                 <Breadcrumb
                   items={[
@@ -209,9 +233,9 @@ export const FullPage = {
                   </Box>
                 </Card>
               </Stack>
-            </Box>
+              </Box>
 
-            <Box as="aside" padding="lg">
+              <Box as="aside" padding="lg">
               <Stack gap="md">
                 <Heading level={4}>Quick Setup</Heading>
 
@@ -248,59 +272,60 @@ export const FullPage = {
                   <Button>Save</Button>
                 </Inline>
               </Stack>
-            </Box>
-          </Grid>
+              </Box>
+            </Grid>
 
-          <Box surface="surface" border="subtle" borderSide="top" padding="sm">
-            <Inline justify="between">
-              <Text size="sm" tone="muted">Vibed Design System demo workspace</Text>
-              <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
-            </Inline>
+            <Box surface="surface" border="subtle" borderSide="top" padding="sm">
+              <Inline justify="between">
+                <Text size="sm" tone="muted">Vibed Design System demo workspace</Text>
+                <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
+              </Inline>
+            </Box>
           </Box>
+
+          <Drawer
+            open={openDrawer}
+            side="right"
+            title="Quick actions"
+            overlayMode="viewport"
+            onClose={function onClose() { setOpenDrawer(false); }}
+          >
+            <Stack gap="sm">
+              <Text size="sm">Use this panel for contextual edits without leaving the page.</Text>
+              <Box>
+                <Text size="sm" weight="semibold">Priority</Text>
+                <Select defaultValue="normal">
+                  <option value="low">Low</option>
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                </Select>
+              </Box>
+              <Box>
+                <Text size="sm" weight="semibold">Owner</Text>
+                <Input defaultValue="Olivia Jones" />
+              </Box>
+              <Inline justify="end" gap="xs">
+                <Button tone="neutral" onClick={function onClick() { setOpenDrawer(false); }}>Cancel</Button>
+                <Button onClick={function onClick() { setOpenDrawer(false); }}>Save draft</Button>
+              </Inline>
+            </Stack>
+          </Drawer>
+
+          <Modal
+            open={openModal}
+            title="Publish changes"
+            onClose={function onClose() { setOpenModal(false); }}
+          >
+            <Stack gap="sm">
+              <Text size="sm">Ready to publish this automation setup to your workspace?</Text>
+              <Inline justify="end" gap="xs">
+                <Button tone="neutral" onClick={function onClick() { setOpenModal(false); }}>Not now</Button>
+                <Button onClick={function onClick() { setOpenModal(false); }}>Publish</Button>
+              </Inline>
+            </Stack>
+          </Modal>
         </Box>
-
-        <Drawer
-          open={openDrawer}
-          side="right"
-          title="Quick actions"
-          overlayMode="viewport"
-          onClose={function onClose() { setOpenDrawer(false); }}
-        >
-          <Stack gap="sm">
-            <Text size="sm">Use this panel for contextual edits without leaving the page.</Text>
-            <Box>
-              <Text size="sm" weight="semibold">Priority</Text>
-              <Select defaultValue="normal">
-                <option value="low">Low</option>
-                <option value="normal">Normal</option>
-                <option value="high">High</option>
-              </Select>
-            </Box>
-            <Box>
-              <Text size="sm" weight="semibold">Owner</Text>
-              <Input defaultValue="Olivia Jones" />
-            </Box>
-            <Inline justify="end" gap="xs">
-              <Button tone="neutral" onClick={function onClick() { setOpenDrawer(false); }}>Cancel</Button>
-              <Button onClick={function onClick() { setOpenDrawer(false); }}>Save draft</Button>
-            </Inline>
-          </Stack>
-        </Drawer>
-
-        <Modal
-          open={openModal}
-          title="Publish changes"
-          onClose={function onClose() { setOpenModal(false); }}
-        >
-          <Stack gap="sm">
-            <Text size="sm">Ready to publish this automation setup to your workspace?</Text>
-            <Inline justify="end" gap="xs">
-              <Button tone="neutral" onClick={function onClick() { setOpenModal(false); }}>Not now</Button>
-              <Button onClick={function onClick() { setOpenModal(false); }}>Publish</Button>
-            </Inline>
-          </Stack>
-        </Modal>
-      </Box>
+      </DesignSystemProvider>
     );
   }
 };
