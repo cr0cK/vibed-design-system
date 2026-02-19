@@ -99,7 +99,6 @@ export const FullPage = {
                     <option value="orange-motion">Orange Motion</option>
                     <option value="neo-mint">Neo Mint</option>
                   </Select>
-                  <Button controlSize="sm">Create</Button>
                 </Inline>
               )}
             />
