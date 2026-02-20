@@ -106,7 +106,7 @@ export const FullPage = {
             />
 
             <Grid template="app-shell" minHeight="screen">
-              <Box as="aside" surface="surface" border="subtle" borderSide="right">
+              <Box as="aside" surface="surface" border="subtle" borderSide="right" style={{ minWidth: 0 }}>
               <Sidebar
                 heading="Control Center"
                 activeItemId={activeSidebar}
@@ -133,7 +133,7 @@ export const FullPage = {
               />
               </Box>
 
-              <Box as="main" padding="lg" border="subtle" borderSide="right">
+              <Box as="main" padding="lg" border="subtle" borderSide="right" style={{ minWidth: 0 }}>
               <Stack gap="md">
                 <Breadcrumb
                   items={[
@@ -226,7 +226,9 @@ export const FullPage = {
                       overflowX: "auto",
                       fontFamily: "var(--ds-font-mono)",
                       fontSize: "0.78rem",
-                      lineHeight: 1.45
+                      lineHeight: 1.45,
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word"
                     }}
                   >
                     {sourceSnippet}
@@ -235,7 +237,7 @@ export const FullPage = {
               </Stack>
               </Box>
 
-              <Box as="aside" padding="lg">
+              <Box as="aside" padding="lg" style={{ minWidth: 0 }}>
               <Stack gap="md">
                 <Heading level={4}>Quick Setup</Heading>
 
