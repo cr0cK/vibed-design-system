@@ -1,0 +1,15 @@
+.sb-vibed-shell {
+  width: 100%;
+  min-height: 600px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  box-sizing: border-box;
+}
+
+.sb-vibed-shell--default {
+  max-width: 960px;
+}
+
+.sb-vibed-shell--full {
+  max-width: 100%;
+}

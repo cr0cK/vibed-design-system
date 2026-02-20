@@ -1,6 +1,8 @@
 import type { Preview } from "@storybook/react";
 import type { ReactNode } from "react";
-import { DesignSystemProvider } from "@vibed/design-system";
+import { Box, DesignSystemProvider, Heading, Stack, Text } from "@vibed/design-system";
+import { getStorySummary } from "./storySummary";
+import "./preview.css";
 import "../src/styles/fonts.css";
 
 interface ProviderShellProps {
@@ -9,11 +11,11 @@ interface ProviderShellProps {
 }
 
 function ProviderShell(props: ProviderShellProps) {
-  const maxWidth = props.maxWidthMode === "full" ? "100%" : "960px";
+  const maxWidthClassName = props.maxWidthMode === "full" ? "sb-vibed-shell--full" : "sb-vibed-shell--default";
 
   return (
     <DesignSystemProvider mode="light" density="comfortable">
-      <div style={{ width: "100%", maxWidth, minHeight: "600px", margin: "0 auto", padding: "2rem 2rem 4rem", boxSizing: "border-box" }}>
+      <div className={`sb-vibed-shell ${maxWidthClassName}`}>
         {props.children}
       </div>
     </DesignSystemProvider>
@@ -27,9 +29,21 @@ const preview: Preview = {
         context.title === "Showcase/Full Page Composition" ||
         (typeof context.id === "string" && context.id.startsWith("showcase-full-page-composition--"));
       const maxWidthMode = context.parameters?.canvasMaxWidth === "full" || isFullPageShowcase ? "full" : "default";
+      const summary = getStorySummary(context.title ?? "");
+      const showSummary = context.viewMode === "story" && summary !== null;
 
       return (
         <ProviderShell maxWidthMode={maxWidthMode}>
+          {showSummary ? (
+            <Box surface="elevated" border="subtle" radius="md" padding="sm">
+              <Stack gap="xs">
+                <Heading level={5}>{summary.title}</Heading>
+                <Text size="sm" tone="muted">{summary.what}</Text>
+                <Text size="sm" tone="muted">{summary.how}</Text>
+              </Stack>
+            </Box>
+          ) : null}
+          {showSummary ? <Box pt="sm" /> : null}
           <Story />
         </ProviderShell>
       );
