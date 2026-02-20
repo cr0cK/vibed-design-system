@@ -1,5 +1,5 @@
 import { DateRangePicker, Stack, Text } from "@vibed/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const meta = { title: "Molecules/DateRangePicker", component: DateRangePicker, tags: ["autodocs"] };
 export default meta;
@@ -31,6 +31,12 @@ export const Playground = {
   render: function Render(args: any) {
     const [start, setStart] = useState(args.startValue);
     const [end, setEnd] = useState(args.endValue);
+
+    useEffect(function syncArgs() {
+      setStart(args.startValue);
+      setEnd(args.endValue);
+    }, [args.startValue, args.endValue]);
+
     return (
       <Stack gap="sm">
         <DateRangePicker
@@ -50,4 +56,3 @@ export const Playground = {
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
 (Showcase as any).render = (Playground as any).render;
-

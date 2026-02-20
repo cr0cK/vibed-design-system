@@ -1,5 +1,5 @@
 import { Autocomplete, Stack, Text } from "@vibed/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const meta = { title: "Molecules/Autocomplete", component: Autocomplete, tags: ["autodocs"] };
 export default meta;
@@ -24,13 +24,20 @@ export const Showcase = {
 
 export const Playground = {
   args: {
-    placeholder: "Type automation name"
+    placeholder: "Type automation name",
+    value: ""
   },
   argTypes: {
-    placeholder: { control: "text" }
+    placeholder: { control: "text" },
+    value: { control: "text" }
   },
   render: function Render(args: any) {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(args.value);
+
+    useEffect(function syncArgs() {
+      setValue(args.value);
+    }, [args.value]);
+
     return (
       <Stack gap="sm">
         <Autocomplete
@@ -48,4 +55,3 @@ export const Playground = {
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
 (Showcase as any).render = (Playground as any).render;
-

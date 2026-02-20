@@ -1,5 +1,5 @@
 import { Combobox, Stack, Text } from "@vibed/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const meta = { title: "Molecules/Combobox", component: Combobox, tags: ["autodocs"] };
 export default meta;
@@ -25,10 +25,18 @@ export const Showcase = {
 };
 
 export const Playground = {
-  args: { placeholder: "Select team" },
-  argTypes: { placeholder: { control: "text" } },
+  args: { placeholder: "Select team", value: "design" },
+  argTypes: {
+    placeholder: { control: "text" },
+    value: { control: "select", options: ["engineering", "design", "product", "ops"] }
+  },
   render: function Render(args: any) {
-    const [value, setValue] = useState("design");
+    const [value, setValue] = useState(args.value);
+
+    useEffect(function syncArgs() {
+      setValue(args.value);
+    }, [args.value]);
+
     return (
       <Stack gap="sm">
         <Combobox options={options} value={value} onValueChange={setValue} placeholder={args.placeholder} />
@@ -41,4 +49,3 @@ export const Playground = {
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
 (Showcase as any).render = (Playground as any).render;
-

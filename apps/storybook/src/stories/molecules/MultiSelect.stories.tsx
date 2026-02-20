@@ -1,5 +1,5 @@
 import { MultiSelect, Stack, Text } from "@vibed/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const meta = { title: "Molecules/MultiSelect", component: MultiSelect, tags: ["autodocs"] };
 export default meta;
@@ -25,10 +25,18 @@ export const Showcase = {
 };
 
 export const Playground = {
-  args: { placeholder: "Select channels" },
-  argTypes: { placeholder: { control: "text" } },
+  args: { placeholder: "Select channels", selectedValues: ["email", "slack"] },
+  argTypes: {
+    placeholder: { control: "text" },
+    selectedValues: { control: "object" }
+  },
   render: function Render(args: any) {
-    const [value, setValue] = useState<string[]>(["email", "slack"]);
+    const [value, setValue] = useState<string[]>(args.selectedValues);
+
+    useEffect(function syncArgs() {
+      setValue(Array.isArray(args.selectedValues) ? args.selectedValues : []);
+    }, [args.selectedValues]);
+
     return (
       <Stack gap="sm">
         <MultiSelect options={options} value={value} onValueChange={setValue} placeholder={args.placeholder} />
@@ -41,4 +49,3 @@ export const Playground = {
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
 (Showcase as any).render = (Playground as any).render;
-

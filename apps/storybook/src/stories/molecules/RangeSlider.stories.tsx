@@ -1,5 +1,5 @@
 import { RangeSlider, Stack } from "@vibed/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const meta = { title: "Molecules/RangeSlider", component: RangeSlider, tags: ["autodocs"] };
 export default meta;
@@ -26,11 +26,16 @@ export const Playground = {
     defaultEnd: { control: "number" }
   },
   render: function Render(args: any) {
-    return <RangeSlider min={args.min} max={args.max} defaultValue={[args.defaultStart, args.defaultEnd]} />;
+    const [value, setValue] = useState<[number, number]>([args.defaultStart, args.defaultEnd]);
+
+    useEffect(function syncArgs() {
+      setValue([args.defaultStart, args.defaultEnd]);
+    }, [args.defaultStart, args.defaultEnd]);
+
+    return <RangeSlider min={args.min} max={args.max} value={value} onValueChange={setValue} />;
   }
 };
 
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
 (Showcase as any).render = (Playground as any).render;
-
