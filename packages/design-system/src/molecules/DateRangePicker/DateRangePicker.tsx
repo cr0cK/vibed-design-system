@@ -45,7 +45,7 @@ const Separator = styled.span<LayoutProps>(function style(props) {
 
 export function DateRangePicker(props: DateRangePickerProps) {
   return (
-    <Root className={props.className} controlSize={props.controlSize}>
+    <Root data-attr-name="DateRangePicker" className={props.className} controlSize={props.controlSize}>
       <DatePicker
         controlSize={props.controlSize}
         value={props.startValue}

@@ -94,7 +94,7 @@ const ButtonRoot = styled.button<ButtonProps>(function style(props) {
 
 export function Button(props: ButtonProps) {
   return (
-    <ButtonRoot
+    <ButtonRoot data-attr-name="Button"
       {...props}
       ref={props.ref}
       disabled={props.disabled || props.loading}

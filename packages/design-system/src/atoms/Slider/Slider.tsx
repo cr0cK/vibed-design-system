@@ -122,7 +122,7 @@ export function Slider(props: SliderProps) {
   }
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="Slider" className={props.className} controlSize={controlSize}>
       <SliderInput
         {...props}
         controlSize={controlSize}

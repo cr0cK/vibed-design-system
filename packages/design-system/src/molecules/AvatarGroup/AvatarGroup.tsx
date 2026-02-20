@@ -68,7 +68,7 @@ export function AvatarGroup(props: AvatarGroupProps) {
   const overflowCount = Math.max(0, props.items.length - visible.length);
 
   return (
-    <Root className={props.className} controlSize={props.controlSize}>
+    <Root data-attr-name="AvatarGroup" className={props.className} controlSize={props.controlSize}>
       {visible.map(function mapItem(item) {
         return (
           <ItemWrap key={item.id} controlSize={props.controlSize}>

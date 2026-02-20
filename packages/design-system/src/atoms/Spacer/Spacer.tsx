@@ -22,5 +22,5 @@ const SpacerRoot = styled.div<SpacerProps>(function style(props) {
 });
 
 export function Spacer(props: SpacerProps) {
-  return <SpacerRoot {...props} aria-hidden="true" />;
+  return <SpacerRoot data-attr-name="Spacer" {...props} aria-hidden="true" />;
 }

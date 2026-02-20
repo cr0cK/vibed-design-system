@@ -142,7 +142,7 @@ const CheckboxText = styled.span<CheckboxLabelProps>(function style(props) {
 
 export function Checkbox(props: CheckboxProps) {
   return (
-    <LabelRoot controlSize={props.controlSize}>
+    <LabelRoot data-attr-name="Checkbox" controlSize={props.controlSize}>
       <CheckboxInput {...props} type="checkbox" />
       <CheckboxText controlSize={props.controlSize}>{props.label}</CheckboxText>
     </LabelRoot>

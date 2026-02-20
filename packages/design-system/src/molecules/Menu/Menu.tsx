@@ -55,7 +55,7 @@ export function Menu(props: MenuProps) {
   const { items, selectedId, onItemSelect, className, ...restProps } = props;
 
   return (
-    <Root className={className} role="menu" {...restProps}>
+    <Root data-attr-name="Menu" className={className} role="menu" {...restProps}>
       {items.map(function mapItem(item) {
         return (
           <ItemButton

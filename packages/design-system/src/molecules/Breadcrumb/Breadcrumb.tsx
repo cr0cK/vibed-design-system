@@ -21,7 +21,7 @@ const Nav = styled.nav(function style() {
 
 export function Breadcrumb(props: BreadcrumbProps) {
   return (
-    <Nav aria-label="Breadcrumb" className={props.className}>
+    <Nav data-attr-name="Breadcrumb" aria-label="Breadcrumb" className={props.className}>
       {props.items.map((item, index) => {
         const isLast: boolean = index === props.items.length - 1;
         return (

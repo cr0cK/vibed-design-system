@@ -64,7 +64,7 @@ export function Progress(props: ProgressProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 
   return (
-    <Track
+    <Track data-attr-name="Progress"
       className={props.className}
       role="progressbar"
       aria-valuemin={0}

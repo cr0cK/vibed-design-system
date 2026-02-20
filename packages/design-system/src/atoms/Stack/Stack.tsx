@@ -32,7 +32,7 @@ const StackRoot = styled.div<StackProps>(function style(props) {
 
 export function Stack(props: StackProps) {
   return (
-    <StackRoot {...props}>
+    <StackRoot data-attr-name="Stack" {...props}>
       {props.children}
     </StackRoot>
   );

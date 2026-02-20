@@ -90,7 +90,7 @@ export function Switch(props: SwitchProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 
   return (
-    <SwitchLabel controlSize={controlSize}>
+    <SwitchLabel data-attr-name="Switch" controlSize={controlSize}>
       <SwitchTrack
         {...props}
         role="switch"

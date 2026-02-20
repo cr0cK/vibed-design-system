@@ -80,7 +80,7 @@ export function DropdownMenu(props: DropdownMenuProps) {
   }, []);
 
   return (
-    <Root
+    <Root data-attr-name="DropdownMenu"
       ref={rootRef}
       className={props.className}
       placement={placement}

@@ -164,7 +164,7 @@ export function Combobox(props: ComboboxProps) {
   }
 
   return (
-    <Root ref={rootRef} className={props.className}>
+    <Root data-attr-name="Combobox" ref={rootRef} className={props.className}>
       <Input
         controlSize={props.controlSize}
         value={query}

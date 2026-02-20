@@ -56,7 +56,7 @@ export function EmptyState(props: EmptyStateProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="EmptyState" className={props.className} controlSize={controlSize}>
       {props.icon ? <IconWrap controlSize={controlSize} aria-hidden="true">{props.icon}</IconWrap> : null}
       <Heading level={controlSize === "lg" ? 3 : 4}>{props.title}</Heading>
       {props.description ? <Text tone="muted" size={controlSize === "lg" ? "md" : "sm"}>{props.description}</Text> : null}

@@ -79,7 +79,7 @@ export function AppShell(props: AppShellProps) {
   const toggleSidePanel = useUIStore((state) => state.toggleSidePanel);
 
   return (
-    <Shell className={props.className} density={context.density} data-density={context.density}>
+    <Shell data-attr-name="AppShell" className={props.className} density={context.density} data-density={context.density}>
       {sidePanelOpen ? <Side>{props.navigation}</Side> : null}
       <Main>
         <TopRow>

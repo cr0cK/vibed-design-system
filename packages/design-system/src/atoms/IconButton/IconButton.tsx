@@ -110,7 +110,7 @@ export function IconButton(props: IconButtonProps) {
   const content = props.children ?? props.icon;
 
   return (
-    <IconButtonRoot
+    <IconButtonRoot data-attr-name="IconButton"
       {...props}
       type={props.type ?? "button"}
       aria-label={props.label}

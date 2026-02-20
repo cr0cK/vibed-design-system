@@ -29,5 +29,5 @@ const HelperTextRoot = styled.p<HelperTextProps>(function style(props) {
 });
 
 export function HelperText(props: HelperTextProps) {
-  return <HelperTextRoot {...props}>{props.children}</HelperTextRoot>;
+  return <HelperTextRoot data-attr-name="HelperText" {...props}>{props.children}</HelperTextRoot>;
 }

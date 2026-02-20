@@ -30,7 +30,7 @@ const Content = styled.div(function style() {
 
 export function PageHeader(props: PageHeaderProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="PageHeader" className={props.className}>
       <Content>
         <Heading level={2}>{props.heading}</Heading>
         {props.subtitle ? <Text tone="muted">{props.subtitle}</Text> : null}

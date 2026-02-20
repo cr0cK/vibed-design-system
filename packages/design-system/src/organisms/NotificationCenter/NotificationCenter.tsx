@@ -70,7 +70,7 @@ export function NotificationCenter(props: NotificationCenterProps) {
 
   if (!items.length) {
     return (
-      <Root>
+      <Root data-attr-name="NotificationCenter">
         <Text tone="muted">{props.emptyText ?? "No notifications"}</Text>
       </Root>
     );

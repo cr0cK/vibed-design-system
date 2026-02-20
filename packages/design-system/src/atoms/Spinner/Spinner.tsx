@@ -28,5 +28,5 @@ const SpinnerRoot = styled.div<SpinnerProps>(function style(props) {
 });
 
 export function Spinner(props: SpinnerProps) {
-  return <SpinnerRoot {...props} role="status" aria-label="Loading" />;
+  return <SpinnerRoot data-attr-name="Spinner" {...props} role="status" aria-label="Loading" />;
 }

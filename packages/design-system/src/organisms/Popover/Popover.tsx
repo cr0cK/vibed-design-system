@@ -71,6 +71,7 @@ export function Popover(props: PopoverProps) {
   return (
     <ClickOutside enabled={open} onClickOutside={function onClickOutside() { setOpen(false); }}>
       <Root
+        data-attr-name="Popover"
         placement={placement}
         className={props.className}
         id={props.id}

@@ -24,5 +24,5 @@ const ContainerRoot = styled.div<ContainerProps>(function style(props) {
 });
 
 export function Container(props: ContainerProps) {
-  return <ContainerRoot {...props}>{props.children}</ContainerRoot>;
+  return <ContainerRoot data-attr-name="Container" {...props}>{props.children}</ContainerRoot>;
 }

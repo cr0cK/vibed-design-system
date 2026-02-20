@@ -53,7 +53,7 @@ const Description = styled.p(function style() {
 
 export function Toast(props: ToastProps) {
   return (
-    <Root className={props.className} tone={props.tone} role="status">
+    <Root data-attr-name="Toast" className={props.className} tone={props.tone} role="status">
       <Header>
         <Title>{props.heading}</Title>
         {props.onClose ? (

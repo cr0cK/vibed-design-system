@@ -74,7 +74,7 @@ export function Avatar(props: AvatarProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 
   return (
-    <Root
+    <Root data-attr-name="Avatar"
       className={props.className}
       controlSize={controlSize}
       shape={props.shape}

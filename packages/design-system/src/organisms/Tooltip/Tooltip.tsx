@@ -86,7 +86,7 @@ export function Tooltip(props: TooltipProps) {
   }, [open]);
 
   return (
-    <Root
+    <Root data-attr-name="Tooltip"
       className={props.className}
       onMouseEnter={function onMouseEnter() { setOpen(true); }}
       onMouseLeave={function onMouseLeave() { setOpen(false); }}

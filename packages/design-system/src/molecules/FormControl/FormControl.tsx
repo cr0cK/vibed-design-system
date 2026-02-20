@@ -62,7 +62,7 @@ export function FormControl(props: FormControlProps) {
   }
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="FormControl" className={props.className} controlSize={controlSize}>
       {props.label ? <Label htmlFor={controlId} controlSize={controlSize}>{props.label}</Label> : null}
       {controlNode}
       {props.error ? (

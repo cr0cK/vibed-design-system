@@ -106,7 +106,7 @@ export function StepIndicator(props: StepIndicatorProps) {
   const statusById = getStatuses(props.steps, props.activeStepId);
 
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="StepIndicator" className={props.className}>
       {props.steps.map(function mapStep(step) {
         const status = statusById[step.id] ?? "pending";
         return (

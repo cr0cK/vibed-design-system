@@ -26,5 +26,5 @@ const ButtonGroupRoot = styled.div<ButtonGroupProps>(function style(props) {
 });
 
 export function ButtonGroup(props: ButtonGroupProps) {
-  return <ButtonGroupRoot {...props}>{props.children}</ButtonGroupRoot>;
+  return <ButtonGroupRoot data-attr-name="ButtonGroup" {...props}>{props.children}</ButtonGroupRoot>;
 }

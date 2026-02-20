@@ -40,7 +40,7 @@ const InputRoot = styled.input<InputProps>(function style(props) {
 
 export function Input(props: InputProps) {
   return (
-    <InputRoot
+    <InputRoot data-attr-name="Input"
       {...props}
       aria-invalid={props.invalid}
     />

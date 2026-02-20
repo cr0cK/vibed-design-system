@@ -148,7 +148,7 @@ export function MultiSelect(props: MultiSelectProps) {
   }
 
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="MultiSelect" className={props.className}>
       <Trigger controlSize={props.controlSize} type="button" onClick={function onClick() { setOpen(!open); }}>
         {selectedOptions.length === 0 ? (
           <span>{props.placeholder ?? "Select options"}</span>

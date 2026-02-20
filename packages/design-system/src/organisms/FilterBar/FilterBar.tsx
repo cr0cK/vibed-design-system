@@ -45,7 +45,7 @@ const Right = styled.div(function style() {
 
 export function FilterBar(props: FilterBarProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="FilterBar" className={props.className}>
       <Left>{props.controls}</Left>
       <Right>{props.actions}</Right>
     </Root>

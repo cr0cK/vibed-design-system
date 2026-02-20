@@ -85,7 +85,7 @@ const ItemButton = styled.button<ItemButtonProps>(function style(props) {
 
 export function Navbar(props: NavbarProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="Navbar" className={props.className}>
       <Left>
         <Inline gap="md" align="center">
           <Heading level={5}>{props.brand}</Heading>

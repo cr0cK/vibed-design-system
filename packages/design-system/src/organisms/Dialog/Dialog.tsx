@@ -26,7 +26,7 @@ export function Dialog(props: DialogProps) {
   const cancelLabel = props.cancelLabel ?? "Cancel";
 
   return (
-    <Modal open={props.open} title={props.title} onClose={props.onClose}>
+    <Modal data-attr-name="Dialog" open={props.open} title={props.title} onClose={props.onClose}>
       <Stack gap="sm">
         {props.description ? <Text size="sm" tone="muted">{props.description}</Text> : null}
         <Inline gap="xs" justify="end">

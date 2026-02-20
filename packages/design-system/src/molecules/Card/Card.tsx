@@ -35,7 +35,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export function Card(props: CardProps) {
   return (
-    <Box
+    <Box data-attr-name="Card"
       padding="lg"
       radius="lg"
       surface="elevated"

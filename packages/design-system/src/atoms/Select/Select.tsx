@@ -315,7 +315,7 @@ export function Select(props: SelectProps) {
   }
 
   return (
-    <SelectRoot ref={rootRef}>
+    <SelectRoot data-attr-name="Select" ref={rootRef}>
       {props.name ? <input type="hidden" name={props.name} value={selectedValue} /> : null}
       <SelectTrigger
         id={triggerId}

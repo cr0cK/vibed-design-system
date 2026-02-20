@@ -82,7 +82,7 @@ export function Field(props: FieldProps) {
   }
 
   return (
-    <FieldRoot className={props.className} controlSize={controlSize}>
+    <FieldRoot data-attr-name="Field" className={props.className} controlSize={controlSize}>
       <LabelRow controlSize={controlSize}>
         <label htmlFor={props.inputId}>
           <Text as="span" size={textSize} weight="semibold">

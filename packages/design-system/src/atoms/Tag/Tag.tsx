@@ -53,5 +53,5 @@ const Root = styled.span<TagProps>(function style(props) {
 });
 
 export function Tag(props: TagProps) {
-  return <Root {...props}>{props.children}</Root>;
+  return <Root data-attr-name="Tag" {...props}>{props.children}</Root>;
 }

@@ -22,5 +22,5 @@ const LinkRoot = styled.a<LinkProps>(function style(props) {
 });
 
 export function Link(props: LinkProps) {
-  return <LinkRoot {...props}>{props.children}</LinkRoot>;
+  return <LinkRoot data-attr-name="Link" {...props}>{props.children}</LinkRoot>;
 }

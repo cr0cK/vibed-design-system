@@ -142,7 +142,7 @@ export function NumberInput(props: NumberInputProps) {
   }
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="NumberInput" className={props.className} controlSize={controlSize}>
       <StepButton
         type="button"
         controlSize={controlSize}

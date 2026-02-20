@@ -50,7 +50,7 @@ const TextRoot = styled.p<TextProps>(function style(props) {
 
 export function Text(props: TextProps) {
   return (
-    <TextRoot
+    <TextRoot data-attr-name="Text"
       {...props}
       as={props.as ?? "p"}
     >

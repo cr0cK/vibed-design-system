@@ -34,5 +34,5 @@ const TextareaRoot = styled.textarea<TextareaProps>(function style(props) {
 });
 
 export function Textarea(props: TextareaProps) {
-  return <TextareaRoot {...props} aria-invalid={props.invalid} />;
+  return <TextareaRoot data-attr-name="Textarea" {...props} aria-invalid={props.invalid} />;
 }

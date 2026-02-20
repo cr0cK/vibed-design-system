@@ -129,6 +129,7 @@ export function Modal(props: ModalProps) {
         <ClickOutside onClickOutside={props.onClose}>
           <FocusTrap active initialFocusRef={initialFocusRef}>
             <Panel
+              data-attr-name="Modal"
               ref={panelRef}
               className={props.className}
               role="dialog"

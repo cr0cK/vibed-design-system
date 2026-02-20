@@ -21,5 +21,5 @@ const DividerRoot = styled.hr<DividerProps>(function style(props) {
 });
 
 export function Divider(props: DividerProps) {
-  return <DividerRoot {...props} />;
+  return <DividerRoot data-attr-name="Divider" {...props} />;
 }

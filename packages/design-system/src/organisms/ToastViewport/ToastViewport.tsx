@@ -49,7 +49,7 @@ export function ToastViewport(props: ToastViewportProps) {
   }
 
   return (
-    <Root aria-live="polite" aria-atomic="true">
+    <Root data-attr-name="ToastViewport" aria-live="polite" aria-atomic="true">
       {items.map(function mapToast(item) {
         return (
           <Toast

@@ -25,5 +25,5 @@ const SkeletonRoot = styled.div<SkeletonProps>(function style(props) {
 });
 
 export function Skeleton(props: SkeletonProps) {
-  return <SkeletonRoot {...props} aria-hidden="true" />;
+  return <SkeletonRoot data-attr-name="Skeleton" {...props} aria-hidden="true" />;
 }

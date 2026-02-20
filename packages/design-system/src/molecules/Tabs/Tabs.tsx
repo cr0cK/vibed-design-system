@@ -113,7 +113,7 @@ export function Tabs(props: TabsProps) {
   }
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="Tabs" className={props.className} controlSize={controlSize}>
       <List role="tablist" aria-label="Tabs" controlSize={controlSize} onKeyDown={onListKeyDown}>
         {props.items.map((item, index) => {
           const isActive: boolean = props.value === item.id;

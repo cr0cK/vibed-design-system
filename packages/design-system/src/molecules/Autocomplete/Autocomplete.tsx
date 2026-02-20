@@ -139,7 +139,7 @@ export function Autocomplete(props: AutocompleteProps) {
   }
 
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="Autocomplete" className={props.className}>
       <Input
         controlSize={props.controlSize}
         value={value}

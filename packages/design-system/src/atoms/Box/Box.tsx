@@ -15,6 +15,8 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   overflow?: "visible" | "hidden";
   mt?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
   flex?: "none" | "fill" | "field";
+  position?: "static" | "relative";
+  minWidth?: "auto" | "zero";
 }
 
 const BoxRoot = styled.div<BoxProps>(function style(props) {
@@ -98,13 +100,25 @@ const BoxRoot = styled.div<BoxProps>(function style(props) {
   if (props.flex) {
     styles = styles.variant("flex", props.flex, flexMap);
   }
+  if (props.position) {
+    styles = styles.variant("position", props.position, {
+      static: { position: "static" },
+      relative: { position: "relative" }
+    });
+  }
+  if (props.minWidth) {
+    styles = styles.variant("minWidth", props.minWidth, {
+      auto: { minWidth: "auto" },
+      zero: { minWidth: 0 }
+    });
+  }
 
   return styles.end();
 });
 
 export function Box(props: BoxProps) {
   return (
-    <BoxRoot
+    <BoxRoot data-attr-name="Box"
       {...props}
       as={props.as ?? "div"}
     >

@@ -38,5 +38,5 @@ const DatePickerRoot = styled.input<DatePickerProps>(function style(props) {
 });
 
 export function DatePicker(props: DatePickerProps) {
-  return <DatePickerRoot {...props} type="date" aria-invalid={props.invalid} />;
+  return <DatePickerRoot data-attr-name="DatePicker" {...props} type="date" aria-invalid={props.invalid} />;
 }

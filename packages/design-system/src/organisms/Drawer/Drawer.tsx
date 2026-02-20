@@ -159,6 +159,7 @@ export function Drawer(props: DrawerProps) {
         <ClickOutside onClickOutside={props.onClose}>
           <FocusTrap active initialFocusRef={initialFocusRef}>
             <Panel
+              data-attr-name="Drawer"
               ref={panelRef}
               className={props.className}
               overlayMode={overlayMode}

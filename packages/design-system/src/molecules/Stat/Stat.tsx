@@ -39,7 +39,7 @@ export function Stat(props: StatProps) {
   const trendTone = props.tone === "success" ? "success" : props.tone === "danger" ? "danger" : "muted";
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="Stat" className={props.className} controlSize={controlSize}>
       <Text size="sm" tone="muted">{props.label}</Text>
       <Text size={valueSize} weight="bold">{props.value}</Text>
       {props.trend ? <Text size="sm" tone={trendTone}>{props.trend}</Text> : null}

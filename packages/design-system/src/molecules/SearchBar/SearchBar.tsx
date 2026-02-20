@@ -58,7 +58,7 @@ const Input = styled.input<SearchBarProps>(function style(props) {
 
 export function SearchBar(props: SearchBarProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="SearchBar" className={props.className}>
       <Icon aria-hidden="true" controlSize={props.controlSize} />
       <Input {...props} type="search" />
     </Root>

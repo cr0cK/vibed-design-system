@@ -130,7 +130,7 @@ export function RangeSlider(props: RangeSliderProps) {
   }
 
   return (
-    <Root className={props.className} controlSize={props.controlSize}>
+    <Root data-attr-name="RangeSlider" className={props.className} controlSize={props.controlSize}>
       <TrackWrap>
         <TrackBase />
         <TrackFill startPercent={startPercent} endPercent={endPercent} />

@@ -208,6 +208,7 @@ export function CommandPalette(props: CommandPaletteProps) {
             <ClickOutside onClickOutside={function onClickOutside() { setOpen(false); }}>
               <FocusTrap active initialFocusRef={inputRef}>
                 <Panel
+                  data-attr-name="CommandPalette"
                   ref={rootRef}
                   entered={entered}
                   role="dialog"

@@ -33,5 +33,5 @@ const HeadingRoot = styled.h2<HeadingProps>(function style(props) {
 });
 
 export function Heading(props: HeadingProps) {
-  return createElement(HeadingRoot, { ...props, as: `h${props.level ?? 2}` }, props.children);
+  return createElement(HeadingRoot, { ...props, as: `h${props.level ?? 2}`, "data-attr-name": "Heading" } as any, props.children);
 }

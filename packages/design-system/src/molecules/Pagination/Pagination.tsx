@@ -32,7 +32,7 @@ export function Pagination(props: PaginationProps) {
   const textSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "lg" : "md";
 
   return (
-    <Root className={props.className} controlSize={controlSize}>
+    <Root data-attr-name="Pagination" className={props.className} controlSize={controlSize}>
       <Button controlSize={controlSize} tone="neutral" disabled={props.page <= 1} onClick={function onClick() { props.onPageChange(props.page - 1); }}>
         Previous
       </Button>

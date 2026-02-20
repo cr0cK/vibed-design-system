@@ -117,7 +117,7 @@ const RadioText = styled.span<RadioLabelProps>(function style(props) {
 
 export function Radio(props: RadioProps) {
   return (
-    <LabelRoot controlSize={props.controlSize}>
+    <LabelRoot data-attr-name="Radio" controlSize={props.controlSize}>
       <RadioInput {...props} type="radio" />
       <RadioText controlSize={props.controlSize}>{props.label}</RadioText>
     </LabelRoot>

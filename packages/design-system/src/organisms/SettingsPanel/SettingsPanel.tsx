@@ -41,7 +41,7 @@ const Section = styled.article(function style() {
 
 export function SettingsPanel(props: SettingsPanelProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="SettingsPanel" className={props.className}>
       {props.heading ? <Heading level={3}>{props.heading}</Heading> : null}
       {props.sections.map(function mapSection(section) {
         return (

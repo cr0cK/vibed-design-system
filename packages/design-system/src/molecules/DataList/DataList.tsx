@@ -66,7 +66,7 @@ const Details = styled.dd(function style() {
 
 export function DataList(props: DataListProps) {
   return (
-    <Root className={props.className} controlSize={props.controlSize}>
+    <Root data-attr-name="DataList" className={props.className} controlSize={props.controlSize}>
       {props.items.map(function mapItem(item) {
         return (
           <Row key={item.id}>

@@ -47,7 +47,7 @@ export function Alert(props: AlertProps) {
   const contentSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "md" : "sm";
 
   return (
-    <AlertRoot {...props} role="alert">
+    <AlertRoot data-attr-name="Alert" {...props} role="alert">
       {props.title ? (
         <Text as="strong" size={titleSize} weight="bold">
           {props.title}

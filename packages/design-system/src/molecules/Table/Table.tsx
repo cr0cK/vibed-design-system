@@ -89,7 +89,7 @@ const BodyCell = styled.td<CellProps>(function style(props) {
 
 export function Table(props: TableProps) {
   return (
-    <Root className={props.className}>
+    <Root data-attr-name="Table" className={props.className}>
       <StyledTable controlSize={props.controlSize}>
         <thead>
           <tr>

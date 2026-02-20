@@ -44,5 +44,5 @@ const GridRoot = styled.div<GridProps>(function style(props) {
 });
 
 export function Grid(props: GridProps) {
-  return <GridRoot {...props}>{props.children}</GridRoot>;
+  return <GridRoot data-attr-name="Grid" {...props}>{props.children}</GridRoot>;
 }

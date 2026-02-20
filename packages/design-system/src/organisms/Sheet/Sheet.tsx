@@ -150,6 +150,7 @@ export function Sheet(props: SheetProps) {
         <ClickOutside onClickOutside={props.onClose}>
           <FocusTrap active initialFocusRef={closeButtonRef}>
             <Panel
+              data-attr-name="Sheet"
               ref={panelRef}
               className={props.className}
               overlayMode={overlayMode}

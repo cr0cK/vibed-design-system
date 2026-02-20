@@ -42,7 +42,7 @@ const InlineRoot = styled.div<InlineProps>(function style(props) {
 
 export function Inline(props: InlineProps) {
   return (
-    <InlineRoot {...props}>
+    <InlineRoot data-attr-name="Inline" {...props}>
       {props.children}
     </InlineRoot>
   );

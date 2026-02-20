@@ -31,5 +31,5 @@ const BadgeRoot = styled.span<BadgeProps>(function style(props) {
 });
 
 export function Badge(props: BadgeProps) {
-  return <BadgeRoot {...props}>{props.children}</BadgeRoot>;
+  return <BadgeRoot data-attr-name="Badge" {...props}>{props.children}</BadgeRoot>;
 }
