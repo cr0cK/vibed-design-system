@@ -1,0 +1,2 @@
+- Comments components
+- Add presentation text on all stories to contextualize the why of the component
