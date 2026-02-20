@@ -51,4 +51,5 @@ export const Playground = {
 
 (Showcase as any).args = (Playground as any).args;
 (Showcase as any).argTypes = (Playground as any).argTypes;
+(Showcase as any).render = (Playground as any).render;
 
