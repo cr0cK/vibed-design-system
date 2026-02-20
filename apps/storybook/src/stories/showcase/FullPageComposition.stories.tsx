@@ -280,14 +280,25 @@ export const FullPage = {
             <Box
               as="footer"
               surface="surface"
-              style={{ boxShadow: "inset 0 1px 0 var(--ds-color-border)" }}
+              style={{ overflow: "hidden" }}
             >
+              <Box
+                as="div"
+                aria-hidden
+                style={{
+                  height: "1px",
+                  width: "100%",
+                  backgroundColor: "var(--ds-color-border)"
+                }}
+              />
               <Inline
                 justify="between"
                 align="center"
                 style={{
                   width: "100%",
-                  padding: "var(--ds-space-md) var(--ds-space-sm) var(--ds-space-sm)"
+                  padding: "var(--ds-space-md) var(--ds-space-sm) var(--ds-space-sm)",
+                  position: "relative",
+                  zIndex: 1
                 }}
               >
                 <Text size="sm" tone="muted">v0.1.0 • Vibed Design System demo workspace</Text>
