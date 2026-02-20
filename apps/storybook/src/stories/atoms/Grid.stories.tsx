@@ -35,3 +35,6 @@ export const Playground = {
   }
 };
 
+(Showcase as any).args = (Playground as any).args;
+(Showcase as any).argTypes = (Playground as any).argTypes;
+
