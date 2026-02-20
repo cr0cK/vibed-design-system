@@ -39,6 +39,7 @@ export function ClickOutside(props: ClickOutsideProps) {
 
   return (
     <Root
+      data-attr-name="ClickOutside"
       ref={rootRef}
       className={props.className}
       id={props.id}

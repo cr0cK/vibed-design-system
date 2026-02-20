@@ -23,5 +23,5 @@ const Root = styled.span(function style() {
 });
 
 export function VisuallyHidden(props: VisuallyHiddenProps) {
-  return <Root {...props}>{props.children}</Root>;
+  return <Root data-attr-name="VisuallyHidden" {...props}>{props.children}</Root>;
 }

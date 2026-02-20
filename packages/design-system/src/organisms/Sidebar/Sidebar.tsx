@@ -32,8 +32,11 @@ interface RootProps {
 const Root = styled.aside<RootProps>(function style(props) {
   return buildVariants<RootProps>(props)
     .css({
-      width: props.collapsed ? "4.2rem" : "15rem",
-      minHeight: "100%",
+      boxSizing: "border-box",
+      width: props.collapsed ? "4.2rem" : "min(15rem, 100%)",
+      maxWidth: "100%",
+      height: "100%",
+      minHeight: 0,
       borderRight: "1px solid var(--ds-color-border)",
       backgroundColor: "var(--ds-color-surface)",
       padding: "var(--ds-space-sm)",
@@ -84,7 +87,7 @@ const Scroll = styled.div(function style() {
 
 export function Sidebar(props: SidebarProps) {
   return (
-    <Root className={props.className} collapsed={props.collapsed}>
+    <Root data-attr-name="Sidebar" className={props.className} collapsed={props.collapsed}>
       <div>
         {props.heading ? <Text size="sm" weight="semibold">{props.heading}</Text> : null}
       </div>

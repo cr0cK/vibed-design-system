@@ -28,24 +28,7 @@ import {
   neoMintTheme,
   orangeMotionTheme
 } from "@vibed/design-system";
-import { useRef, useState } from "react";
-
-const sourceSnippet = `import { Box, Grid, Navbar, Sidebar, Breadcrumb, PageHeader, Tabs, Table, Modal, Drawer } from "@vibed/design-system";
-
-export function FullPageDemo() {
-  return (
-    <Box surface="background" minHeight="screen">
-      <Navbar /* header */ />
-      <Grid template="app-shell">
-        <Sidebar /* navigation */ />
-        <Box as="main">{/* content, stats, tabs, table */}</Box>
-        <Box as="aside">{/* quick form */}</Box>
-      </Grid>
-      <Modal /* trigger from actions */ />
-      <Drawer /* trigger from actions */ />
-    </Box>
-  );
-}`;
+import { useState } from "react";
 
 const meta = {
   title: "Showcase/Full Page Composition",
@@ -60,7 +43,6 @@ export default meta;
 
 export const FullPage = {
   render: function Render() {
-    const drawerTargetRef = useRef<HTMLDivElement | null>(null);
     const [themeId, setThemeId] = useState("default-light");
     const [activeTopNav, setActiveTopNav] = useState("workspace");
     const [activeSidebar, setActiveSidebar] = useState("digest");
@@ -70,12 +52,14 @@ export const FullPage = {
     const [scheduleEnabled, setScheduleEnabled] = useState(true);
     const [sendDigest, setSendDigest] = useState(true);
 
+    const drawerTarget = typeof document === "undefined" ? null : document.getElementById("full-page-shell");
+
     return (
       <DesignSystemProvider
         mode={themeId === "default-dark" ? "dark" : "light"}
         theme={themeId === "orange-motion" ? orangeMotionTheme : themeId === "neo-mint" ? neoMintTheme : undefined}
       >
-        <div ref={drawerTargetRef} style={{ position: "relative" }}>
+        <Box id="full-page-shell" position="relative">
           <Box surface="background" minHeight="screen">
           <Box>
             <Navbar
@@ -94,7 +78,6 @@ export const FullPage = {
                     value={themeId}
                     onChange={function onChange(event) { setThemeId(event.target.value); }}
                     aria-label="Theme selector"
-                    style={{ minWidth: "11.5rem" }}
                   >
                     <option value="default-light">Default Light</option>
                     <option value="default-dark">Default Dark</option>
@@ -106,7 +89,7 @@ export const FullPage = {
             />
 
             <Grid template="app-shell" minHeight="screen">
-              <Box as="aside" surface="surface" border="subtle" borderSide="right" style={{ minWidth: 0 }}>
+              <Box as="aside" surface="surface" border="subtle" borderSide="right" minWidth="zero" overflow="hidden">
               <Sidebar
                 heading="Control Center"
                 activeItemId={activeSidebar}
@@ -133,7 +116,7 @@ export const FullPage = {
               />
               </Box>
 
-              <Box as="main" padding="lg" border="subtle" borderSide="right" style={{ minWidth: 0 }}>
+              <Box as="main" padding="lg" border="subtle" borderSide="right" minWidth="zero">
               <Stack gap="md">
                 <Breadcrumb
                   items={[
@@ -215,29 +198,10 @@ export const FullPage = {
                   }}
                 />
 
-                <Card title="Source snippet" subtitle="Single-story composition pattern">
-                  <Box
-                    as="pre"
-                    surface="muted"
-                    radius="sm"
-                    padding="sm"
-                    style={{
-                      margin: 0,
-                      overflowX: "auto",
-                      fontFamily: "var(--ds-font-mono)",
-                      fontSize: "0.78rem",
-                      lineHeight: 1.45,
-                      whiteSpace: "pre-wrap",
-                      wordBreak: "break-word"
-                    }}
-                  >
-                    {sourceSnippet}
-                  </Box>
-                </Card>
               </Stack>
               </Box>
 
-              <Box as="aside" padding="lg" style={{ minWidth: 0 }}>
+              <Box as="aside" padding="lg" minWidth="zero" overflow="hidden">
               <Stack gap="md">
                 <Heading level={4}>Quick Setup</Heading>
 
@@ -277,30 +241,8 @@ export const FullPage = {
               </Box>
             </Grid>
 
-            <Box
-              as="footer"
-              surface="surface"
-              style={{ overflow: "hidden" }}
-            >
-              <Box
-                as="div"
-                aria-hidden
-                style={{
-                  height: "1px",
-                  width: "100%",
-                  backgroundColor: "var(--ds-color-border)"
-                }}
-              />
-              <Inline
-                justify="between"
-                align="center"
-                style={{
-                  width: "100%",
-                  padding: "var(--ds-space-md) var(--ds-space-sm) var(--ds-space-sm)",
-                  position: "relative",
-                  zIndex: 1
-                }}
-              >
+            <Box as="footer" surface="surface" border="subtle" borderSide="top" padding="sm">
+              <Inline justify="between" align="center">
                 <Text size="sm" tone="muted">v0.1.0 • Vibed Design System demo workspace</Text>
                 <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
               </Inline>
@@ -312,7 +254,7 @@ export const FullPage = {
             side="right"
             title="Quick actions"
             overlayMode="container"
-            portalTarget={drawerTargetRef.current}
+            portalTarget={drawerTarget}
             onClose={function onClose() { setOpenDrawer(false); }}
           >
             <Stack gap="sm">
@@ -350,7 +292,7 @@ export const FullPage = {
             </Stack>
           </Modal>
           </Box>
-        </div>
+        </Box>
       </DesignSystemProvider>
     );
   }

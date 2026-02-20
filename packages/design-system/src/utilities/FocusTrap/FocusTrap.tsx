@@ -92,6 +92,7 @@ export function FocusTrap(props: FocusTrapProps) {
 
   return (
     <Root
+      data-attr-name="FocusTrap"
       ref={rootRef}
       className={props.className}
       id={props.id}

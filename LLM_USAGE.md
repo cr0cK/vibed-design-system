@@ -47,9 +47,13 @@ import { DesignSystemProvider, orangeMotionTheme, neoMintTheme } from "@vibed/de
 ## Core Conventions
 
 - Prefer DS layout primitives (`Box`, `Stack`, `Inline`, `Grid`) over inline CSS.
+- Avoid inline `style` hacks in stories/components when DS props or variants can express the same layout.
 - Use semantic props/tokens (`surface`, `tone`, `radius`, spacing variants) instead of hard-coded values.
 - Keep controls consistent with `controlSize` (`sm`, `md`, `lg`) where supported.
 - Use DS molecules/organisms for complex UX before composing from scratch.
+- Add `data-attr-name="<ComponentName>"` on the top-level rendered DOM node of each DS component for DOM debugging.
+- Do not expose `data-attr-name` in component prop interfaces; it should be applied internally by the component implementation.
+- Apply this rule pragmatically: skip non-DOM wrappers/utilities (for example `Portal`, `FocusTrap`, `ClickOutside`) and place the attribute on the actual DOM root element.
 
 ## Components (high-level)
 
