@@ -14,3 +14,17 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { label: "Open rate", value: "42.8%", trend: "+2.4% vs last week", tone: "success" },
+  argTypes: {
+    label: { control: "text" },
+    value: { control: "text" },
+    trend: { control: "text" },
+    tone: { control: "select", options: ["neutral", "success", "danger"] }
+  },
+  render: function Render(args: any) {
+    return <Stat label={args.label} value={args.value} trend={args.trend} tone={args.tone} />;
+  }
+};
+

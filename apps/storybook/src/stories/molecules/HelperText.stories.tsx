@@ -26,3 +26,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { controlSize: "md", tone: "muted", children: "Muted helper text" },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    tone: { control: "select", options: ["muted", "success", "danger"] },
+    children: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <HelperText controlSize={args.controlSize} tone={args.tone}>{args.children}</HelperText>;
+  }
+};
+

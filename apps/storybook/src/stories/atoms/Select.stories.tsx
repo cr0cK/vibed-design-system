@@ -23,3 +23,25 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    defaultValue: "team",
+    disabled: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    defaultValue: { control: "select", options: ["team", "enterprise"] },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Select controlSize={args.controlSize} defaultValue={args.defaultValue} disabled={args.disabled}>
+        <option value="team">Team</option>
+        <option value="enterprise">Enterprise</option>
+      </Select>
+    );
+  }
+};
+

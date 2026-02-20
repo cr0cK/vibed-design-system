@@ -14,3 +14,24 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    width: "md",
+    content: "Centered constrained content."
+  },
+  argTypes: {
+    width: { control: "select", options: ["sm", "md", "lg", "xl"] },
+    content: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Container width={args.width}>
+        <Box padding="md" surface="elevated" radius="md">
+          <Text>{args.content}</Text>
+        </Box>
+      </Container>
+    );
+  }
+};
+

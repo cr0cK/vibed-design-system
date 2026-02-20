@@ -19,3 +19,23 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { max: 4 },
+  argTypes: { max: { control: { type: "number", min: 1, max: 8, step: 1 } } },
+  render: function Render(args: any) {
+    return (
+      <AvatarGroup
+        max={args.max}
+        items={[
+          { id: "u1", name: "Olivia Jones" },
+          { id: "u2", name: "Liam Smith" },
+          { id: "u3", name: "Emma Brown" },
+          { id: "u4", name: "Noah Johnson" },
+          { id: "u5", name: "Ava Williams" }
+        ]}
+      />
+    );
+  }
+};
+

@@ -15,3 +15,18 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    tone: "neutral",
+    children: "Neutral"
+  },
+  argTypes: {
+    tone: { control: "select", options: ["neutral", "primary", "success", "danger"] },
+    children: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Tag tone={args.tone}>{args.children}</Tag>;
+  }
+};
+

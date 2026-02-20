@@ -23,3 +23,18 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { placeholder: "Select team" },
+  argTypes: { placeholder: { control: "text" } },
+  render: function Render(args: any) {
+    const [value, setValue] = useState("design");
+    return (
+      <Stack gap="sm">
+        <Combobox options={options} value={value} onValueChange={setValue} placeholder={args.placeholder} />
+        <Text size="sm" tone="muted">Selected: {value}</Text>
+      </Stack>
+    );
+  }
+};
+

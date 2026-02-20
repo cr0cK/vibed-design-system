@@ -49,3 +49,27 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { controlSize: "md", value: "overview" },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    value: { control: "select", options: ["overview", "tokens", "usage"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <Tabs
+        controlSize={args.controlSize}
+        items={[{ id: "overview", label: "Overview" }, { id: "tokens", label: "Tokens" }, { id: "usage", label: "Usage" }]}
+        value={args.value}
+        onValueChange={function onValueChange() {}}
+        panels={{
+          overview: <Text>Overview panel</Text>,
+          tokens: <Text>Tokens panel</Text>,
+          usage: <Text>Usage panel</Text>
+        }}
+      />
+    );
+  }
+};
+

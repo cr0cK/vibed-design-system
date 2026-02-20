@@ -20,3 +20,21 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { label: "Team name", hint: "Used in release notifications", controlSize: "md", placeholder: "Core UI" },
+  argTypes: {
+    label: { control: "text" },
+    hint: { control: "text" },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    placeholder: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Field controlSize={args.controlSize} inputId="team-name-playground" label={args.label} hint={args.hint}>
+        <Input controlSize={args.controlSize} id="team-name-playground" placeholder={args.placeholder} />
+      </Field>
+    );
+  }
+};
+

@@ -20,3 +20,22 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    title: "Build status",
+    tone: "success",
+    controlSize: "md",
+    message: "Build completed successfully."
+  },
+  argTypes: {
+    title: { control: "text" },
+    tone: { control: "select", options: ["neutral", "success", "danger"] },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    message: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Alert title={args.title} tone={args.tone} controlSize={args.controlSize}>{args.message}</Alert>;
+  }
+};
+

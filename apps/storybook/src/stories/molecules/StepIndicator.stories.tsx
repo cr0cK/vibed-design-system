@@ -25,3 +25,21 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { activeStepId: "schedule" },
+  argTypes: { activeStepId: { control: "select", options: ["setup", "schedule", "review"] } },
+  render: function Render(args: any) {
+    return (
+      <StepIndicator
+        activeStepId={args.activeStepId}
+        steps={[
+          { id: "setup", label: "Setup", description: "Define title and recipients" },
+          { id: "schedule", label: "Schedule", description: "Choose date and frequency" },
+          { id: "review", label: "Review", description: "Validate and publish" }
+        ]}
+      />
+    );
+  }
+};
+

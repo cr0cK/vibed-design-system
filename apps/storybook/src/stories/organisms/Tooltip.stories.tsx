@@ -33,3 +33,19 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { placement: "top", tooltipContent: "Helpful hint" },
+  argTypes: {
+    placement: { control: "select", options: ["top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right", "left", "right"] },
+    tooltipContent: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Tooltip placement={args.placement} tooltipContent={args.tooltipContent}>
+        <Button tone="neutral" size="sm">Hover me</Button>
+      </Tooltip>
+    );
+  }
+};
+

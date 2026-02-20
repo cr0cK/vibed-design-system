@@ -14,3 +14,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { controlSize: "md", placeholder: "Search automations", disabled: false },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    placeholder: { control: "text" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <SearchBar controlSize={args.controlSize} placeholder={args.placeholder} disabled={args.disabled} />;
+  }
+};
+

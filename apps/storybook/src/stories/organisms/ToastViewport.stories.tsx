@@ -28,3 +28,12 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { defaultDurationMs: 4500 },
+  argTypes: { defaultDurationMs: { control: "number" } },
+  render: function Render(args: any) {
+    return <ToastViewport defaultDurationMs={args.defaultDurationMs} />;
+  }
+};
+

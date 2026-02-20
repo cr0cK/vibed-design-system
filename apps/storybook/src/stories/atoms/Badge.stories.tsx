@@ -15,3 +15,18 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    tone: "neutral",
+    label: "Neutral"
+  },
+  argTypes: {
+    tone: { control: "select", options: ["neutral", "primary", "success", "danger"] },
+    label: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Badge tone={args.tone}>{args.label}</Badge>;
+  }
+};
+

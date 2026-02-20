@@ -14,3 +14,29 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    label: "Receive notifications",
+    controlSize: "md",
+    defaultChecked: true,
+    disabled: false
+  },
+  argTypes: {
+    label: { control: "text" },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    defaultChecked: { control: "boolean" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Checkbox
+        label={args.label}
+        controlSize={args.controlSize}
+        defaultChecked={args.defaultChecked}
+        disabled={args.disabled}
+      />
+    );
+  }
+};
+

@@ -15,3 +15,19 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { title: "No automations yet", description: "Create your first automation to start receiving digest summaries.", icon: "✦" },
+  argTypes: { title: { control: "text" }, description: { control: "text" }, icon: { control: "text" } },
+  render: function Render(args: any) {
+    return (
+      <EmptyState
+        title={args.title}
+        description={args.description}
+        icon={args.icon}
+        action={<Button tone="primary">Create automation</Button>}
+      />
+    );
+  }
+};
+

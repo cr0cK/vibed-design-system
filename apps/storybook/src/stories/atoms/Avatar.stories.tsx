@@ -22,3 +22,19 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    name: "Olivia Jones",
+    shape: "circle",
+    controlSize: "md"
+  },
+  argTypes: {
+    shape: { control: "select", options: ["circle", "rounded", "square"] },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] }
+  },
+  render: function Render(args: any) {
+    return <Avatar name={args.name} shape={args.shape} controlSize={args.controlSize} />;
+  }
+};
+

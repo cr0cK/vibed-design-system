@@ -14,3 +14,18 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    level: 2,
+    children: "Heading preview"
+  },
+  argTypes: {
+    level: { control: "select", options: [1, 2, 3, 4, 5, 6] },
+    children: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Heading level={args.level}>{args.children}</Heading>;
+  }
+};
+

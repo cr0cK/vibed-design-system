@@ -18,3 +18,20 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { open: true, title: "Confirm release", showCloseIcon: true },
+  argTypes: {
+    open: { control: "boolean" },
+    title: { control: "text" },
+    showCloseIcon: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Modal open={args.open} title={args.title} showCloseIcon={args.showCloseIcon} onClose={function onClose() {}}>
+        <Text size="sm">Promote this release to stable?</Text>
+      </Modal>
+    );
+  }
+};
+

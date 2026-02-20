@@ -29,3 +29,22 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    size: "md"
+  },
+  argTypes: {
+    size: { control: "select", options: ["xs", "sm", "md", "lg", "xl"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <Box surface="muted" padding="sm" radius="sm">
+        <Text size="sm">Top</Text>
+        <Spacer size={args.size} />
+        <Text size="sm">Bottom</Text>
+      </Box>
+    );
+  }
+};
+

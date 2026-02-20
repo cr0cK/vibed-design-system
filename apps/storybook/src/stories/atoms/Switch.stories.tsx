@@ -19,3 +19,22 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    label: "Enable schedule",
+    checked: true,
+    disabled: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    label: { control: "text" },
+    checked: { control: "boolean" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <Switch controlSize={args.controlSize} label={args.label} checked={args.checked} disabled={args.disabled} />;
+  }
+};
+

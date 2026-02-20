@@ -37,3 +37,40 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { heading: "Orange Motion", activeItemId: "inbox" },
+  argTypes: {
+    heading: { control: "text" },
+    activeItemId: { control: "select", options: ["inbox", "automations", "contacts", "settings", "billing"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <Sidebar
+        heading={args.heading}
+        activeItemId={args.activeItemId}
+        onItemSelect={function onItemSelect() {}}
+        groups={[
+          {
+            id: "main",
+            label: "Main",
+            items: [
+              { id: "inbox", label: "Inbox", icon: "✉" },
+              { id: "automations", label: "Automations", icon: "⚙" },
+              { id: "contacts", label: "Contacts", icon: "👥" }
+            ]
+          },
+          {
+            id: "admin",
+            label: "Admin",
+            items: [
+              { id: "settings", label: "Settings", icon: "⋯" },
+              { id: "billing", label: "Billing", icon: "$", disabled: true }
+            ]
+          }
+        ]}
+      />
+    );
+  }
+};
+

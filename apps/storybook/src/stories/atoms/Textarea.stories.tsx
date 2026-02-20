@@ -14,3 +14,24 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    rows: 3,
+    placeholder: "Write a short summary",
+    disabled: false,
+    invalid: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    rows: { control: "number" },
+    placeholder: { control: "text" },
+    disabled: { control: "boolean" },
+    invalid: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <Textarea controlSize={args.controlSize} rows={args.rows} placeholder={args.placeholder} disabled={args.disabled} invalid={args.invalid} />;
+  }
+};
+

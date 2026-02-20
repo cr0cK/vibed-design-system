@@ -14,3 +14,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    size: "md"
+  },
+  argTypes: {
+    size: { control: "select", options: ["sm", "md", "lg"] }
+  },
+  render: function Render(args: any) {
+    return <Spinner size={args.size} />;
+  }
+};
+

@@ -36,3 +36,38 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { heading: "Workspace settings" },
+  argTypes: { heading: { control: "text" } },
+  render: function Render(args: any) {
+    const [enabled, setEnabled] = useState(true);
+    return (
+      <SettingsPanel
+        heading={args.heading}
+        sections={[
+          {
+            id: "profile",
+            title: "Profile",
+            description: "Basic identity and display settings.",
+            content: (
+              <Stack gap="sm">
+                <FormControl label="Workspace name" htmlFor="workspace-name-playground">
+                  <Input id="workspace-name-playground" defaultValue="Orange Motion" />
+                </FormControl>
+                <Button tone="primary" size="sm">Save profile</Button>
+              </Stack>
+            )
+          },
+          {
+            id: "notifications",
+            title: "Notifications",
+            description: "Control automated delivery behavior.",
+            content: <Switch checked={enabled} onCheckedChange={setEnabled} label="Enable system alerts" />
+          }
+        ]}
+      />
+    );
+  }
+};
+

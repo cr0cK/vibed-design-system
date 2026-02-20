@@ -13,3 +13,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { tone: "success", heading: "Saved", description: "Draft was saved successfully." },
+  argTypes: {
+    tone: { control: "select", options: ["success", "danger"] },
+    heading: { control: "text" },
+    description: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Toast heading={args.heading} description={args.description} tone={args.tone} />;
+  }
+};
+

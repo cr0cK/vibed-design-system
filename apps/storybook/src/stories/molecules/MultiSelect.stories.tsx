@@ -23,3 +23,18 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { placeholder: "Select channels" },
+  argTypes: { placeholder: { control: "text" } },
+  render: function Render(args: any) {
+    const [value, setValue] = useState<string[]>(["email", "slack"]);
+    return (
+      <Stack gap="sm">
+        <MultiSelect options={options} value={value} onValueChange={setValue} placeholder={args.placeholder} />
+        <Text size="sm" tone="muted">Selected: {value.join(", ") || "none"}</Text>
+      </Stack>
+    );
+  }
+};
+

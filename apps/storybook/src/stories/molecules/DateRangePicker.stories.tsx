@@ -24,3 +24,26 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { startValue: "2026-02-16", endValue: "2026-02-23" },
+  argTypes: { startValue: { control: "text" }, endValue: { control: "text" } },
+  render: function Render(args: any) {
+    const [start, setStart] = useState(args.startValue);
+    const [end, setEnd] = useState(args.endValue);
+    return (
+      <Stack gap="sm">
+        <DateRangePicker
+          startValue={start}
+          endValue={end}
+          onRangeChange={function onRangeChange(nextStart, nextEnd) {
+            setStart(nextStart);
+            setEnd(nextEnd);
+          }}
+        />
+        <Text size="sm" tone="muted">{start} to {end}</Text>
+      </Stack>
+    );
+  }
+};
+

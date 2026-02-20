@@ -10,3 +10,12 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { currentLabel: "Breadcrumb" },
+  argTypes: { currentLabel: { control: "text" } },
+  render: function Render(args: any) {
+    return <Breadcrumb items={[{ label: "Home", href: "#" }, { label: "Components", href: "#" }, { label: args.currentLabel }]} />;
+  }
+};
+

@@ -47,3 +47,26 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { showActions: true },
+  argTypes: { showActions: { control: "boolean" } },
+  render: function Render(args: any) {
+    return (
+      <FilterBar
+        controls={
+          <Inline gap="xs">
+            <SearchBar placeholder="Search automations" />
+            <Select defaultValue="all">
+              <option value="all">All status</option>
+              <option value="active">Active</option>
+              <option value="paused">Paused</option>
+            </Select>
+          </Inline>
+        }
+        actions={args.showActions ? <Button tone="neutral">Reset</Button> : undefined}
+      />
+    );
+  }
+};
+

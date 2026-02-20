@@ -13,3 +13,28 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    surface: "muted",
+    padding: "md",
+    radius: "md",
+    border: "subtle",
+    content: "Preview surface"
+  },
+  argTypes: {
+    surface: { control: "select", options: ["transparent", "background", "surface", "muted", "elevated", "primary"] },
+    padding: { control: "select", options: ["none", "xs", "sm", "md", "lg", "xl"] },
+    radius: { control: "select", options: ["none", "sm", "md", "lg"] },
+    border: { control: "select", options: ["none", "subtle"] },
+    content: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Box surface={args.surface} padding={args.padding} radius={args.radius} border={args.border}>
+        <Text>{args.content}</Text>
+      </Box>
+    );
+  }
+};
+

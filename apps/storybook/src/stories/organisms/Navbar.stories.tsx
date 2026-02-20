@@ -26,3 +26,26 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { brand: "Orange Motion", activeItemId: "workspace" },
+  argTypes: {
+    brand: { control: "text" },
+    activeItemId: { control: "select", options: ["workspace", "automations", "analytics"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <Navbar
+        brand={args.brand}
+        items={[
+          { id: "workspace", label: "Workspace" },
+          { id: "automations", label: "Automations" },
+          { id: "analytics", label: "Analytics" }
+        ]}
+        activeItemId={args.activeItemId}
+        onItemSelect={function onItemSelect() {}}
+      />
+    );
+  }
+};
+

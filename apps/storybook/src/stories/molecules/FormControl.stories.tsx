@@ -29,3 +29,24 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { label: "Plan", hint: "Pick one option", controlSize: "md", value: "starter" },
+  argTypes: {
+    label: { control: "text" },
+    hint: { control: "text" },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    value: { control: "select", options: ["starter", "pro"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <FormControl controlSize={args.controlSize} label={args.label} htmlFor="plan-playground" hint={args.hint}>
+        <Select controlSize={args.controlSize} id="plan-playground" value={args.value} onChange={function onChange() {}}>
+          <option value="starter">Starter</option>
+          <option value="pro">Pro</option>
+        </Select>
+      </FormControl>
+    );
+  }
+};
+

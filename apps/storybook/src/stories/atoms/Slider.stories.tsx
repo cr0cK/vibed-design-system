@@ -17,3 +17,26 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    min: 0,
+    max: 100,
+    step: 1,
+    defaultValue: 35,
+    showValue: true
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    min: { control: "number" },
+    max: { control: "number" },
+    step: { control: "number" },
+    defaultValue: { control: "number" },
+    showValue: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <Slider controlSize={args.controlSize} min={args.min} max={args.max} step={args.step} defaultValue={args.defaultValue} showValue={args.showValue} />;
+  }
+};
+

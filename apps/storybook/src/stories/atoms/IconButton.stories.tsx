@@ -48,3 +48,22 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    tone: "primary",
+    controlSize: "md",
+    disabled: false,
+    label: "Add"
+  },
+  argTypes: {
+    tone: { control: "select", options: ["primary", "neutral", "danger"] },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    disabled: { control: "boolean" },
+    label: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <IconButton tone={args.tone} controlSize={args.controlSize} disabled={args.disabled} label={args.label} icon={<PlusIcon />} />;
+  }
+};
+

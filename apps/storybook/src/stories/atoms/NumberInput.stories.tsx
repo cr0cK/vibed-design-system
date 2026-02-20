@@ -20,3 +20,26 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    min: 0,
+    max: 10,
+    step: 1,
+    defaultValue: 5,
+    disabled: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    min: { control: "number" },
+    max: { control: "number" },
+    step: { control: "number" },
+    defaultValue: { control: "number" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <NumberInput controlSize={args.controlSize} min={args.min} max={args.max} step={args.step} defaultValue={args.defaultValue} disabled={args.disabled} />;
+  }
+};
+

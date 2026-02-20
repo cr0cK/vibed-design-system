@@ -26,3 +26,27 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { triggerLabel: "Open menu", selectedId: "profile" },
+  argTypes: {
+    triggerLabel: { control: "text" },
+    selectedId: { control: "select", options: ["profile", "team", "settings", "logout"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <DropdownMenu
+        triggerLabel={args.triggerLabel}
+        selectedId={args.selectedId}
+        onItemSelect={function onItemSelect() {}}
+        items={[
+          { id: "profile", label: "Profile" },
+          { id: "team", label: "Team" },
+          { id: "settings", label: "Settings" },
+          { id: "logout", label: "Sign out" }
+        ]}
+      />
+    );
+  }
+};
+

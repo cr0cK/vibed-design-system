@@ -21,3 +21,27 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: {
+    placeholder: "Type automation name"
+  },
+  argTypes: {
+    placeholder: { control: "text" }
+  },
+  render: function Render(args: any) {
+    const [value, setValue] = useState("");
+    return (
+      <Stack gap="sm">
+        <Autocomplete
+          suggestions={["Daily Digest", "Weekly Digest", "Quarterly Review", "Ops Snapshot", "Morning Pulse"]}
+          value={value}
+          onValueChange={setValue}
+          placeholder={args.placeholder}
+        />
+        <Text size="sm" tone="muted">Value: {value || "-"}</Text>
+      </Stack>
+    );
+  }
+};
+

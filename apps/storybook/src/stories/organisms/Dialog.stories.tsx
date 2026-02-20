@@ -22,3 +22,24 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { variant: "confirm", title: "Publish automation", open: true },
+  argTypes: {
+    variant: { control: "select", options: ["confirm", "danger", "info"] },
+    title: { control: "text" },
+    open: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Dialog
+        open={args.open}
+        variant={args.variant}
+        title={args.title}
+        description={<Text size="sm">This will activate all delivery channels.</Text>}
+        onClose={function onClose() {}}
+      />
+    );
+  }
+};
+

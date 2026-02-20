@@ -14,3 +14,22 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    size: "md",
+    weight: "regular",
+    tone: "default",
+    children: "Body text"
+  },
+  argTypes: {
+    size: { control: "select", options: ["xs", "sm", "md", "lg", "xl"] },
+    weight: { control: "select", options: ["regular", "semibold", "bold"] },
+    tone: { control: "select", options: ["default", "muted", "danger", "success"] },
+    children: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Text size={args.size} weight={args.weight} tone={args.tone}>{args.children}</Text>;
+  }
+};
+

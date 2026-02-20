@@ -31,3 +31,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { placement: "bottom-left", triggerLabel: "Open popover", content: "Popover content" },
+  argTypes: {
+    placement: { control: "select", options: ["bottom-left", "bottom-right", "top-left", "top-right"] },
+    triggerLabel: { control: "text" },
+    content: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Popover placement={args.placement} triggerLabel={args.triggerLabel} popoverContent={<Text size="sm">{args.content}</Text>} />;
+  }
+};
+

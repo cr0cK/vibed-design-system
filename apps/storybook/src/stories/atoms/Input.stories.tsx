@@ -15,3 +15,22 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    placeholder: "Email",
+    invalid: false,
+    disabled: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    placeholder: { control: "text" },
+    invalid: { control: "boolean" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <Input controlSize={args.controlSize} placeholder={args.placeholder} invalid={args.invalid} disabled={args.disabled} />;
+  }
+};
+

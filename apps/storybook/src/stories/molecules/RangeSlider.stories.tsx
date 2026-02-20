@@ -16,3 +16,17 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { min: 0, max: 100, defaultStart: 20, defaultEnd: 80 },
+  argTypes: {
+    min: { control: "number" },
+    max: { control: "number" },
+    defaultStart: { control: "number" },
+    defaultEnd: { control: "number" }
+  },
+  render: function Render(args: any) {
+    return <RangeSlider min={args.min} max={args.max} defaultValue={[args.defaultStart, args.defaultEnd]} />;
+  }
+};
+

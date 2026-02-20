@@ -13,3 +13,18 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    tone: "default",
+    children: "Visit details"
+  },
+  argTypes: {
+    tone: { control: "select", options: ["default", "muted"] },
+    children: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return <Link href="#" tone={args.tone}>{args.children}</Link>;
+  }
+};
+

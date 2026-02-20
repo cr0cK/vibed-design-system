@@ -19,3 +19,17 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  render: function Render() {
+    return (
+      <CommandPalette
+        commands={[
+          { id: "new-automation", label: "Create new automation", keywords: ["new", "create", "digest"] },
+          { id: "open-settings", label: "Open settings", keywords: ["config", "preferences"] },
+          { id: "view-logs", label: "View delivery logs", keywords: ["logs", "history"] }
+        ]}
+      />
+    );
+  }
+};

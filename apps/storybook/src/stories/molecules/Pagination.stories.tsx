@@ -19,3 +19,16 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { controlSize: "md", page: 4, totalPages: 8 },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    page: { control: { type: "number", min: 1, max: 20, step: 1 } },
+    totalPages: { control: { type: "number", min: 1, max: 50, step: 1 } }
+  },
+  render: function Render(args: any) {
+    return <Pagination controlSize={args.controlSize} page={args.page} totalPages={args.totalPages} onPageChange={function onPageChange() {}} />;
+  }
+};
+

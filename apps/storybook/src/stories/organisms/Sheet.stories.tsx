@@ -29,3 +29,21 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { open: true, side: "right", overlayMode: "container", title: "Quick settings" },
+  argTypes: {
+    open: { control: "boolean" },
+    side: { control: "select", options: ["left", "right", "top", "bottom"] },
+    overlayMode: { control: "select", options: ["container", "viewport"] },
+    title: { control: "text" }
+  },
+  render: function Render(args: any) {
+    return (
+      <Sheet open={args.open} overlayMode={args.overlayMode} side={args.side} title={args.title} onClose={function onClose() {}}>
+        <Text size="sm">Lightweight side surface for fast edits.</Text>
+      </Sheet>
+    );
+  }
+};
+

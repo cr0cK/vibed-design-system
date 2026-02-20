@@ -25,3 +25,23 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { selectedId: "dashboard" },
+  argTypes: { selectedId: { control: "select", options: ["dashboard", "automations", "settings", "billing"] } },
+  render: function Render(args: any) {
+    return (
+      <Menu
+        selectedId={args.selectedId}
+        onItemSelect={function onItemSelect() {}}
+        items={[
+          { id: "dashboard", label: "Dashboard" },
+          { id: "automations", label: "Automations" },
+          { id: "settings", label: "Settings" },
+          { id: "billing", label: "Billing", disabled: true }
+        ]}
+      />
+    );
+  }
+};
+

@@ -14,3 +14,12 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: { heading: "Automations", subtitle: "Create and manage workflow schedules" },
+  argTypes: { heading: { control: "text" }, subtitle: { control: "text" } },
+  render: function Render(args: any) {
+    return <PageHeader heading={args.heading} subtitle={args.subtitle} actions={<Button tone="primary">New automation</Button>} />;
+  }
+};
+

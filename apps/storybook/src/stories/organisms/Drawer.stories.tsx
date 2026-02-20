@@ -46,3 +46,24 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { open: true, side: "right", overlayMode: "container" },
+  argTypes: {
+    open: { control: "boolean" },
+    side: { control: "select", options: ["left", "right"] },
+    overlayMode: { control: "select", options: ["container", "viewport"] }
+  },
+  render: function Render(args: any) {
+    return (
+      <Drawer open={args.open} side={args.side} overlayMode={args.overlayMode} title="Quick preferences" onClose={function onClose() {}}>
+        <Stack gap="sm">
+          <Text size="sm">Quick preferences for this workspace.</Text>
+          <Input defaultValue="Daily summary" />
+          <Button tone="primary">Apply changes</Button>
+        </Stack>
+      </Drawer>
+    );
+  }
+};
+

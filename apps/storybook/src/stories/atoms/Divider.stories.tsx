@@ -14,3 +14,16 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  render: function Render() {
+    return (
+      <Stack gap="sm">
+        <Text>Section A</Text>
+        <Divider />
+        <Text>Section B</Text>
+      </Stack>
+    );
+  }
+};
+

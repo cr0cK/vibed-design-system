@@ -22,3 +22,12 @@ export const Showcase = {
   );
   }
 };
+
+export const Playground = {
+  args: { emptyText: "No notifications" },
+  argTypes: { emptyText: { control: "text" } },
+  render: function Render(args: any) {
+    return <NotificationCenter emptyText={args.emptyText} />;
+  }
+};
+

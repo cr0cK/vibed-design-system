@@ -14,3 +14,20 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    controlSize: "md",
+    defaultValue: "2026-02-18",
+    disabled: false
+  },
+  argTypes: {
+    controlSize: { control: "select", options: ["sm", "md", "lg"] },
+    defaultValue: { control: "text" },
+    disabled: { control: "boolean" }
+  },
+  render: function Render(args: any) {
+    return <DatePicker controlSize={args.controlSize} defaultValue={args.defaultValue} disabled={args.disabled} />;
+  }
+};
+

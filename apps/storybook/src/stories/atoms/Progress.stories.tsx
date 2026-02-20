@@ -14,3 +14,20 @@ export const Showcase = {
     );
   }
 };
+
+export const Playground = {
+  args: {
+    value: 54,
+    tone: "primary",
+    controlSize: "md"
+  },
+  argTypes: {
+    value: { control: { type: "number", min: 0, max: 100, step: 1 } },
+    tone: { control: "select", options: ["primary", "success", "danger"] },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] }
+  },
+  render: function Render(args: any) {
+    return <Progress value={args.value} tone={args.tone} controlSize={args.controlSize} />;
+  }
+};
+
