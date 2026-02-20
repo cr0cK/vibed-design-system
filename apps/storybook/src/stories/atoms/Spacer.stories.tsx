@@ -13,15 +13,25 @@ export const Showcase = {
           <Box surface="muted" padding="sm" radius="sm">
             <Stack gap="sm">
               <Text size="sm">`xs` (1px)</Text>
-              <Spacer size="xs" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Box surface="primary" radius="sm">
+                <Spacer size="xs" />
+              </Box>
               <Text size="sm">`sm` (2px)</Text>
-              <Spacer size="sm" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Box surface="primary" radius="sm">
+                <Spacer size="sm" />
+              </Box>
               <Text size="sm">`md` (3px)</Text>
-              <Spacer size="md" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Box surface="primary" radius="sm">
+                <Spacer size="md" />
+              </Box>
               <Text size="sm">`lg` (4px)</Text>
-              <Spacer size="lg" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Box surface="primary" radius="sm">
+                <Spacer size="lg" />
+              </Box>
               <Text size="sm">`xl` (5px)</Text>
-              <Spacer size="xl" style={{ backgroundColor: "color-mix(in oklab, var(--ds-color-primary) 45%, var(--ds-color-surface))", borderRadius: "var(--ds-radius-sm)" }} />
+              <Box surface="primary" radius="sm">
+                <Spacer size="xl" />
+              </Box>
             </Stack>
           </Box>
         </Stack>
@@ -47,4 +57,3 @@ export const Playground = {
     );
   }
 };
-
