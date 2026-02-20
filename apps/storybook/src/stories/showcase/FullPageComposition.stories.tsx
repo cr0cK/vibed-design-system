@@ -277,8 +277,19 @@ export const FullPage = {
               </Box>
             </Grid>
 
-            <Box as="footer" surface="surface" border="subtle" borderSide="top" padding="sm">
-              <Inline justify="between" align="center" style={{ width: "100%" }}>
+            <Box
+              as="footer"
+              surface="surface"
+              style={{ boxShadow: "inset 0 1px 0 var(--ds-color-border)" }}
+            >
+              <Inline
+                justify="between"
+                align="center"
+                style={{
+                  width: "100%",
+                  padding: "var(--ds-space-md) var(--ds-space-sm) var(--ds-space-sm)"
+                }}
+              >
                 <Text size="sm" tone="muted">v0.1.0 • Vibed Design System demo workspace</Text>
                 <Text size="sm" tone="muted">Status: synced 2 minutes ago</Text>
               </Inline>
