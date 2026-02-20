@@ -25,10 +25,11 @@ export const Showcase = {
 };
 
 export const Playground = {
-  args: { placeholder: "Select channels", selectedValues: ["email", "slack"] },
+  args: { placeholder: "Select channels", selectedValues: ["email", "slack"], controlSize: "md" },
   argTypes: {
     placeholder: { control: "text" },
-    selectedValues: { control: "object" }
+    selectedValues: { control: "object" },
+    controlSize: { control: "select", options: ["sm", "md", "lg"] }
   },
   render: function Render(args: any) {
     const [value, setValue] = useState<string[]>(args.selectedValues);
@@ -39,7 +40,13 @@ export const Playground = {
 
     return (
       <Stack gap="sm">
-        <MultiSelect options={options} value={value} onValueChange={setValue} placeholder={args.placeholder} />
+        <MultiSelect
+          options={options}
+          value={value}
+          onValueChange={setValue}
+          placeholder={args.placeholder}
+          controlSize={args.controlSize}
+        />
         <Text size="sm" tone="muted">Selected: {value.join(", ") || "none"}</Text>
       </Stack>
     );
