@@ -20,6 +20,9 @@ const DividerRoot = styled.hr<DividerProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Divider primitive.
+ */
 export function Divider(props: DividerProps) {
   return <DividerRoot data-attr-name="Divider" {...props} />;
 }

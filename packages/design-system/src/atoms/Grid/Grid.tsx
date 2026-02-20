@@ -43,6 +43,9 @@ const GridRoot = styled.div<GridProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Grid primitive.
+ */
 export function Grid(props: GridProps) {
   return <GridRoot data-attr-name="Grid" {...props}>{props.children}</GridRoot>;
 }

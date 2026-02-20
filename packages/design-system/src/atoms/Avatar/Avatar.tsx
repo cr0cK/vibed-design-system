@@ -70,6 +70,9 @@ function getInitials(name?: string): string {
   return `${firstPart.slice(0, 1)}${secondPart.slice(0, 1)}`.toUpperCase();
 }
 
+/**
+ * Atom component that renders the Avatar primitive.
+ */
 export function Avatar(props: AvatarProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 

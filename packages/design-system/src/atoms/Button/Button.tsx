@@ -92,6 +92,9 @@ const ButtonRoot = styled.button<ButtonProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Button primitive.
+ */
 export function Button(props: ButtonProps) {
   return (
     <ButtonRoot data-attr-name="Button"

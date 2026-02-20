@@ -40,6 +40,9 @@ const InlineRoot = styled.div<InlineProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Inline primitive.
+ */
 export function Inline(props: InlineProps) {
   return (
     <InlineRoot data-attr-name="Inline" {...props}>

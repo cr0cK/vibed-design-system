@@ -33,6 +33,9 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   "data-testid"?: string;
 }
 
+/**
+ * Molecule component that renders the Card primitive.
+ */
 export function Card(props: CardProps) {
   return (
     <Box data-attr-name="Card"

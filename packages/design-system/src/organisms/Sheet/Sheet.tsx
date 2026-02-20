@@ -117,6 +117,9 @@ const Panel = styled.div<PanelProps>(function style(props) {
     .end();
 });
 
+/**
+ * Organism component that renders the Sheet primitive.
+ */
 export function Sheet(props: SheetProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);

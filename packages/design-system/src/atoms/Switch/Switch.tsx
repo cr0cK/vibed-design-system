@@ -86,6 +86,9 @@ const SwitchLabel = styled.label<SwitchTrackProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Switch primitive.
+ */
 export function Switch(props: SwitchProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 

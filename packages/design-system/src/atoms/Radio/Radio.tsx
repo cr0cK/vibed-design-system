@@ -115,6 +115,9 @@ const RadioText = styled.span<RadioLabelProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Radio primitive.
+ */
 export function Radio(props: RadioProps) {
   return (
     <LabelRoot data-attr-name="Radio" controlSize={props.controlSize}>

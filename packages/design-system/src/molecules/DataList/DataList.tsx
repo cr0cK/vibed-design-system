@@ -64,6 +64,9 @@ const Details = styled.dd(function style() {
     .end();
 });
 
+/**
+ * Molecule component that renders the DataList primitive.
+ */
 export function DataList(props: DataListProps) {
   return (
     <Root data-attr-name="DataList" className={props.className} controlSize={props.controlSize}>

@@ -64,6 +64,9 @@ export interface NotificationCenterProps {
   emptyText?: string;
 }
 
+/**
+ * Organism component that renders the NotificationCenter primitive.
+ */
 export function NotificationCenter(props: NotificationCenterProps) {
   const items = useNotificationsStore((state) => state.items);
   const dismissNotification = useNotificationsStore((state) => state.dismissNotification);

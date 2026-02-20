@@ -19,6 +19,9 @@ const Nav = styled.nav(function style() {
     .end();
 });
 
+/**
+ * Molecule component that renders the Breadcrumb primitive.
+ */
 export function Breadcrumb(props: BreadcrumbProps) {
   return (
     <Nav data-attr-name="Breadcrumb" aria-label="Breadcrumb" className={props.className}>

@@ -25,6 +25,9 @@ const ButtonGroupRoot = styled.div<ButtonGroupProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the ButtonGroup primitive.
+ */
 export function ButtonGroup(props: ButtonGroupProps) {
   return <ButtonGroupRoot data-attr-name="ButtonGroup" {...props}>{props.children}</ButtonGroupRoot>;
 }

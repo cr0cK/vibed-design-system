@@ -94,6 +94,9 @@ const CloseIconButton = styled.button(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the Modal primitive.
+ */
 export function Modal(props: ModalProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const iconCloseButtonRef = useRef<HTMLButtonElement | null>(null);

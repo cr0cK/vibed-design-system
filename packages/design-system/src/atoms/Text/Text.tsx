@@ -48,6 +48,9 @@ const TextRoot = styled.p<TextProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Text primitive.
+ */
 export function Text(props: TextProps) {
   return (
     <TextRoot data-attr-name="Text"

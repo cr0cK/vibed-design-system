@@ -38,6 +38,9 @@ const InputRoot = styled.input<InputProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Input primitive.
+ */
 export function Input(props: InputProps) {
   return (
     <InputRoot data-attr-name="Input"

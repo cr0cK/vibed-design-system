@@ -29,6 +29,9 @@ export interface DesignSystemProviderProps {
   themeOverrides?: Partial<ThemeTokens>;
 }
 
+/**
+ * Context component that renders the DesignSystemProvider primitive.
+ */
 export function DesignSystemProvider(props: DesignSystemProviderProps) {
   const selectedTheme: ThemeTokens = useMemo(() => {
     if (props.theme) {

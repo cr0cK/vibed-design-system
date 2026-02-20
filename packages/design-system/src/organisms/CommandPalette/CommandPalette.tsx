@@ -104,6 +104,9 @@ const Empty = styled.div(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the CommandPalette primitive.
+ */
 export function CommandPalette(props: CommandPaletteProps) {
   const [open, setOpen] = useState(false);
   const [entered, setEntered] = useState(false);

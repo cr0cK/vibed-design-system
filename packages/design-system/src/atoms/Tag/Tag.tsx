@@ -52,6 +52,9 @@ const Root = styled.span<TagProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Tag primitive.
+ */
 export function Tag(props: TagProps) {
   return <Root data-attr-name="Tag" {...props}>{props.children}</Root>;
 }

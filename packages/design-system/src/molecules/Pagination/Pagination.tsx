@@ -27,6 +27,9 @@ const Root = styled.div<PaginationLayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Pagination primitive.
+ */
 export function Pagination(props: PaginationProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const textSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "lg" : "md";

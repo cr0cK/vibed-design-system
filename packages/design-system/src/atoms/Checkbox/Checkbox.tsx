@@ -140,6 +140,9 @@ const CheckboxText = styled.span<CheckboxLabelProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Checkbox primitive.
+ */
 export function Checkbox(props: CheckboxProps) {
   return (
     <LabelRoot data-attr-name="Checkbox" controlSize={props.controlSize}>

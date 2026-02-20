@@ -63,6 +63,9 @@ export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   size?: "sm" | "md" | "lg";
 }
 
+/**
+ * Molecule component that renders the Field primitive.
+ */
 export function Field(props: FieldProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const textSize = controlSize === "sm" ? "sm" : controlSize === "lg" ? "md" : "sm";

@@ -81,6 +81,9 @@ const Option = styled.li<OptionProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Combobox primitive.
+ */
 export function Combobox(props: ComboboxProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);

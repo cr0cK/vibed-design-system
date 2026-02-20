@@ -73,6 +73,9 @@ export interface AppShellProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
+/**
+ * Organism component that renders the AppShell primitive.
+ */
 export function AppShell(props: AppShellProps) {
   const context = useDesignSystemContext();
   const sidePanelOpen = useUIStore((state) => state.sidePanelOpen);

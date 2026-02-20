@@ -30,6 +30,9 @@ const BadgeRoot = styled.span<BadgeProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Badge primitive.
+ */
 export function Badge(props: BadgeProps) {
   return <BadgeRoot data-attr-name="Badge" {...props}>{props.children}</BadgeRoot>;
 }

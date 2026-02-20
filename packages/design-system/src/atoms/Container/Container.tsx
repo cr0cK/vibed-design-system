@@ -23,6 +23,9 @@ const ContainerRoot = styled.div<ContainerProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Container primitive.
+ */
 export function Container(props: ContainerProps) {
   return <ContainerRoot data-attr-name="Container" {...props}>{props.children}</ContainerRoot>;
 }

@@ -47,6 +47,9 @@ const Surface = styled.div<SurfaceProps>(function style(props) {
     .end();
 });
 
+/**
+ * Organism component that renders the DropdownMenu primitive.
+ */
 export function DropdownMenu(props: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);

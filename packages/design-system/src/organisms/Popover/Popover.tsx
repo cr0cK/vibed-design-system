@@ -56,6 +56,9 @@ const Surface = styled.div<SurfaceProps>(function style(props) {
     .end();
 });
 
+/**
+ * Organism component that renders the Popover primitive.
+ */
 export function Popover(props: PopoverProps) {
   const [open, setOpen] = useState(false);
   const surfaceRef = useRef<HTMLDivElement | null>(null);

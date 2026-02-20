@@ -41,6 +41,9 @@ const AlertRoot = styled.div<AlertProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Alert primitive.
+ */
 export function Alert(props: AlertProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const titleSize = controlSize === "sm" ? "sm" : "md";

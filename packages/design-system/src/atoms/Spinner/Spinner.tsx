@@ -27,6 +27,9 @@ const SpinnerRoot = styled.div<SpinnerProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Spinner primitive.
+ */
 export function Spinner(props: SpinnerProps) {
   return <SpinnerRoot data-attr-name="Spinner" {...props} role="status" aria-label="Loading" />;
 }

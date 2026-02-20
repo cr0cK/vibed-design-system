@@ -56,6 +56,9 @@ const Input = styled.input<SearchBarProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the SearchBar primitive.
+ */
 export function SearchBar(props: SearchBarProps) {
   return (
     <Root data-attr-name="SearchBar" className={props.className}>

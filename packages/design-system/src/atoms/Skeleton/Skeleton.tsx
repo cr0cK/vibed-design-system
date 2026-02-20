@@ -24,6 +24,9 @@ const SkeletonRoot = styled.div<SkeletonProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Skeleton primitive.
+ */
 export function Skeleton(props: SkeletonProps) {
   return <SkeletonRoot data-attr-name="Skeleton" {...props} aria-hidden="true" />;
 }

@@ -22,6 +22,9 @@ const Root = styled.span(function style() {
     .end();
 });
 
+/**
+ * Utility component that renders the VisuallyHidden primitive.
+ */
 export function VisuallyHidden(props: VisuallyHiddenProps) {
   return <Root data-attr-name="VisuallyHidden" {...props}>{props.children}</Root>;
 }

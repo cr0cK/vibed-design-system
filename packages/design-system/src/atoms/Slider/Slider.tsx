@@ -96,6 +96,9 @@ const SliderInput = styled.input<SliderLayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Slider primitive.
+ */
 export function Slider(props: SliderProps) {
   const controlSize = props.controlSize ?? "md";
   const minimumValue = props.min !== undefined ? Number(props.min) : 0;

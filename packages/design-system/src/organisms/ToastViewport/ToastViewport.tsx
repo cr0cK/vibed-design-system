@@ -21,6 +21,9 @@ export interface ToastViewportProps {
   defaultDurationMs?: number;
 }
 
+/**
+ * Organism component that renders the ToastViewport primitive.
+ */
 export function ToastViewport(props: ToastViewportProps) {
   const items = useToastStore(function getItems(state) {
     return state.items;

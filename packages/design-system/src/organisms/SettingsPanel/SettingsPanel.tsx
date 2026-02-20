@@ -39,6 +39,9 @@ const Section = styled.article(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the SettingsPanel primitive.
+ */
 export function SettingsPanel(props: SettingsPanelProps) {
   return (
     <Root data-attr-name="SettingsPanel" className={props.className}>

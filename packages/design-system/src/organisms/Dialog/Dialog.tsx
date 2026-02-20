@@ -19,6 +19,9 @@ export interface DialogProps extends HTMLAttributes<HTMLDivElement> {
   onClose: () => void;
 }
 
+/**
+ * Organism component that renders the Dialog primitive.
+ */
 export function Dialog(props: DialogProps) {
   const variant = props.variant ?? "info";
   const confirmTone = variant === "destructive" ? "danger" : "primary";

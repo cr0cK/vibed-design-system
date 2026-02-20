@@ -62,6 +62,9 @@ const Overflow = styled.span(function style() {
     .end();
 });
 
+/**
+ * Molecule component that renders the AvatarGroup primitive.
+ */
 export function AvatarGroup(props: AvatarGroupProps) {
   const max = props.max ?? props.items.length;
   const visible = props.items.slice(0, max);

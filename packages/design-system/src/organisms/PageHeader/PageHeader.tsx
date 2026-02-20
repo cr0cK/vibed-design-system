@@ -28,6 +28,9 @@ const Content = styled.div(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the PageHeader primitive.
+ */
 export function PageHeader(props: PageHeaderProps) {
   return (
     <Root data-attr-name="PageHeader" className={props.className}>

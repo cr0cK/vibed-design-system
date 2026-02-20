@@ -76,6 +76,9 @@ const Item = styled.li<ItemProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Autocomplete primitive.
+ */
 export function Autocomplete(props: AutocompleteProps) {
   const [internalValue, setInternalValue] = useState("");
   const [open, setOpen] = useState(false);

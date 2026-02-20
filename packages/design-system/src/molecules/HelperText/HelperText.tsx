@@ -28,6 +28,9 @@ const HelperTextRoot = styled.p<HelperTextProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the HelperText primitive.
+ */
 export function HelperText(props: HelperTextProps) {
   return <HelperTextRoot data-attr-name="HelperText" {...props}>{props.children}</HelperTextRoot>;
 }

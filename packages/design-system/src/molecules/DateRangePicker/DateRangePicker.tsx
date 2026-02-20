@@ -43,6 +43,9 @@ const Separator = styled.span<LayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the DateRangePicker primitive.
+ */
 export function DateRangePicker(props: DateRangePickerProps) {
   return (
     <Root data-attr-name="DateRangePicker" className={props.className} controlSize={props.controlSize}>

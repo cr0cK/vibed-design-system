@@ -106,6 +106,9 @@ const IconContent = styled.span(function style() {
     .end();
 });
 
+/**
+ * Atom component that renders the IconButton primitive.
+ */
 export function IconButton(props: IconButtonProps) {
   const content = props.children ?? props.icon;
 

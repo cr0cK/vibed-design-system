@@ -58,6 +58,9 @@ function toPercent(value: number, maxValue: number): number {
   return Math.max(0, Math.min(100, rawPercent));
 }
 
+/**
+ * Atom component that renders the Progress primitive.
+ */
 export function Progress(props: ProgressProps) {
   const maxValue = props.max ?? 100;
   const percent = toPercent(props.value, maxValue);

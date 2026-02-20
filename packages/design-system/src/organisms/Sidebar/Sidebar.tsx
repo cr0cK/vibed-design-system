@@ -85,6 +85,9 @@ const Scroll = styled.div(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the Sidebar primitive.
+ */
 export function Sidebar(props: SidebarProps) {
   return (
     <Root data-attr-name="Sidebar" className={props.className} collapsed={props.collapsed}>

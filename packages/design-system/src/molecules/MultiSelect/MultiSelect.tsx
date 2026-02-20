@@ -120,6 +120,9 @@ const ItemCheckbox = styled.input<LayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the MultiSelect primitive.
+ */
 export function MultiSelect(props: MultiSelectProps) {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState<string[]>([]);

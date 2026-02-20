@@ -124,6 +124,9 @@ const CloseIconButton = styled.button(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the Drawer primitive.
+ */
 export function Drawer(props: DrawerProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const iconCloseButtonRef = useRef<HTMLButtonElement | null>(null);

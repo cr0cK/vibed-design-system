@@ -101,6 +101,9 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 
+/**
+ * Molecule component that renders the RangeSlider primitive.
+ */
 export function RangeSlider(props: RangeSliderProps) {
   const min = props.min ?? 0;
   const max = props.max ?? 100;

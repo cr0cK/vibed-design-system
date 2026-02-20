@@ -51,6 +51,9 @@ const Description = styled.p(function style() {
     .end();
 });
 
+/**
+ * Molecule component that renders the Toast primitive.
+ */
 export function Toast(props: ToastProps) {
   return (
     <Root data-attr-name="Toast" className={props.className} tone={props.tone} role="status">

@@ -60,6 +60,9 @@ const Panel = styled.div<TabsLayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Tabs primitive.
+ */
 export function Tabs(props: TabsProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const tabsId = useId();

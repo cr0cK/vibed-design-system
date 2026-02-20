@@ -51,6 +51,9 @@ const ItemButton = styled.button<ItemProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Menu primitive.
+ */
 export function Menu(props: MenuProps) {
   const { items, selectedId, onItemSelect, className, ...restProps } = props;
 

@@ -37,6 +37,9 @@ const DatePickerRoot = styled.input<DatePickerProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the DatePicker primitive.
+ */
 export function DatePicker(props: DatePickerProps) {
   return <DatePickerRoot data-attr-name="DatePicker" {...props} type="date" aria-invalid={props.invalid} />;
 }

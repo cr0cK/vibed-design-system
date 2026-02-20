@@ -15,6 +15,9 @@ const Root = styled.div(function style() {
     .end();
 });
 
+/**
+ * Utility component that renders the ClickOutside primitive.
+ */
 export function ClickOutside(props: ClickOutsideProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
 

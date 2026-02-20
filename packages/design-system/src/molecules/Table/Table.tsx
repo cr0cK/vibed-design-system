@@ -87,6 +87,9 @@ const BodyCell = styled.td<CellProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Table primitive.
+ */
 export function Table(props: TableProps) {
   return (
     <Root data-attr-name="Table" className={props.className}>

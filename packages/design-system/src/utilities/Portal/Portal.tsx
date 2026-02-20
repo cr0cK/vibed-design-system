@@ -7,6 +7,9 @@ export interface PortalProps {
   target?: HTMLElement | null;
 }
 
+/**
+ * Utility component that renders the Portal primitive.
+ */
 export function Portal(props: PortalProps) {
   const [mounted, setMounted] = useState(false);
 

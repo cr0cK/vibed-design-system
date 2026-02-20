@@ -43,6 +43,9 @@ const Right = styled.div(function style() {
     .end();
 });
 
+/**
+ * Organism component that renders the FilterBar primitive.
+ */
 export function FilterBar(props: FilterBarProps) {
   return (
     <Root data-attr-name="FilterBar" className={props.className}>

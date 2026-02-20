@@ -21,6 +21,9 @@ const LinkRoot = styled.a<LinkProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Link primitive.
+ */
 export function Link(props: LinkProps) {
   return <LinkRoot data-attr-name="Link" {...props}>{props.children}</LinkRoot>;
 }

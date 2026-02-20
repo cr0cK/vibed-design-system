@@ -21,6 +21,9 @@ const SpacerRoot = styled.div<SpacerProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Spacer primitive.
+ */
 export function Spacer(props: SpacerProps) {
   return <SpacerRoot data-attr-name="Spacer" {...props} aria-hidden="true" />;
 }

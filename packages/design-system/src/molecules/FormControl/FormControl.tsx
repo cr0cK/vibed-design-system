@@ -40,6 +40,9 @@ export interface FormControlProps extends HTMLAttributes<HTMLDivElement> {
   size?: "sm" | "md" | "lg";
 }
 
+/**
+ * Molecule component that renders the FormControl primitive.
+ */
 export function FormControl(props: FormControlProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const helperTextId = useId();

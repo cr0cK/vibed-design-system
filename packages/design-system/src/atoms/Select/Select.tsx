@@ -200,6 +200,9 @@ function getOptions(children: ReactNode): SelectOptionItem[] {
   return options;
 }
 
+/**
+ * Atom component that renders the Select primitive.
+ */
 export function Select(props: SelectProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const generatedId = useId();

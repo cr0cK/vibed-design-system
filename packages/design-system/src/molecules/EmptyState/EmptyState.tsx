@@ -52,6 +52,9 @@ const IconWrap = styled.div<EmptyStateLayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the EmptyState primitive.
+ */
 export function EmptyState(props: EmptyStateProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
 

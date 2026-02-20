@@ -115,6 +115,9 @@ function clampValue(nextValue: number, minValue?: number, maxValue?: number): nu
   return clampedValue;
 }
 
+/**
+ * Atom component that renders the NumberInput primitive.
+ */
 export function NumberInput(props: NumberInputProps) {
   const controlSize = props.controlSize ?? "md";
   const stepValue = props.step !== undefined ? Number(props.step) : 1;

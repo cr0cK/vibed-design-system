@@ -83,6 +83,9 @@ const ItemButton = styled.button<ItemButtonProps>(function style(props) {
     .end();
 });
 
+/**
+ * Organism component that renders the Navbar primitive.
+ */
 export function Navbar(props: NavbarProps) {
   return (
     <Root data-attr-name="Navbar" className={props.className}>

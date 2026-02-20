@@ -33,6 +33,9 @@ const TextareaRoot = styled.textarea<TextareaProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Textarea primitive.
+ */
 export function Textarea(props: TextareaProps) {
   return <TextareaRoot data-attr-name="Textarea" {...props} aria-invalid={props.invalid} />;
 }

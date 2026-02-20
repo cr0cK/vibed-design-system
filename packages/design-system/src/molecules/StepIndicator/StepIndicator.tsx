@@ -102,6 +102,9 @@ function getStatuses(steps: StepItem[], activeStepId: string): Record<string, St
   return statusById;
 }
 
+/**
+ * Molecule component that renders the StepIndicator primitive.
+ */
 export function StepIndicator(props: StepIndicatorProps) {
   const statusById = getStatuses(props.steps, props.activeStepId);
 

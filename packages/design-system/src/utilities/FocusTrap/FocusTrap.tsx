@@ -24,6 +24,9 @@ function getFocusable(root: HTMLElement): HTMLElement[] {
   });
 }
 
+/**
+ * Utility component that renders the FocusTrap primitive.
+ */
 export function FocusTrap(props: FocusTrapProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const previousFocusedRef = useRef<HTMLElement | null>(null);

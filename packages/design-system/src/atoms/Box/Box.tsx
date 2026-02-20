@@ -116,6 +116,9 @@ const BoxRoot = styled.div<BoxProps>(function style(props) {
   return styles.end();
 });
 
+/**
+ * Atom component that renders the Box primitive.
+ */
 export function Box(props: BoxProps) {
   return (
     <BoxRoot data-attr-name="Box"

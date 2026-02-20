@@ -63,6 +63,9 @@ const Bubble = styled.span<BubbleProps>(function style(props) {
     .end();
 });
 
+/**
+ * Organism component that renders the Tooltip primitive.
+ */
 export function Tooltip(props: TooltipProps) {
   const [open, setOpen] = useState(false);
   const tooltipId = useId();

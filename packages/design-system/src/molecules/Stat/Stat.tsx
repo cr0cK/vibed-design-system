@@ -33,6 +33,9 @@ const Root = styled.article<StatLayoutProps>(function style(props) {
     .end();
 });
 
+/**
+ * Molecule component that renders the Stat primitive.
+ */
 export function Stat(props: StatProps) {
   const controlSize = props.controlSize ?? props.size ?? "md";
   const valueSize = controlSize === "lg" ? "xl" : controlSize === "sm" ? "md" : "lg";

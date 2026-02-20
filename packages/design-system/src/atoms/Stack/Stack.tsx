@@ -30,6 +30,9 @@ const StackRoot = styled.div<StackProps>(function style(props) {
     .end();
 });
 
+/**
+ * Atom component that renders the Stack primitive.
+ */
 export function Stack(props: StackProps) {
   return (
     <StackRoot data-attr-name="Stack" {...props}>
